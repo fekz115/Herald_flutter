@@ -1,48 +1,64 @@
+import 'package:Herald_flutter/blocs/find/find_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Herald'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Depart Station',
-              ),
+    return BlocProvider<FindBloc>(
+      create: (context) => FindBloc(),
+      child: BlocConsumer<FindBloc, FindState>(
+        listener: (context, state) => {
+          if(state is SearchState) {
+            // TODO: go to trains page
+          }
+        },
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(
+            title: Text('Herald'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Depart Station',
+                  ),
+                  onChanged: (value) => BlocProvider.of<FindBloc>(context).add(SetDepartStation(value)),
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Arrive Station',
+                  ),
+                  onChanged: (value) => BlocProvider.of<FindBloc>(context).add(SetArriveStation(value)),
+                ),
+                SizedBox(height: 30),
+                RaisedButton(
+                  child: Text(state.find.date.toString()),
+                  onPressed: () => {
+                    showDatePicker(
+                        context: context,
+                        initialDate: state.find.date,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(Duration(days: 7))
+                      ).then((value) => 
+                        BlocProvider.of<FindBloc>(context).add(SetDate(value))
+                      )
+                  },
+                ),
+                SizedBox(height: 10),
+                RaisedButton(
+                  child: Text('Find'),
+                  onPressed: () => BlocProvider.of<FindBloc>(context).add(SearchEvent()),
+                ),
+              ],
             ),
-            SizedBox(height: 30),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Arrive Station',
-              ),
-            ),
-            SizedBox(height: 30),
-            RaisedButton(
-              child: Text('Set Date'),
-              onPressed: () => {
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2021, 10, 10)
-                )
-              }
-            ),
-            SizedBox(height: 10),
-            RaisedButton(
-              child: Text('Find'),
-              onPressed: () => {},
-            ),
-          ],
+          ),
         ),
       ),
     );
