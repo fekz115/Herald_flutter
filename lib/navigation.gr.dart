@@ -7,7 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:Herald_flutter/pages/HomePage.dart';
+import 'package:Herald_flutter/pages/home_page.dart';
 import 'package:Herald_flutter/navigation.dart';
 
 abstract class Routes {
