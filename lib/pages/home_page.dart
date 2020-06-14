@@ -1,4 +1,5 @@
 import 'package:Herald_flutter/blocs/find/find_bloc.dart';
+import 'package:Herald_flutter/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,15 +40,17 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 RaisedButton(
-                  child: Text(state.find.date.toString()),
+                  child: Text(state.find.date.toStringOnlyDate()),
                   onPressed: () => {
                     showDatePicker(
                         context: context,
                         initialDate: state.find.date,
                         firstDate: DateTime.now(),
                         lastDate: DateTime.now().add(Duration(days: 7))
-                      ).then((value) => 
-                        BlocProvider.of<FindBloc>(context).add(SetDate(value))
+                      ).then((value) => {
+                          if(value != null)
+                            BlocProvider.of<FindBloc>(context).add(SetDate(value))
+                        }
                       )
                   },
                 ),
