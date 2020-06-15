@@ -1,4 +1,5 @@
 import 'package:Herald_flutter/pages/home_page.dart';
+import 'package:Herald_flutter/pages/trains_page.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 class $Router {
   @initial
   HomePage homepage;
+  TrainsPage trainsPage;
 }
 
 Widget zoomInTransition(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {

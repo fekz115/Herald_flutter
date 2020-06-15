@@ -1,5 +1,7 @@
 import 'package:Herald_flutter/blocs/find/find_bloc.dart';
 import 'package:Herald_flutter/extensions.dart';
+import 'package:Herald_flutter/navigation.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +11,7 @@ class HomePage extends StatelessWidget {
     return BlocConsumer<FindBloc, FindState>(
         listener: (context, state) => {
           if(state is SearchState) {
-            // TODO: go to trains page
+            ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.trainsPage),
           }
         },
         builder: (context, state) => Scaffold(
@@ -61,7 +63,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
