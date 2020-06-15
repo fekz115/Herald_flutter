@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FindBloc>(
-      create: (context) => FindBloc(),
-      child: BlocConsumer<FindBloc, FindState>(
+    return BlocConsumer<FindBloc, FindState>(
         listener: (context, state) => {
           if(state is SearchState) {
             // TODO: go to trains page

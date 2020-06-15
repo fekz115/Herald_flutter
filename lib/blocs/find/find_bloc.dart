@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:Herald_flutter/model/find.dart';
+import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald_flutter/services/train_load_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,7 +11,10 @@ part 'find_state.dart';
 
 class FindBloc extends Bloc<FindEvent, FindState> {
 
+  final TrainLoadService _trainLoadService;
   Find _state = Find("", "", DateTime.now());
+
+  FindBloc(this._trainLoadService);
 
   @override
   FindState get initialState => InitialFindState(_state);
@@ -27,6 +32,12 @@ class FindBloc extends Bloc<FindEvent, FindState> {
       yield(InitialFindState(_state));
     } else if(event is SearchEvent) {
       yield SearchState(_state);
+      try {
+        var trains = await _trainLoadService.loadTrains(_state).catchError((error) => throw error);
+        yield LoadedState(trains, _state);
+      } catch (e) {
+        yield ErrorLoadingState(e, _state);
+      }
     } // TODO: refactor this
     // TODO: add validation
   }
