@@ -24,17 +24,19 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                  textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Depart Station',
+                    labelText: 'Станция отправления',
                   ),
                   onChanged: (value) => BlocProvider.of<FindBloc>(context).add(SetDepartStation(value)),
                 ),
                 SizedBox(height: 30),
                 TextField(
+                  textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Arrive Station',
+                    labelText: 'Станция назначения',
                   ),
                   onChanged: (value) => BlocProvider.of<FindBloc>(context).add(SetArriveStation(value)),
                 ),
@@ -56,7 +58,7 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 RaisedButton(
-                  child: Text('Find'),
+                  child: Text('Поиск'),
                   onPressed: () => BlocProvider.of<FindBloc>(context).add(SearchEvent()),
                 ),
               ],
