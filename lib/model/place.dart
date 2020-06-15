@@ -17,4 +17,5 @@ enum PlaceType {
     E_CLASS,    
     COMP,      
     SV,
+    NONE,
 } 
