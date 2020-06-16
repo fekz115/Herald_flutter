@@ -13,9 +13,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+  Color mainColor = Colors.blue;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: mainColor,
+        buttonTheme: ButtonThemeData(
+          buttonColor: mainColor,
+          colorScheme: ColorScheme.dark(),
+        ),
+      ),
       builder: (context, widget) => BlocProvider<FindBloc>(
         create: (context) =>
           FindBloc(TrainLoadService(

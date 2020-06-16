@@ -176,8 +176,9 @@ class TrainWidget extends StatelessWidget {
 
   Widget _buildTrainTime() {
     var duration = train.arriveTime.difference(train.departTime);
-    return Row(children: [
-      Flexible(
+    return Row(
+      children: [
+        Flexible(
           fit: FlexFit.tight,
           flex: 2,
           child: Column(
@@ -191,27 +192,28 @@ class TrainWidget extends StatelessWidget {
                 style: _dateTextStyle,
               ),
             ],
-          )),
-      Flexible(
-        fit: FlexFit.tight,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Positioned(
-              bottom: 20,
-              child: Text(
-                duration.toStringOnlyHM(),
-                style: TextStyle(color: gray),
-              ),
-            ),
-            Text(
-              '⟶',
-              style: _timeArrowTextStyle,
-            ),
-          ],
+          ),
         ),
-      ),
-      Flexible(
+        Flexible(
+          fit: FlexFit.tight,
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Positioned(
+                bottom: 20,
+                child: Text(
+                  duration.toStringOnlyHM(),
+                  style: TextStyle(color: gray),
+                ),
+              ),
+              Text(
+                '⟶',
+                style: _timeArrowTextStyle,
+              ),
+            ],
+          ),
+        ),
+        Flexible(
           fit: FlexFit.tight,
           flex: 2,
           child: Column(
@@ -225,8 +227,10 @@ class TrainWidget extends StatelessWidget {
                 style: _dateTextStyle,
               ),
             ],
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildTrainFooter() {
@@ -255,28 +259,30 @@ class TrainWidget extends StatelessWidget {
                   typeText = "";
                   break;
               }
-              return TableRow(children: <TableCell>[
-                TableCell(
-                  child: Text(
-                    typeText,
-                    style: _tableItemTextStyle,
+              return TableRow(
+                children: <TableCell>[
+                  TableCell(
+                    child: Text(
+                      typeText,
+                      style: _tableItemTextStyle,
+                    ),
                   ),
-                ),
-                TableCell(
-                  child: Text(
-                    place.amount > 0 ? place.amount.toString() : '',
-                    style: _tableItemTextStyle,
-                    textAlign: TextAlign.center,
+                  TableCell(
+                    child: Text(
+                      place.amount > 0 ? place.amount.toString() : '',
+                      style: _tableItemTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                TableCell(
-                  child: Text(
-                    place.cost.toString() + ' руб.',
-                    style: _tableItemTextStyle,
-                    textAlign: TextAlign.end,
+                  TableCell(
+                    child: Text(
+                      place.cost.toString() + ' руб.',
+                      style: _tableItemTextStyle,
+                      textAlign: TextAlign.end,
+                    ),
                   ),
-                ),
-              ]);
+                ],
+              );
             }).toList(),
           );
   }
