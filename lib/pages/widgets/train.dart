@@ -6,7 +6,6 @@ import 'package:Herald_flutter/extensions.dart';
 import 'package:flutter/rendering.dart';
 
 class TrainWidget extends StatelessWidget {
-
   final Train train;
 
   TrainWidget({Key key, @required this.train}) : super(key: key);
@@ -73,10 +72,7 @@ class TrainWidget extends StatelessWidget {
       children: <Widget>[
         _buildTrainType(),
         SizedBox(width: iconMargin),
-        Text(
-            train.trainId,
-            style: _trainIdTextStyle
-        ),
+        Text(train.trainId, style: _trainIdTextStyle),
         SizedBox(width: iconMargin),
         _buildTrainFlags(),
       ],
@@ -85,7 +81,7 @@ class TrainWidget extends StatelessWidget {
 
   Widget _buildTrainType() {
     String icon;
-    switch(train.type) {
+    switch (train.type) {
       case TrainType.RegionalEconom:
         icon = "regionaleconom.png";
         break;
@@ -118,18 +114,22 @@ class TrainWidget extends StatelessWidget {
 
   Widget _buildTrainFlags() {
     List<Widget> flags = [];
-    if(train.comfort) {
+    if (train.comfort) {
       flags.add(Image.asset("assets/images/icons/comfort.png"));
     }
-    if(train.speed) {
+    if (train.speed) {
       flags.add(SizedBox(width: iconMargin));
       flags.add(Image.asset("assets/images/icons/speed.png"));
     }
-    if(train.reserved) {
+    if (train.reserved) {
       flags.add(SizedBox(width: iconMargin));
       flags.add(Image.asset("assets/images/icons/reserved.png"));
     }
-    return flags.length == 0 ? Container() : Row(children: flags,);
+    return flags.length == 0
+        ? Container()
+        : Row(
+            children: flags,
+          );
   }
 
   Widget _buildTrainMainSection() {
@@ -148,9 +148,9 @@ class TrainWidget extends StatelessWidget {
           fit: FlexFit.tight,
           flex: 2,
           child: Text(
-              train.departStation,
-              style: _stationTextStyle,
-              textAlign: TextAlign.center,
+            train.departStation,
+            style: _stationTextStyle,
+            textAlign: TextAlign.center,
           ),
         ),
         Flexible(
@@ -176,75 +176,108 @@ class TrainWidget extends StatelessWidget {
 
   Widget _buildTrainTime() {
     var duration = train.arriveTime.difference(train.departTime);
-    return Row(
-      children: [
-        Flexible(
+    return Row(children: [
+      Flexible(
           fit: FlexFit.tight,
           flex: 2,
           child: Column(
             children: <Widget>[
-              Text(train.departTime.toStringOnlyTime(), style: _timeTextStyle,),
-              Text(train.departTime.toStringRus(), style: _dateTextStyle,),
+              Text(
+                train.departTime.toStringOnlyTime(),
+                style: _timeTextStyle,
+              ),
+              Text(
+                train.departTime.toStringRus(),
+                style: _dateTextStyle,
+              ),
             ],
-          )
+          )),
+      Flexible(
+        fit: FlexFit.tight,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Positioned(
+              bottom: 20,
+              child: Text(
+                duration.toStringOnlyHM(),
+                style: TextStyle(color: gray),
+              ),
+            ),
+            Text(
+              '⟶',
+              style: _timeArrowTextStyle,
+            ),
+          ],
         ),
-        Flexible(
-          fit: FlexFit.tight,
-          child: Column(
-            children: <Widget>[
-              Text(duration.toStringOnlyHM(), style: TextStyle(color: gray),),
-              Text('⟶', textAlign: TextAlign.center, style: _timeArrowTextStyle,),
-            ],
-          ),
-        ),
-        Flexible(
+      ),
+      Flexible(
           fit: FlexFit.tight,
           flex: 2,
           child: Column(
             children: <Widget>[
-              Text(train.arriveTime.toStringOnlyTime(), style: _timeTextStyle,),
-              Text(train.arriveTime.toStringRus(), style: _dateTextStyle,),
+              Text(
+                train.arriveTime.toStringOnlyTime(),
+                style: _timeTextStyle,
+              ),
+              Text(
+                train.arriveTime.toStringRus(),
+                style: _dateTextStyle,
+              ),
             ],
-          )
-        ),
-      ]
-    );
+          )),
+    ]);
   }
 
   Widget _buildTrainFooter() {
-    return train.places.length == 0 ? Container() :
-      Table(
-        border: TableBorder(
-          horizontalInside: BorderSide(color: gray),
-        ),
-        children: train.places.map((place) {
-          String typeText;
-          switch(place.type) {
-            case PlaceType.SEAT:
-              typeText = "Сидячее";
-              break;
-            case PlaceType.E_CLASS:
-              typeText = "Плацкарт";
-              break;
-            case PlaceType.COMP:
-              typeText = "Купе";
-              break;
-            case PlaceType.SV:
-              typeText = "СВ";
-              break;
-            case PlaceType.NONE:
-              typeText = "";
-              break;
-          }
-          return TableRow(
-              children: <TableCell>[
-                TableCell(child: Text(typeText, style: _tableItemTextStyle)),
-                TableCell(child: Text(place.amount > 0 ? place.amount.toString() : '', style: _tableItemTextStyle, textAlign: TextAlign.center)),
-                TableCell(child: Text(place.cost.toString() + ' руб.', style: _tableItemTextStyle, textAlign: TextAlign.end,)),
-              ]
+    return train.places.length == 0
+        ? Container()
+        : Table(
+            border: TableBorder(
+              horizontalInside: BorderSide(color: gray),
+            ),
+            children: train.places.map((place) {
+              String typeText;
+              switch (place.type) {
+                case PlaceType.SEAT:
+                  typeText = "Сидячее";
+                  break;
+                case PlaceType.E_CLASS:
+                  typeText = "Плацкарт";
+                  break;
+                case PlaceType.COMP:
+                  typeText = "Купе";
+                  break;
+                case PlaceType.SV:
+                  typeText = "СВ";
+                  break;
+                case PlaceType.NONE:
+                  typeText = "";
+                  break;
+              }
+              return TableRow(children: <TableCell>[
+                TableCell(
+                  child: Text(
+                    typeText,
+                    style: _tableItemTextStyle,
+                  ),
+                ),
+                TableCell(
+                  child: Text(
+                    place.amount > 0 ? place.amount.toString() : '',
+                    style: _tableItemTextStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                TableCell(
+                  child: Text(
+                    place.cost.toString() + ' руб.',
+                    style: _tableItemTextStyle,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ]);
+            }).toList(),
           );
-        }).toList(),
-      );
   }
-
 }
