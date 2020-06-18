@@ -7,33 +7,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrainsPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FindBloc, FindState>(
-        listener: (BuildContext context, FindState state) {
-          if(state is ErrorLoadingState) {
-            _showError(context, state.exception);
-          } else if (state is ErrorParsingState) {
-            _showError(context, state.exception);
-          }
-        },
-        builder: (context, state) {
-          var body;
-          if(state is SearchState) {
-            body = _buildLoadingBody();
-          } else if (state is LoadedState) {
-            body = _buildTrainsList(state.trainList);
-          } else {
-            body = Container();
-          }
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Herald'),
+      listener: (BuildContext context, FindState state) {
+        if (state is ErrorLoadingState) {
+          _showError(context, state.exception);
+        }
+      },
+      builder: (context, state) {
+        var body;
+        if (state is SearchState) {
+          body = _buildLoadingBody();
+        } else if (state is LoadedState) {
+          body = _buildTrainsList(state.trainList);
+        } else if (state is ErrorParsingState) {
+          body = Center(
+            child: Text(
+              state.exception.message,
             ),
-            body: body,
           );
-        },
+        } else {
+          body = Container();
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Herald'),
+          ),
+          body: body,
+        );
+      },
     );
   }
 
@@ -61,5 +64,4 @@ class TrainsPage extends StatelessWidget {
     ));
     ExtendedNavigator.ofRouter<Router>().pop();
   }
-
 }

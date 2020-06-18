@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/train_load_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -35,6 +36,8 @@ class FindBloc extends Bloc<FindEvent, FindState> {
       try {
         var trains = await _trainLoadService.loadTrains(_state).catchError((error) => throw error);
         yield LoadedState(trains, _state);
+      } on ParseException catch (e) {
+        yield ErrorParsingState(e, _state);
       } catch (e) {
         yield ErrorLoadingState(e, _state);
       }

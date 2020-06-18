@@ -1,5 +1,6 @@
 import 'package:Herald_flutter/model/place.dart';
 import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/parse_service.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -11,7 +12,24 @@ class HtmlParserService extends ParseService {
 
   @override
   List<Train> parseTrains(String response) {
-    return parse(response).getElementsByClassName("schedule_list")[0].children.map((element) {
+    var document = parse(response);
+    try {
+      return _parseTrains(document.getElementsByClassName("schedule_list")[0]);
+    } catch (e) {
+      if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Станция не найдена"))) {
+        throw StationNotFoundException();
+      } else if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Наберите не менее трех букв"))) {
+        throw TooShortException();
+      } else if (document.getElementsByClassName("error_content").length != 0) {
+        throw ParseException(document.getElementsByClassName("error_content").first.text);
+      } else {
+        throw UnknownParseException();
+      }
+    }
+  }
+
+  List<Train> _parseTrains(Element element) {
+    return element.children.map((element) {
       var places = _parsePlaces(element);
       var from = _parseDepartStation(element);
       var to = _parseArriveStation(element);

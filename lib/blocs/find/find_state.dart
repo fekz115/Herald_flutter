@@ -34,11 +34,11 @@ class ErrorLoadingState extends FindState {
 
 class ErrorParsingState extends FindState {
 
-  final Error _exception;
+  final ParseException _exception;
 
   ErrorParsingState(this._exception, Find find) : super(find);
 
-  Error get exception => _exception;
+  ParseException get exception => _exception;
 
   @override
   List<Object> get props => [exception];
