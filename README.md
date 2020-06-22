@@ -1,16 +1,14 @@
-# Herald_flutter
+# Herald
 
-A new Flutter project.
+Herald is a simple application that can download and show trains schedule of Belarus (schedule provided by https://rasp.rw.by).
 
-## Getting Started
+## Used techonologies:
+ - BLoC architecture([flutter_bloc](https://pub.dev/packages/flutter_bloc))
+ - [auto_route](https://pub.dev/packages/auto_route) - for navigation and page transitions
+ - [http](https://pub.dev/packages/http) and [html](https://pub.dev/packages/html) - for loading and parsing schedule
+ - [intl](https://pub.dev/packages/intl) - for dates
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Coming soon:
+ - i18n
+ - favourite stations
+ - android shortcuts
