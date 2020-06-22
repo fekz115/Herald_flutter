@@ -50,3 +50,10 @@ class SearchEvent extends FindEvent {
   List<Object> get props => [];
 
 }
+
+class RefreshEvent extends FindEvent {
+  
+  @override
+  List<Object> get props => [];
+
+}

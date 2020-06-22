@@ -11,7 +11,6 @@ part 'find_event.dart';
 part 'find_state.dart';
 
 class FindBloc extends Bloc<FindEvent, FindState> {
-
   final TrainLoadService _trainLoadService;
   Find _state = Find("", "", DateTime.now());
 
@@ -24,17 +23,22 @@ class FindBloc extends Bloc<FindEvent, FindState> {
   Stream<FindState> mapEventToState(
     FindEvent event,
   ) async* {
-    if(event is SetArriveStation) {
+    if (event is SetArriveStation) {
       _state = Find(_state.departStation, event.arriveStation, _state.date);
-    } else if(event is SetDepartStation) {
+    } else if (event is SetDepartStation) {
       _state = Find(event.departStation, _state.arriveStation, _state.date);
-    } else if(event is SetDate) {
+    } else if (event is SetDate) {
       _state = Find(_state.departStation, _state.arriveStation, event.date);
-      yield(InitialFindState(_state));
-    } else if(event is SearchEvent) {
-      yield SearchState(_state);
+      yield (InitialFindState(_state));
+    } else if (event is SearchEvent || event is RefreshEvent) {
+      if (event is SearchEvent)
+        yield SearchState(_state);
+      else
+        yield RefreshState(_state);
       try {
-        var trains = await _trainLoadService.loadTrains(_state).catchError((error) => throw error);
+        var trains = await _trainLoadService
+            .loadTrains(_state)
+            .catchError((error) => throw error);
         yield LoadedState(trains, _state);
       } on ParseException catch (e) {
         yield ErrorParsingState(e, _state);
@@ -44,5 +48,4 @@ class FindBloc extends Bloc<FindEvent, FindState> {
     } // TODO: refactor this
     // TODO: add validation
   }
-
 }

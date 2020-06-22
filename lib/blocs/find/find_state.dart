@@ -19,6 +19,10 @@ class SearchState extends FindState {
   SearchState(Find find) : super(find);
 }
 
+class RefreshState extends FindState {
+  RefreshState(Find find) : super(find);
+}
+
 class ErrorLoadingState extends FindState {
 
   final Error _exception;

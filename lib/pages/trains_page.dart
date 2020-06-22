@@ -17,7 +17,7 @@ class TrainsPage extends StatelessWidget {
       },
       builder: (context, state) {
         var body;
-        if (state is SearchState) {
+        if (state is SearchState || state is RefreshState) {
           body = _buildLoadingBody();
         } else if (state is LoadedState) {
           body = _buildTrainsList(state.trainList);
@@ -34,7 +34,12 @@ class TrainsPage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Herald'),
           ),
-          body: body,
+          body: RefreshIndicator(
+            child: body,
+            onRefresh: () async {
+              BlocProvider.of<FindBloc>(context).add(RefreshEvent());
+            },
+          ),
         );
       },
     );
