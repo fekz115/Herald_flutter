@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herald_flutter/extensions.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TrainWidget extends StatelessWidget {
   final Train train;
@@ -83,49 +84,57 @@ class TrainWidget extends StatelessWidget {
     String icon;
     switch (train.type) {
       case TrainType.RegionalEconom:
-        icon = "regionaleconom.png";
+        icon = "regional_economy.svg";
         break;
       case TrainType.RegionalBusiness:
-        icon = "regionalbusinness.png";
+        icon = "regional_businness.svg";
         break;
       case TrainType.InterregionalEconom:
-        icon = "interregionaleconom.png";
+        icon = "interregional_economy.svg";
         break;
       case TrainType.InterregionalBusiness:
-        icon = "interregionalbusiness.png";
+        icon = "interregional_business.svg";
         break;
       case TrainType.International:
-        icon = "international.png";
+        icon = "international.svg";
         break;
       case TrainType.Bus:
-        icon = "bus.png";
+        icon = "bus.svg";
         break;
       case TrainType.CityLines:
-        icon = "citylines.png";
+        icon = "city_lines.svg";
         break;
       case TrainType.Airport:
       case TrainType.Commercial:
       case TrainType.CommonType:
-        icon = "regionaleconom.png";
+        icon = null;
         break;
     }
-    return Image.asset(
-      "assets/images/icons/$icon", // TODO: improve quality
-    );
+    if (icon != null) {
+      return SvgPicture.asset(
+        "assets/images/icons/$icon",
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _buildTrainFlags() {
     List<Widget> flags = [];
     if (train.comfort) {
-      flags.add(Image.asset("assets/images/icons/comfort.png"));
+      flags.add(SvgPicture.asset("assets/images/icons/comfort.svg"));
     }
     if (train.speed) {
       flags.add(SizedBox(width: iconMargin));
-      flags.add(Image.asset("assets/images/icons/speed.png"));
+      flags.add(SvgPicture.asset("assets/images/icons/speed.svg"));
     }
     if (train.reserved) {
       flags.add(SizedBox(width: iconMargin));
-      flags.add(Image.asset("assets/images/icons/reserved.png"));
+      flags.add(SvgPicture.asset("assets/images/icons/reserved.svg"));
+    }
+    if (train.accessible) {
+      flags.add(SizedBox(width: iconMargin));
+      flags.add(SvgPicture.asset("assets/images/icons/accessible.svg"));
     }
     return flags.length == 0
         ? Container()

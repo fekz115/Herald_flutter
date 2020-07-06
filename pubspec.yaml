@@ -29,6 +29,7 @@ dependencies:
   http: ^0.12.1
   html: ^0.14.0+3
   intl: ^0.16.1
+  flutter_svg: ^0.17.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -53,17 +54,18 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/icons/bus.png
-    - assets/images/icons/citylines.png
-    - assets/images/icons/interregionalbusiness.png
-    - assets/images/icons/regionalbusiness.png
-    - assets/images/icons/international.png
-    - assets/images/icons/interregionaleconom.png
-    - assets/images/icons/regionaleconom.png
+    - assets/images/icons/bus.svg
+    - assets/images/icons/city_lines.svg
+    - assets/images/icons/interregional_business.svg
+    - assets/images/icons/regional_business.svg
+    - assets/images/icons/international.svg
+    - assets/images/icons/interregional_economy.svg
+    - assets/images/icons/regional_economy.svg
 
-    - assets/images/icons/reserved.png
-    - assets/images/icons/speed.png
-    - assets/images/icons/comfort.png
+    - assets/images/icons/reserved.svg
+    - assets/images/icons/speed.svg
+    - assets/images/icons/comfort.svg
+    - assets/images/icons/accessible.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
