@@ -24,6 +24,30 @@
             "type": "dart",
             "program": "lib/main.dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "All Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "test/",
+        },
+        {
+            "name": "Parser Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "test/parser_test.dart",
+        },
+        {
+            "name": "Train load service Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "test/train_load_service_test.dart",
+        },
+        {
+            "name": "Widget Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "test/widget_test.dart",
         }
     ]
 }
