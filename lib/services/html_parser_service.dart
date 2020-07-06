@@ -37,14 +37,13 @@ class HtmlParserService extends ParseService {
       var trainId = _parseTrainId(element);
       TrainType type = _parseTrainType(element);
       var startTime = _parseDepartTime(element);
-      var endTime = _parseArriveTime(element);
-      var days = _parseDays(element);
-      var nonstop = _parseTrainHalts(element);
+      var duration = _parseDuration(element);
       var reserved = _checkIfReserved(element);
       var comfort = _checkIfComfort(element);
       var speed = _checkIfSpeed(element);
+      var accessible = _checkIfSpecial(element);
       return Train(
-        trainId, type, from, to, startTime, endTime, places, nonstop, days, reserved, comfort, speed
+        trainId, type, from, to, startTime, places, reserved, comfort, speed, accessible, duration
       );
     }).toList();
   }
@@ -56,6 +55,10 @@ class HtmlParserService extends ParseService {
       double price = _parsePlacePrice(placeElement);
       return Place(type, count, price);
     }).toList();
+  }
+
+  Duration _parseDuration(Element element) {
+    return Duration(minutes: int.parse(element.getElementsByClassName("sch-table__duration train-duration-time")[0].attributes["data-value"]));
   }
 
   int _parsePlaceCount(Element element) {
@@ -121,13 +124,6 @@ class HtmlParserService extends ParseService {
     }
   }
 
-  String _parseDays(Element element) {
-      //var daysElem = element.getElementsByClassName("sch-table__descr")[0].getElementsByTagName("span")[0];
-      //var days = daysElem.text;
-      //return days.trim().replaceAll("[\n\t]", "");
-      return "";
-  }
-
   String _parseTrainId(Element element) {
     return element.getElementsByClassName("train-number")[0].text;
   }
@@ -150,10 +146,6 @@ class HtmlParserService extends ParseService {
     return df.parse(element.getElementsByClassName("train-to-time")[0].text.replaceAll("[\n\t]", "").trim());
   }
 
-  String _parseTrainHalts(Element element) {
-    return "";  
-  }
-
   bool _checkIfReserved(Element element) {
     return element.getElementsByClassName("svg-tag-er").isNotEmpty;
   }
@@ -164,6 +156,10 @@ class HtmlParserService extends ParseService {
 
   bool _checkIfSpeed(Element element) {
     return element.getElementsByClassName("svg-tag-express").isNotEmpty;
+  }
+
+  bool _checkIfSpecial(Element element) {
+    return element.getElementsByClassName("svg-tag-special").isNotEmpty;
   }
 
 }

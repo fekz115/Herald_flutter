@@ -103,6 +103,8 @@ class TrainWidget extends StatelessWidget {
       case TrainType.CityLines:
         icon = "citylines.png";
         break;
+      case TrainType.Airport:
+      case TrainType.Commercial:
       case TrainType.CommonType:
         icon = "regionaleconom.png";
         break;
@@ -175,7 +177,7 @@ class TrainWidget extends StatelessWidget {
   }
 
   Widget _buildTrainTime() {
-    var duration = train.arriveTime.difference(train.departTime);
+    var duration = train.duration;
     return Row(
       children: [
         Flexible(
