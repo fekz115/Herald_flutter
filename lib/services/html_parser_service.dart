@@ -17,9 +17,9 @@ class HtmlParserService extends ParseService {
       return _parseTrains(document.getElementsByClassName("sch-table__row-wrap"));
     } catch (e) {
       print(e);
-      if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Станция не найдена"))) {
+      if(document.getElementsByClassName("edit_list").any((element) => element.innerHtml.contains("Станция не найдена"))) {
         throw StationNotFoundException();
-      } else if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Наберите не менее трех букв"))) {
+      } else if(document.getElementsByClassName("edit_list").any((element) => element.innerHtml.contains("Наберите не менее трех букв"))) {
         throw TooShortException();
       } else if (document.getElementsByClassName("error_content").length != 0) {
         throw ParseException(document.getElementsByClassName("error_content").first.text);
