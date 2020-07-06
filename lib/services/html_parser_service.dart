@@ -14,8 +14,9 @@ class HtmlParserService extends ParseService {
   List<Train> parseTrains(String response) {
     var document = parse(response);
     try {
-      return _parseTrains(document.getElementsByClassName("schedule_list")[0]);
+      return _parseTrains(document.getElementsByClassName("sch-table__row-wrap"));
     } catch (e) {
+      print(e);
       if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Станция не найдена"))) {
         throw StationNotFoundException();
       } else if(document.getElementsByClassName("edit_col").any((element) => element.innerHtml.contains("Наберите не менее трех букв"))) {
@@ -28,8 +29,8 @@ class HtmlParserService extends ParseService {
     }
   }
 
-  List<Train> _parseTrains(Element element) {
-    return element.children.map((element) {
+  List<Train> _parseTrains(List<Element> elements) {
+    return elements.map((element) {
       var places = _parsePlaces(element);
       var from = _parseDepartStation(element);
       var to = _parseArriveStation(element);
@@ -37,9 +38,6 @@ class HtmlParserService extends ParseService {
       TrainType type = _parseTrainType(element);
       var startTime = _parseDepartTime(element);
       var endTime = _parseArriveTime(element);
-      if(endTime.isBefore(startTime)){
-        endTime = endTime.add(Duration(days: 1));
-      }
       var days = _parseDays(element);
       var nonstop = _parseTrainHalts(element);
       var reserved = _checkIfReserved(element);
@@ -52,7 +50,7 @@ class HtmlParserService extends ParseService {
   }
 
   List<Place> _parsePlaces(Element element) {
-    return element.getElementsByClassName("train_details-group").map((placeElement) {
+    return element.getElementsByClassName("sch-table__t-item").map((placeElement) {
       PlaceType type = _parsePlaceType(placeElement);
       int count = _parsePlaceCount(placeElement);
       double price = _parsePlacePrice(placeElement);
@@ -62,19 +60,21 @@ class HtmlParserService extends ParseService {
 
   int _parsePlaceCount(Element element) {
     try {
-      return int.parse(element.getElementsByClassName("train_seats")[0].text);
+      return int.parse(element.getElementsByClassName("sch-table__t-quant")[0].text);
     } catch (_) {
       return 0;
     }
   }
 
   double _parsePlacePrice(Element element) {
-    return double.parse(new RegExp(r"[\d.]+").firstMatch(element.getElementsByClassName("train_price")[0].getElementsByTagName("span")[0].text.replaceAll(",", ".")).group(0));
+    var t = element.getElementsByClassName("js-price")[0];
+    var t1 = element.getElementsByClassName("js-price")[0].attributes["data-currency-byn"];
+    return double.parse(element.getElementsByClassName("js-price")[0].attributes["data-cost-byn"].replaceAll(",", "."));
   }
 
   PlaceType _parsePlaceType(Element element) {
-      switch(element.getElementsByClassName("train_note")[0].text) {
-        case "Купе":
+      switch(element.getElementsByClassName("sch-table__t-name")[0].text) {
+        case "Купейный":
           return PlaceType.COMP;
           break;
         case "Сидячий":
@@ -92,27 +92,27 @@ class HtmlParserService extends ParseService {
   }
 
   TrainType _parseTrainType(Element element) {
-    var trainType = element.getElementsByClassName("train_type")[0];
-    switch(trainType.classes.last) {
-      case "bus":
+    var trainType = element.getElementsByClassName("sch-table__train-type")[0];
+    switch(trainType.getElementsByTagName("i")[0].className) {
+      case "svg-bus":
           return TrainType.Bus;
           break;
-        case "regional_economy":
+        case "svg-regional_economy":
           return TrainType.RegionalEconom;
           break;
-        case "regional_business":
+        case "svg-regional_business":
           return TrainType.RegionalBusiness;
           break;
-        case "interregional_economy":
+        case "svg-interregional_economy":
           return TrainType.InterregionalEconom;
           break;
-        case "interregional_business":
+        case "svg-interregional_business":
           return TrainType.InterregionalBusiness;
           break;
-        case "international":
+        case "svg-international":
           return TrainType.International;
           break;
-        case "city":
+        case "svg-city":
           return TrainType.CityLines;
           break;
         default:
@@ -122,54 +122,48 @@ class HtmlParserService extends ParseService {
   }
 
   String _parseDays(Element element) {
-      var daysElem = element.getElementsByClassName("train_days")[0];
-      var days = "";
-      daysElem.nodes.forEach((dayElement) {
-        if(dayElement.nodeType == Node.TEXT_NODE) {
-          days += dayElement.text;
-        } else {
-          days += ", " + dayElement.text;
-        }
-      });
-      return days.trim().replaceAll("[\n\t]", "");
+      //var daysElem = element.getElementsByClassName("sch-table__descr")[0].getElementsByTagName("span")[0];
+      //var days = daysElem.text;
+      //return days.trim().replaceAll("[\n\t]", "");
+      return "";
   }
 
   String _parseTrainId(Element element) {
-    return element.getElementsByClassName("train_id")[0].text;
+    return element.getElementsByClassName("train-number")[0].text;
   }
 
   String _parseDepartStation(Element element) {
-    var trainText = element.getElementsByClassName("train_text")[0].text.split("—");
+    var trainText = element.getElementsByClassName("train-route")[0].text.split("—");
     return trainText[0].trimRight();
   }
 
   String _parseArriveStation(Element element) {
-    var trainText = element.getElementsByClassName("train_text")[0].text.split("—");
+    var trainText = element.getElementsByClassName("train-route")[0].text.split("—");
     return trainText[1].trimLeft();
   }
 
   DateTime _parseDepartTime(Element element) {
-    return df.parse(element.getElementsByClassName("train_start-time")[0].text);
+    return df.parse(element.getElementsByClassName("train-from-time")[0].text.replaceAll("[\n\t]", "").trim());
   }
 
   DateTime _parseArriveTime(Element element) {
-    return df.parse(element.getElementsByClassName("train_end-time")[0].text);
+    return df.parse(element.getElementsByClassName("train-to-time")[0].text.replaceAll("[\n\t]", "").trim());
   }
 
   String _parseTrainHalts(Element element) {
-    return element.getElementsByClassName("train_halts")[0].text.trim();
+    return "";  
   }
 
   bool _checkIfReserved(Element element) {
-    return element.getElementsByClassName("spec_reserved").isNotEmpty;
+    return element.getElementsByClassName("svg-tag-er").isNotEmpty;
   }
 
   bool _checkIfComfort(Element element) {
-    return element.getElementsByClassName("spec_reserved").isNotEmpty;
+    return element.getElementsByClassName("svg-tag-fp").isNotEmpty;
   }
 
   bool _checkIfSpeed(Element element) {
-    return element.getElementsByClassName("spec_speed").isNotEmpty;
+    return element.getElementsByClassName("svg-tag-express").isNotEmpty;
   }
 
 }
