@@ -1,4 +1,5 @@
 import 'package:Herald_flutter/model/place.dart';
+import 'package:Herald_flutter/extensions/theme_extensions.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,148 +12,113 @@ class TrainWidget extends StatelessWidget {
 
   TrainWidget({Key key, @required this.train}) : super(key: key);
 
-  static Color gray = Colors.black45;
+  static const String iconsPath = "assets/images/icons";  
 
-  TextStyle _tableItemTextStyle = TextStyle(
-    color: gray,
-    fontStyle: FontStyle.italic,
-  );
+  final Map<bool Function(Train), String> _flagsMap = {
+    (Train train) => train.accessible: "accessible.svg",
+    (Train train) => train.comfort: "comfort.svg",
+    (Train train) => train.reserved: "reserved.svg",
+    (Train train) => train.speed: "speed.svg",
+  };
 
-  TextStyle _trainIdTextStyle = TextStyle(
-    fontSize: 20,
-    color: gray,
-  );
+  final Map<TrainType, String> _trainIconsMap = {
+    TrainType.Bus: "bus.svg",
+    TrainType.CityLines: "city_lines.svg",
+    TrainType.International: "international.svg",
+    TrainType.InterregionalBusiness: "interregional_business.svg",
+    TrainType.InterregionalEconom: "interregional_economy.svg",
+    TrainType.RegionalBusiness: "regional_business.svg",
+    TrainType.RegionalEconom: "regional_economy.svg",
+  };
 
-  TextStyle _stationTextStyle = TextStyle(
-    fontSize: 18,
-    color: Colors.blueAccent[900],
-  );
+  String _getPlaceName(Place place) {
+    switch (place.type) {
+      case PlaceType.SEAT:
+        return "Сидячее";
+        break;
+      case PlaceType.E_CLASS:
+        return "Плацкарт";
+        break;
+      case PlaceType.COMP:
+        return "Купе";
+        break;
+      case PlaceType.SV:
+        return "СВ";
+        break;
+      default:
+        return "";
+        break;
+    }
+  }
 
-  TextStyle _stationArrowTextStyle = TextStyle(
-    fontSize: 30,
-    color: Colors.blueAccent[900],
-  );
-
-  TextStyle _timeTextStyle = TextStyle(
-    fontSize: 20,
-    color: gray,
-  );
-
-  TextStyle _dateTextStyle = TextStyle(
-    fontSize: 18,
-    color: gray,
-  );
-
-  TextStyle _timeArrowTextStyle = TextStyle(
-    fontSize: 30,
-    color: gray,
-  );
-
-  double iconMargin = 5.0;
+  String _getPlaceCost(Place place) {
+    return '${place.cost} руб.';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(Theme.of(context).cardPadding()),
         child: Column(
           children: <Widget>[
-            _buildCardHeader(),
-            SizedBox(height: 10.0),
-            _buildTrainMainSection(),
-            SizedBox(height: 10.0),
-            _buildTrainFooter(),
+            _buildCardHeader(context),
+            SizedBox(height: Theme.of(context).cardVerticalAlignment()),
+            _buildTrainMainSection(context),
+            SizedBox(height: Theme.of(context).cardVerticalAlignment()),
+            _buildTrainFooter(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCardHeader() {
+  Widget _buildCardHeader(BuildContext context) {
     return Row(
       children: <Widget>[
-        _buildTrainType(),
-        SizedBox(width: iconMargin),
-        Text(train.trainId, style: _trainIdTextStyle),
-        SizedBox(width: iconMargin),
-        _buildTrainFlags(),
+        _buildTrainType(context),
+        SizedBox(width: Theme.of(context).iconMargin()),
+        Text(train.trainId, style: Theme.of(context).trainIdTextStyle()),
+        SizedBox(width: Theme.of(context).iconMargin()),
+        _buildTrainFlags(context),
       ],
     );
   }
 
-  Widget _buildTrainType() {
-    String icon;
-    switch (train.type) {
-      case TrainType.RegionalEconom:
-        icon = "regional_economy.svg";
-        break;
-      case TrainType.RegionalBusiness:
-        icon = "regional_businness.svg";
-        break;
-      case TrainType.InterregionalEconom:
-        icon = "interregional_economy.svg";
-        break;
-      case TrainType.InterregionalBusiness:
-        icon = "interregional_business.svg";
-        break;
-      case TrainType.International:
-        icon = "international.svg";
-        break;
-      case TrainType.Bus:
-        icon = "bus.svg";
-        break;
-      case TrainType.CityLines:
-        icon = "city_lines.svg";
-        break;
-      case TrainType.Airport:
-      case TrainType.Commercial:
-      case TrainType.CommonType:
-        icon = null;
-        break;
-    }
+  Widget _buildTrainType(BuildContext context) {
+    String icon = _trainIconsMap[train.type];
     if (icon != null) {
-      return SvgPicture.asset(
-        "assets/images/icons/$icon",
+      return  SvgPicture.asset(
+          "$iconsPath/$icon",
       );
     } else {
       return Container();
     }
   }
 
-  Widget _buildTrainFlags() {
-    List<Widget> flags = [];
-    if (train.comfort) {
-      flags.add(SvgPicture.asset("assets/images/icons/comfort.svg"));
-    }
-    if (train.speed) {
-      flags.add(SizedBox(width: iconMargin));
-      flags.add(SvgPicture.asset("assets/images/icons/speed.svg"));
-    }
-    if (train.reserved) {
-      flags.add(SizedBox(width: iconMargin));
-      flags.add(SvgPicture.asset("assets/images/icons/reserved.svg"));
-    }
-    if (train.accessible) {
-      flags.add(SizedBox(width: iconMargin));
-      flags.add(SvgPicture.asset("assets/images/icons/accessible.svg"));
-    }
-    return flags.length == 0
-        ? Container()
-        : Row(
-            children: flags,
-          );
+  Widget _buildTrainFlags(BuildContext context) {
+    return Row(
+      children: _flagsMap.entries
+          .where((element) => element.key.call(train))
+          .map((e) => e.value)
+          .map((e) => Padding(
+            padding: EdgeInsets.only(left: Theme.of(context).iconMargin()),
+            child: SvgPicture.asset("$iconsPath/$e"),
+          ))
+          .toList(),
+    );
   }
 
-  Widget _buildTrainMainSection() {
+  Widget _buildTrainMainSection(BuildContext context) {
     return Column(
       children: <Widget>[
-        _buildTrainStation(),
-        _buildTrainTime(),
+        _buildTrainStation(context),
+        _buildTrainTime(context),
       ],
     );
   }
 
-  Widget _buildTrainStation() {
+  Widget _buildTrainStation(BuildContext context) {
     return Row(
       children: <Widget>[
         Flexible(
@@ -160,7 +126,7 @@ class TrainWidget extends StatelessWidget {
           flex: 2,
           child: Text(
             train.departStation,
-            style: _stationTextStyle,
+            style: Theme.of(context).stationTextStyle(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -168,7 +134,7 @@ class TrainWidget extends StatelessWidget {
           fit: FlexFit.tight,
           child: Text(
             '⟶',
-            style: _stationArrowTextStyle,
+            style: Theme.of(context).stationArrowTextStyle(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -177,7 +143,7 @@ class TrainWidget extends StatelessWidget {
           flex: 2,
           child: Text(
             train.arriveStation,
-            style: _stationTextStyle,
+            style: Theme.of(context).stationTextStyle(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -185,7 +151,7 @@ class TrainWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTrainTime() {
+  Widget _buildTrainTime(BuildContext context) {
     var duration = train.duration;
     return Row(
       children: [
@@ -196,11 +162,11 @@ class TrainWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 train.departTime.toStringOnlyTime(),
-                style: _timeTextStyle,
+                style: Theme.of(context).timeTextStyle(),
               ),
               Text(
                 train.departTime.toStringRus(),
-                style: _dateTextStyle,
+                style: Theme.of(context).dateTextStyle(),
               ),
             ],
           ),
@@ -214,12 +180,12 @@ class TrainWidget extends StatelessWidget {
                 bottom: 20,
                 child: Text(
                   duration.toStringOnlyHM(),
-                  style: TextStyle(color: gray),
+                  style: TextStyle(color: Theme.of(context).gray()),
                 ),
               ),
               Text(
                 '⟶',
-                style: _timeArrowTextStyle,
+                style: Theme.of(context).timeArrowTextStyle(),
               ),
             ],
           ),
@@ -231,11 +197,11 @@ class TrainWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 train.arriveTime.toStringOnlyTime(),
-                style: _timeTextStyle,
+                style: Theme.of(context).timeTextStyle(),
               ),
               Text(
                 train.arriveTime.toStringRus(),
-                style: _dateTextStyle,
+                style: Theme.of(context).dateTextStyle(),
               ),
             ],
           ),
@@ -244,51 +210,33 @@ class TrainWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTrainFooter() {
+  Widget _buildTrainFooter(BuildContext context) {
     return train.places.length == 0
         ? Container()
         : Table(
             border: TableBorder(
-              horizontalInside: BorderSide(color: gray),
+              horizontalInside: BorderSide(color: Theme.of(context).gray()),
             ),
             children: train.places.map((place) {
-              String typeText;
-              switch (place.type) {
-                case PlaceType.SEAT:
-                  typeText = "Сидячее";
-                  break;
-                case PlaceType.E_CLASS:
-                  typeText = "Плацкарт";
-                  break;
-                case PlaceType.COMP:
-                  typeText = "Купе";
-                  break;
-                case PlaceType.SV:
-                  typeText = "СВ";
-                  break;
-                case PlaceType.NONE:
-                  typeText = "";
-                  break;
-              }
               return TableRow(
                 children: <TableCell>[
                   TableCell(
                     child: Text(
-                      typeText,
-                      style: _tableItemTextStyle,
+                      _getPlaceName(place),
+                      style: Theme.of(context).tableItemTextStyle(),
                     ),
                   ),
                   TableCell(
                     child: Text(
                       place.amount > 0 ? place.amount.toString() : '',
-                      style: _tableItemTextStyle,
+                      style: Theme.of(context).tableItemTextStyle(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   TableCell(
                     child: Text(
-                      place.cost.toString() + ' руб.',
-                      style: _tableItemTextStyle,
+                      _getPlaceCost(place),
+                      style: Theme.of(context).tableItemTextStyle(),
                       textAlign: TextAlign.end,
                     ),
                   ),
