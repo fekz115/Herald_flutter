@@ -20,6 +20,7 @@ void main() {
   finds.forEach((find) {
     test('Integration test $i', () async {
       var trains = await service.loadTrains(find);
+      assert(trains.isNotEmpty);
     });
     i++;
   });

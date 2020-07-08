@@ -70,8 +70,6 @@ class HtmlParserService extends ParseService {
   }
 
   double _parsePlacePrice(Element element) {
-    var t = element.getElementsByClassName("js-price")[0];
-    var t1 = element.getElementsByClassName("js-price")[0].attributes["data-currency-byn"];
     return double.parse(element.getElementsByClassName("js-price")[0].attributes["data-cost-byn"].replaceAll(",", "."));
   }
 
@@ -140,10 +138,6 @@ class HtmlParserService extends ParseService {
 
   DateTime _parseDepartTime(Element element) {
     return df.parse(element.getElementsByClassName("train-from-time")[0].text.replaceAll("[\n\t]", "").trim());
-  }
-
-  DateTime _parseArriveTime(Element element) {
-    return df.parse(element.getElementsByClassName("train-to-time")[0].text.replaceAll("[\n\t]", "").trim());
   }
 
   bool _checkIfReserved(Element element) {

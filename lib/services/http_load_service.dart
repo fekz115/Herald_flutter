@@ -5,7 +5,7 @@ import 'package:Herald_flutter/services/load_service.dart';
 
 class HttpLoadService extends LoadService {
 
-  String get BASE_URL => "https://pass.rw.by/ru/route";
+  static const String BASE_URL = "https://pass.rw.by/ru/route";
 
   @override
   Future<http.Response> loadPage(Find find) {
