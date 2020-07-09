@@ -1,14 +1,10 @@
 class Place {
   
-  final PlaceType _type;
-  final int _amount;
-  final double _cost;
+  final PlaceType type;
+  final int amount;
+  final double cost;
 
-  Place(this._type, this._amount, this._cost);
-
-  PlaceType get type => _type;
-  int get amount => _amount;
-  double get cost => _cost;
+  Place(this.type, this.amount, this.cost);
 
 }
 
