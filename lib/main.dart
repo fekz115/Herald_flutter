@@ -26,7 +26,12 @@ class MyApp extends StatelessWidget {
             HttpLoadService(),
             HtmlParserService(),
           ),
-          InitialFindState(Find("", "", DateTime.now())),
+          InitialFindState(new Find((b) => {
+                b
+                  ..arriveStation = ""
+                  ..departStation = ""
+                  ..date = DateTime.now()
+              })),
         ),
         child: Scaffold(
           body: ExtendedNavigator<Router>(

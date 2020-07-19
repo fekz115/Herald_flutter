@@ -23,11 +23,11 @@ class FindBloc extends Bloc<FindEvent, FindState> {
     FindEvent event,
   ) async* {
     if (event is SetArriveStation) {
-      _state = Find(_state.departStation, event.arriveStation, _state.date);
+      _state = _state.rebuild((b) => b..arriveStation = event.arriveStation);
     } else if (event is SetDepartStation) {
-      _state = Find(event.departStation, _state.arriveStation, _state.date);
+      _state = _state.rebuild((b) => b..departStation = event.departStation);
     } else if (event is SetDate) {
-      _state = Find(_state.departStation, _state.arriveStation, event.date);
+      _state = _state.rebuild((b) => b..date = event.date);
       yield (InitialFindState(_state));
     } else if (event is SearchEvent || event is RefreshEvent) {
       if (event is SearchEvent)

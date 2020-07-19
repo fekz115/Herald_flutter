@@ -1,34 +1,43 @@
+import 'dart:convert';
+
 import 'package:Herald_flutter/model/place.dart';
+import 'package:Herald_flutter/model/train_type.dart';
 
-class Train {
+import 'package:Herald_flutter/serializers.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-  final String trainId;
-  final TrainType type;
-  final String departStation;
-  final String arriveStation;
-  final DateTime departTime;
-  final List<Place> places;
-  final bool reserved;
-  final bool comfort;
-  final bool speed;
-  final bool accessible;
-  final Duration duration;
+part 'train.g.dart';
+
+abstract class Train implements Built<Train, TrainBuilder> {
+
+  String get trainId;
+  TrainType get type;
+  String get departStation;
+  String get arriveStation;
+  DateTime get departTime;
+  List<Place> get places;
+  bool get reserved;
+  bool get comfort;
+  bool get speed;
+  bool get accessible;
+  Duration get duration;
 
   DateTime get arriveTime => departTime.add(duration);
 
-  Train(this.trainId, this.type, this.departStation, this.arriveStation, this.departTime, this.places, this.reserved, this.comfort, this.speed, this.accessible, this.duration);
+  Train._();
+  factory Train([updates(TrainBuilder b)]) = _$Train;
 
-}
+  String toJson() {
+    return json
+        .encode(serializers.serializeWith(Train.serializer, this));
+  }
 
-enum TrainType {
-  RegionalEconom, 
-  RegionalBusiness, 
-  InterregionalEconom, 
-  InterregionalBusiness, 
-  International, 
-  Bus, 
-  CityLines,
-  Commercial,
-  Airport, 
-  CommonType,
+  static Train fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Train.serializer, json.decode(jsonString));
+  }
+
+  static Serializer<Train> get serializer => _$trainSerializer;
+
 }

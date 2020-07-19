@@ -12,9 +12,7 @@ class TrainLoadService {
   Future<Iterable<Train>> loadTrains(Find find) {
     return _loadService
         .loadPage(find)
-        .then((value) =>
-          _parseService.parseTrains(value.body)
-            .map((train) {
+        .then((value) => _parseService.parseTrains(value.body).map((train) {
               var newDepartDate = DateTime(
                 find.date.year,
                 find.date.month,
@@ -23,21 +21,7 @@ class TrainLoadService {
                 train.departTime.minute,
                 train.departTime.second,
               );
-              var train1 = Train(
-                train.trainId,
-                train.type,
-                train.departStation,
-                train.arriveStation,
-                newDepartDate,
-                train.places,
-                train.reserved,
-                train.comfort,
-                train.speed,
-                train.accessible,
-                train.duration
-              );
-              return train1;
-            }).toList()
-    );
+              return train.rebuild((b) => b..departTime = newDepartDate);
+            }).toList());
   }
 }

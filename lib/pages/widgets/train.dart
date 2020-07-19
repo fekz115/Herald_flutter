@@ -1,6 +1,8 @@
 import 'package:Herald_flutter/model/place.dart';
 import 'package:Herald_flutter/extensions/theme_extensions.dart';
+import 'package:Herald_flutter/model/place_type.dart';
 import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald_flutter/model/train_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herald_flutter/extensions.dart';
@@ -21,28 +23,18 @@ class TrainWidget extends StatelessWidget {
     (Train train) => train.speed: "speed.svg",
   };
 
-  final Map<TrainType, String> _trainIconsMap = {
-    TrainType.Bus: "bus.svg",
-    TrainType.CityLines: "city_lines.svg",
-    TrainType.International: "international.svg",
-    TrainType.InterregionalBusiness: "interregional_business.svg",
-    TrainType.InterregionalEconom: "interregional_economy.svg",
-    TrainType.RegionalBusiness: "regional_business.svg",
-    TrainType.RegionalEconom: "regional_economy.svg",
-  };
-
   String _getPlaceName(Place place) {
     switch (place.type) {
-      case PlaceType.SEAT:
+      case PlaceType.sittingSeat:
         return "Сидячее";
         break;
-      case PlaceType.E_CLASS:
+      case PlaceType.reservedSeat:
         return "Плацкарт";
         break;
-      case PlaceType.COMP:
+      case PlaceType.compartment:
         return "Купе";
         break;
-      case PlaceType.SV:
+      case PlaceType.sv:
         return "СВ";
         break;
       default:
@@ -86,10 +78,9 @@ class TrainWidget extends StatelessWidget {
   }
 
   Widget _buildTrainType(BuildContext context) {
-    String icon = _trainIconsMap[train.type];
-    if (icon != null) {
+    if (train.type != TrainType.none) {
       return  SvgPicture.asset(
-          "$iconsPath/$icon",
+          "$iconsPath/${train.type.name}.svg",
       );
     } else {
       return Container();
