@@ -5,9 +5,9 @@ import 'package:built_value/serializer.dart';
 part 'train_type.g.dart';
 
 class TrainType extends EnumClass {
-  static const TrainType regionalEconom = _$regionalEconom; 
+  static const TrainType regionalEconomy = _$regionalEconomy; 
   static const TrainType regionalBusiness = _$regionalBusiness; 
-  static const TrainType interregionalEconom = _$interregionalEconom; 
+  static const TrainType interregionalEconomy = _$interregionalEconomy; 
   static const TrainType interregionalBusiness = _$interregionalBusiness; 
   static const TrainType international = _$international; 
   static const TrainType bus = _$bus; 

@@ -58,12 +58,12 @@ flutter:
 
   assets:
     - assets/images/icons/bus.svg
-    - assets/images/icons/city_lines.svg
-    - assets/images/icons/interregional_business.svg
-    - assets/images/icons/regional_business.svg
+    - assets/images/icons/cityLines.svg
+    - assets/images/icons/interregionalBusiness.svg
+    - assets/images/icons/regionalBusiness.svg
     - assets/images/icons/international.svg
-    - assets/images/icons/interregional_economy.svg
-    - assets/images/icons/regional_economy.svg
+    - assets/images/icons/interregionalEconomy.svg
+    - assets/images/icons/regionalEconomy.svg
 
     - assets/images/icons/reserved.svg
     - assets/images/icons/speed.svg

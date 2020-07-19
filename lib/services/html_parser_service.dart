@@ -117,13 +117,13 @@ class HtmlParserService extends ParseService {
         return TrainType.bus;
         break;
       case "svg-regional_economy":
-        return TrainType.regionalEconom;
+        return TrainType.regionalEconomy;
         break;
       case "svg-regional_business":
         return TrainType.regionalBusiness;
         break;
       case "svg-interregional_economy":
-        return TrainType.interregionalEconom;
+        return TrainType.interregionalEconomy;
         break;
       case "svg-interregional_business":
         return TrainType.interregionalBusiness;

@@ -6,10 +6,10 @@ part of 'train_type.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const TrainType _$regionalEconom = const TrainType._('regionalEconom');
+const TrainType _$regionalEconomy = const TrainType._('regionalEconomy');
 const TrainType _$regionalBusiness = const TrainType._('regionalBusiness');
-const TrainType _$interregionalEconom =
-    const TrainType._('interregionalEconom');
+const TrainType _$interregionalEconomy =
+    const TrainType._('interregionalEconomy');
 const TrainType _$interregionalBusiness =
     const TrainType._('interregionalBusiness');
 const TrainType _$international = const TrainType._('international');
@@ -21,12 +21,12 @@ const TrainType _$none = const TrainType._('none');
 
 TrainType _$valueOf(String name) {
   switch (name) {
-    case 'regionalEconom':
-      return _$regionalEconom;
+    case 'regionalEconomy':
+      return _$regionalEconomy;
     case 'regionalBusiness':
       return _$regionalBusiness;
-    case 'interregionalEconom':
-      return _$interregionalEconom;
+    case 'interregionalEconomy':
+      return _$interregionalEconomy;
     case 'interregionalBusiness':
       return _$interregionalBusiness;
     case 'international':
@@ -47,9 +47,9 @@ TrainType _$valueOf(String name) {
 }
 
 final BuiltSet<TrainType> _$values = new BuiltSet<TrainType>(const <TrainType>[
-  _$regionalEconom,
+  _$regionalEconomy,
   _$regionalBusiness,
-  _$interregionalEconom,
+  _$interregionalEconomy,
   _$interregionalBusiness,
   _$international,
   _$bus,
