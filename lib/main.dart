@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/navigation.gr.dart';
 import 'package:Herald_flutter/services/html_parser_service.dart';
 import 'package:Herald_flutter/services/http_load_service.dart';
@@ -13,7 +14,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,13 +21,17 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       builder: (context, widget) => BlocProvider<FindBloc>(
-        create: (context) =>
-          FindBloc(TrainLoadService(
+        create: (context) => FindBloc(
+          TrainLoadService(
             HttpLoadService(),
             HtmlParserService(),
-          )),
+          ),
+          InitialFindState(Find("", "", DateTime.now())),
+        ),
         child: Scaffold(
-          body: ExtendedNavigator<Router>(router: Router(),),
+          body: ExtendedNavigator<Router>(
+            router: Router(),
+          ),
         ),
       ),
     );

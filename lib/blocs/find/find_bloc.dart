@@ -12,12 +12,11 @@ part 'find_state.dart';
 
 class FindBloc extends Bloc<FindEvent, FindState> {
   final TrainLoadService _trainLoadService;
-  Find _state = Find("", "", DateTime.now());
+  Find _state;
 
-  FindBloc(this._trainLoadService);
-
-  @override
-  FindState get initialState => InitialFindState(_state);
+  FindBloc(this._trainLoadService, FindState initialState) : super(initialState) {
+    _state = initialState.find;
+  }
 
   @override
   Stream<FindState> mapEventToState(
