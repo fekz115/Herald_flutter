@@ -62,7 +62,7 @@ class TrainsPage extends StatelessWidget {
     );
   }
 
-  void _showError(BuildContext context, Error e) {
+  void _showError(BuildContext context, Exception e) {
     print(e.toString());
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text(e.toString()),

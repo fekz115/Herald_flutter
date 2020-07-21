@@ -25,11 +25,11 @@ class RefreshState extends FindState {
 
 class ErrorLoadingState extends FindState {
 
-  final Error _exception;
+  final Exception _exception;
 
   ErrorLoadingState(this._exception, Find find) : super(find);
 
-  Error get exception => _exception;
+  Exception get exception => _exception;
 
   @override
   List<Object> get props => [exception];

@@ -6,6 +6,7 @@ import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/train_load_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:Herald_flutter/services/service_response.dart';
 
 part 'find_event.dart';
 part 'find_state.dart';
@@ -14,7 +15,8 @@ class FindBloc extends Bloc<FindEvent, FindState> {
   final TrainLoadService _trainLoadService;
   Find _state;
 
-  FindBloc(this._trainLoadService, FindState initialState) : super(initialState) {
+  FindBloc(this._trainLoadService, FindState initialState)
+      : super(initialState) {
     _state = initialState.find;
   }
 
@@ -34,16 +36,11 @@ class FindBloc extends Bloc<FindEvent, FindState> {
         yield SearchState(_state);
       else
         yield RefreshState(_state);
-      try {
-        var trains = await _trainLoadService
-            .loadTrains(_state)
-            .catchError((error) => throw error);
-        yield LoadedState(trains, _state);
-      } on ParseException catch (e) {
-        yield ErrorParsingState(e, _state);
-      } catch (e) {
-        yield ErrorLoadingState(e, _state);
-      }
+      yield (await _trainLoadService.loadTrains(_state)).join(
+        (response) => LoadedState(response.trains, _state),
+        (response) => ErrorParsingState(response.exception, _state),
+        (response) => ErrorLoadingState(response.exception, _state),
+      );
     } // TODO: refactor this
     // TODO: add validation
   }

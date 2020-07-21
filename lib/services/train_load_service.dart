@@ -1,7 +1,9 @@
 import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/load_service.dart';
 import 'package:Herald_flutter/services/parse_service.dart';
+import 'package:Herald_flutter/services/service_response.dart';
 
 class TrainLoadService {
   final LoadService _loadService;
@@ -9,8 +11,9 @@ class TrainLoadService {
 
   TrainLoadService(this._loadService, this._parseService);
 
-  Future<Iterable<Train>> loadTrains(Find find) {
-    return _loadService
+  Future<ServiceResponse> loadTrains(Find find) async {
+    try {
+      List<Train> trains = await _loadService
         .loadPage(find)
         .then((value) => _parseService.parseTrains(value.body).map((train) {
               var newDepartDate = DateTime(
@@ -23,5 +26,9 @@ class TrainLoadService {
               );
               return train.rebuild((b) => b..departTime = newDepartDate);
             }).toList());
+      return TrainsLoadedResponse(trains);
+    } on ParseException catch(e) {
+      return ParseExceptionResponse(e);
+    }
   }
 }
