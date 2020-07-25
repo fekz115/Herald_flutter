@@ -1,14 +1,11 @@
-import 'package:Herald_flutter/blocs/find/find_bloc.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/navigation.gr.dart';
 import 'package:Herald_flutter/pages/widgets/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class TrainsPage
