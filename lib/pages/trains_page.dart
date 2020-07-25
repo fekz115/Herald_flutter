@@ -24,12 +24,12 @@ class TrainsPage
             (TrainsParseExceptionScreenState state) => _buildErrorBody(state.exception),
             (TrainsExceptionScreenState state) {
               _showError(context, state.exception);
-              return Container();
+              return _buildErrorBody(state.exception);
             },
             (TrainsLoadingScreenState state) => _buildLoadingBody(),
           ),
         ),
-        onRefresh: () async {},
+        onRefresh: () async { actions.searchAction(); },
       ),
     );
   }
