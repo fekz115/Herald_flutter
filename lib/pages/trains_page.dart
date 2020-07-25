@@ -2,46 +2,38 @@ import 'package:Herald_flutter/blocs/find/find_bloc.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/navigation.gr.dart';
 import 'package:Herald_flutter/pages/widgets/train.dart';
+import 'package:Herald_flutter/redux/actions.dart';
+import 'package:Herald_flutter/redux/app_state.dart';
+import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
+import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class TrainsPage extends StatelessWidget {
+class TrainsPage
+    extends StoreConnector<AppState, AppActions, TrainsScreenState> {
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<FindBloc, FindState>(
-      listener: (BuildContext context, FindState state) {
-        if (state is ErrorLoadingState) {
-          _showError(context, state.exception);
-        }
-      },
-      builder: (context, state) {
-        var body;
-        if (state is SearchState || state is RefreshState) {
-          body = _buildLoadingBody();
-        } else if (state is LoadedState) {
-          body = _buildTrainsList(state.trainList);
-        } else if (state is ErrorParsingState) {
-          body = Center(
-            child: Text(
-              state.exception.message,
-            ),
-          );
-        } else {
-          body = Container();
-        }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('Herald'),
-          ),
-          body: RefreshIndicator(
-            child: body,
-            onRefresh: () async {
-              BlocProvider.of<FindBloc>(context).add(RefreshEvent());
+  Widget build(
+      BuildContext context, TrainsScreenState state, AppActions actions) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Herald'),
+      ),
+      body: RefreshIndicator(
+        child: Scaffold(
+          body: state.join(
+            (TrainsLoadedScreenState state) => _buildTrainsList(state.trains),
+            (TrainsParseExceptionScreenState state) => _buildErrorBody(state.exception),
+            (TrainsExceptionScreenState state) {
+              _showError(context, state.exception);
+              return Container();
             },
+            (TrainsLoadingScreenState state) => _buildLoadingBody(),
           ),
-        );
-      },
+        ),
+        onRefresh: () async {},
+      ),
     );
   }
 
@@ -62,6 +54,14 @@ class TrainsPage extends StatelessWidget {
     );
   }
 
+  Widget _buildErrorBody(Exception e) {
+    return Center(
+      child: Text(
+        e.toString(),
+      ),
+    );
+  }
+
   void _showError(BuildContext context, Exception e) {
     print(e.toString());
     Scaffold.of(context).showSnackBar(SnackBar(
@@ -69,4 +69,7 @@ class TrainsPage extends StatelessWidget {
     ));
     ExtendedNavigator.ofRouter<Router>().pop();
   }
+
+  @override
+  TrainsScreenState connect(AppState state) => state.trainsScreenState;
 }
