@@ -4,6 +4,7 @@ import 'package:Herald_flutter/pages/widgets/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
+import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
@@ -24,7 +25,7 @@ class TrainsPage
             (TrainsParseExceptionScreenState state) => _buildErrorBody(state.exception),
             (TrainsExceptionScreenState state) {
               _showError(context, state.exception);
-              return _buildErrorBody(state.exception);
+              return Container();
             },
             (TrainsLoadingScreenState state) => _buildLoadingBody(),
           ),
@@ -51,10 +52,14 @@ class TrainsPage
     );
   }
 
-  Widget _buildErrorBody(Exception e) {
+  Widget _buildErrorBody(ParseException e) {
     return Center(
-      child: Text(
-        e.toString(),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          e.message,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
