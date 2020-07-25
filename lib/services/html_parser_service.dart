@@ -15,8 +15,10 @@ class HtmlParserService extends ParseService {
   List<Train> parseTrains(String response) {
     var document = parse(response);
     try {
-      return _parseTrains(
-          document.getElementsByClassName("sch-table__row-wrap"));
+      var list =
+          _parseTrains(document.getElementsByClassName("sch-table__row-wrap"));
+      if (list.length == 0) throw Exception();
+      return list;
     } catch (e) {
       print(e);
       if (document
