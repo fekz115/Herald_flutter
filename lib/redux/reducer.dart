@@ -11,7 +11,8 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.changeDepartStationAction, changeDepartStation)
   ..add(AppActionsNames.changeArriveStationAction, changeArriveStation)
   ..add(AppActionsNames.changeDateAction, changeDate)
-  ..add(AppActionsNames.serviceResponseAction, onServiceResponse);
+  ..add(AppActionsNames.serviceResponseAction, onServiceResponse)
+  ..add(AppActionsNames.searchAction, onSearch);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
