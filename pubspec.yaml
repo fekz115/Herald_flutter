@@ -33,6 +33,8 @@ dependencies:
   sealed_class: ^3.0.0
   built_redux: ^7.5.11
   flutter_built_redux: ^0.6.0
+  flutter_linkify: ^3.1.3
+  url_launcher: ^5.5.0
 
 
   # The following adds the Cupertino Icons font to your application.
