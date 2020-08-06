@@ -4,14 +4,16 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: public_member_api_docs
+
 import 'package:auto_route/auto_route.dart';
-import 'package:Herald_flutter/pages/home_page.dart';
-import 'package:Herald_flutter/navigation.dart';
-import 'package:Herald_flutter/pages/trains_page.dart';
-import 'package:Herald_flutter/pages/settings_page.dart';
-import 'package:Herald_flutter/pages/interface_settings_page.dart';
+import 'package:flutter/material.dart';
+
+import 'navigation.dart';
+import 'pages/home_page.dart';
+import 'pages/interface_settings_page.dart';
+import 'pages/settings_page.dart';
+import 'pages/trains_page.dart';
 
 class Routes {
   static const String homePage = '/';
@@ -38,7 +40,7 @@ class Router extends RouterBase {
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, AutoRouteFactory>{
-    HomePage: (RouteData data) {
+    HomePage: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
         settings: data,
@@ -46,7 +48,7 @@ class Router extends RouterBase {
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
-    TrainsPage: (RouteData data) {
+    TrainsPage: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) => TrainsPage(),
         settings: data,
@@ -54,7 +56,7 @@ class Router extends RouterBase {
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
-    SettingsPage: (RouteData data) {
+    SettingsPage: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) => SettingsPage(),
         settings: data,
@@ -62,7 +64,7 @@ class Router extends RouterBase {
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
-    InterfaceSettingsPage: (RouteData data) {
+    InterfaceSettingsPage: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
             InterfaceSettingsPage(),

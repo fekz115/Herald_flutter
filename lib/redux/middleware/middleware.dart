@@ -37,7 +37,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.trainsPage);
+    ExtendedNavigator.named("mainNav").push(Routes.trainsPage);
   };
 }
 
@@ -46,7 +46,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.settingsPage);
+    ExtendedNavigator.named("mainNav").push(Routes.settingsPage);
   };
 }
 
@@ -55,7 +55,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.interfaceSettingsPage);
+    ExtendedNavigator.named("mainNav").push(Routes.interfaceSettingsPage);
   };
 }
 
@@ -64,6 +64,6 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.ofRouter<Router>().pop();
+    ExtendedNavigator.named("mainNav").pop();
   };
 }

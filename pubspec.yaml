@@ -23,11 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  auto_route: ^0.6.0
+  auto_route: ^0.6.7
   http: ^0.12.2
   html: ^0.14.0+3
   intl: ^0.16.1
-  flutter_svg: ^0.17.4
+  flutter_svg: ^0.18.0
   built_value: ^7.1.0
   built_collection: ^4.3.2
   sealed_class: ^3.0.0
@@ -42,7 +42,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  auto_route_generator: ^0.6.0
+  auto_route_generator: ^0.6.7
   built_value_generator: ^7.1.0
   sealed_class_generator: ^3.0.0
   build_runner:

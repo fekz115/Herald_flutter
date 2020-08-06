@@ -6,7 +6,6 @@ import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:html/parser.dart';
 import 'package:sealed_class/sealed_class.dart';
 
 part 'trains_screen_state.g.dart';

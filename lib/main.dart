@@ -88,6 +88,7 @@ class InterfaceStateListener
       home: Scaffold(
         body: ExtendedNavigator<Router>(
           router: Router(),
+          name: "mainNav",
         ),
       ),
     );
