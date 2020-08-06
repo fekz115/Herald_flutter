@@ -1,19 +1,16 @@
-import 'package:Herald_flutter/navigation.gr.dart';
 import 'package:Herald_flutter/pages/widgets/date_button.dart';
 import 'package:Herald_flutter/pages/widgets/station_text_field.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class HomePage
-    extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
-  Widget build(
-      BuildContext context) {
-    Store<AppState, AppStateBuilder, AppActions> store = context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store;
+  Widget build(BuildContext context) {
+    Store<AppState, AppStateBuilder, AppActions> store =
+        context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store;
     return Scaffold(
       appBar: AppBar(
         title: Text('Herald'),
@@ -39,10 +36,7 @@ class HomePage
             SizedBox(height: 10),
             RaisedButton(
               child: Text('Поиск'),
-              onPressed: () {
-                store.actions.searchAction();
-                ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.trainsPage);
-              },
+              onPressed: store.actions.searchAction,
             ),
           ],
         ),

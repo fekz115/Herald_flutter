@@ -10,6 +10,9 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<Null> searchAction;
   ActionDispatcher<ServiceResponse> serviceResponseAction;
 
+  ActionDispatcher<Null> showTrainsPage;
+  ActionDispatcher<Null> goBack;
+
   AppActions._();
   factory AppActions() => new _$AppActions();
 }
