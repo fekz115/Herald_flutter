@@ -1,18 +1,19 @@
-import 'package:Herald_flutter/extensions.dart';
 import 'package:Herald_flutter/navigation.gr.dart';
+import 'package:Herald_flutter/pages/widgets/date_button.dart';
 import 'package:Herald_flutter/pages/widgets/station_text_field.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class HomePage
-    extends StoreConnector<AppState, AppActions, InitialScreenState> {
+    extends StatelessWidget {
   @override
   Widget build(
-      BuildContext context, InitialScreenState state, AppActions actions) {
+      BuildContext context) {
+    Store<AppState, AppStateBuilder, AppActions> store = context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store;
     return Scaffold(
       appBar: AppBar(
         title: Text('Herald'),
@@ -25,32 +26,21 @@ class HomePage
             StationTextField(
               (state) => state.initialScreenState.departStationTextInputState,
               'Станция отправления',
-              actions.changeDepartStationAction,
+              store.actions.changeDepartStationAction,
             ),
             SizedBox(height: 30),
             StationTextField(
               (state) => state.initialScreenState.arriveStationTextInputState,
               'Станция назначения',
-              actions.changeArriveStationAction,
+              store.actions.changeArriveStationAction,
             ),
             SizedBox(height: 30),
-            RaisedButton(
-              child: Text(state.date.toStringOnlyDate()),
-              onPressed: () => {
-                showDatePicker(
-                        context: context,
-                        initialDate: state.date,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(Duration(days: 7)))
-                    .then((value) =>
-                        {if (value != null) actions.changeDateAction(value)})
-              },
-            ),
+            DateButton(),
             SizedBox(height: 10),
             RaisedButton(
               child: Text('Поиск'),
               onPressed: () {
-                actions.searchAction();
+                store.actions.searchAction();
                 ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.trainsPage);
               },
             ),
@@ -59,7 +49,4 @@ class HomePage
       ),
     );
   }
-
-  @override
-  InitialScreenState connect(AppState state) => state.initialScreenState;
 }
