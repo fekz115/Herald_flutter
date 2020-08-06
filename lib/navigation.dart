@@ -1,4 +1,5 @@
 import 'package:Herald_flutter/pages/home_page.dart';
+import 'package:Herald_flutter/pages/settings_page.dart';
 import 'package:Herald_flutter/pages/trains_page.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,11 @@ import 'package:flutter/material.dart';
       transitionsBuilder: zoomInTransition,
       durationInMilliseconds: 400,
       page: TrainsPage,
+    ),
+    CustomRoute(
+      transitionsBuilder: zoomInTransition,
+      durationInMilliseconds: 400,
+      page: SettingsPage,
     ),
   ],
 )

@@ -25,6 +25,8 @@ class _$AppActions extends AppActions {
   final serviceResponseAction =
       ActionDispatcher<ServiceResponse>('AppActions-serviceResponseAction');
   final showTrainsPage = ActionDispatcher<Null>('AppActions-showTrainsPage');
+  final showSettingsPage =
+      ActionDispatcher<Null>('AppActions-showSettingsPage');
   final goBack = ActionDispatcher<Null>('AppActions-goBack');
 
   @override
@@ -35,6 +37,7 @@ class _$AppActions extends AppActions {
     searchAction.setDispatcher(dispatcher);
     serviceResponseAction.setDispatcher(dispatcher);
     showTrainsPage.setDispatcher(dispatcher);
+    showSettingsPage.setDispatcher(dispatcher);
     goBack.setDispatcher(dispatcher);
   }
 }
@@ -50,5 +53,7 @@ class AppActionsNames {
   static final serviceResponseAction =
       ActionName<ServiceResponse>('AppActions-serviceResponseAction');
   static final showTrainsPage = ActionName<Null>('AppActions-showTrainsPage');
+  static final showSettingsPage =
+      ActionName<Null>('AppActions-showSettingsPage');
   static final goBack = ActionName<Null>('AppActions-goBack');
 }

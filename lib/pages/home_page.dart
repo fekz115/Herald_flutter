@@ -14,6 +14,12 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Herald'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: store.actions.showSettingsPage,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

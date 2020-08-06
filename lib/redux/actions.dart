@@ -11,6 +11,7 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<ServiceResponse> serviceResponseAction;
 
   ActionDispatcher<Null> showTrainsPage;
+  ActionDispatcher<Null> showSettingsPage;
   ActionDispatcher<Null> goBack;
 
   AppActions._();

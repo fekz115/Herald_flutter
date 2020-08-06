@@ -10,13 +10,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:Herald_flutter/pages/home_page.dart';
 import 'package:Herald_flutter/navigation.dart';
 import 'package:Herald_flutter/pages/trains_page.dart';
+import 'package:Herald_flutter/pages/settings_page.dart';
 
 class Routes {
   static const String homePage = '/';
   static const String trainsPage = '/trains-page';
+  static const String settingsPage = '/settings-page';
   static const all = <String>{
     homePage,
     trainsPage,
+    settingsPage,
   };
 }
 
@@ -26,6 +29,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.homePage, page: HomePage),
     RouteDef(Routes.trainsPage, page: TrainsPage),
+    RouteDef(Routes.settingsPage, page: SettingsPage),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -41,6 +45,14 @@ class Router extends RouterBase {
     TrainsPage: (RouteData data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) => TrainsPage(),
+        settings: data,
+        transitionsBuilder: zoomInTransition,
+        transitionDuration: const Duration(milliseconds: 400),
+      );
+    },
+    SettingsPage: (RouteData data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) => SettingsPage(),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
