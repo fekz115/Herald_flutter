@@ -11,7 +11,12 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.changeDepartStationAction, changeDepartStation)
   ..add(AppActionsNames.changeArriveStationAction, changeArriveStation)
   ..add(AppActionsNames.changeDateAction, changeDate)
+  
   ..add(AppActionsNames.serviceResponseAction, onServiceResponse)
+
+  ..add(AppActionsNames.enableDarkTheme, onEnableDarkTheme)
+  ..add(AppActionsNames.disableDarkTheme, onDisableDarkTheme)
+  
   ..add(AppActionsNames.searchAction, onSearch);
 
 void changeDepartStation(
@@ -32,8 +37,8 @@ void changeDate(
 void onServiceResponse(
     AppState state, Action<ServiceResponse> action, AppStateBuilder builder) {
   builder.trainsScreenState = action.payload.join(
-    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState(
-        (b) => b..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()),
+    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState((b) =>
+        b..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()),
     (ParseExceptionResponse e) =>
         TrainsParseExceptionScreenState((b) => b..exception = e.exception),
     (ExceptionRespose e) =>
@@ -41,8 +46,22 @@ void onServiceResponse(
   );
 }
 
-void onSearch(
-    AppState state, Action<Null> action, AppStateBuilder builder) {
-      builder.trainsScreenState = TrainsLoadingScreenState();
+void onSearch(AppState state, Action<Null> action, AppStateBuilder builder) {
+  builder.trainsScreenState = TrainsLoadingScreenState();
 }
 
+void onEnableDarkTheme(AppState state, Action<Null> action, AppStateBuilder builder) {
+  builder.settingsState.interfaceSettingsState.update((b) {
+    b
+      ..useDarkTheme = true
+      ..build();
+  });
+}
+
+void onDisableDarkTheme(AppState state, Action<Null> action, AppStateBuilder builder) {
+  builder.settingsState.interfaceSettingsState.update((b) {
+    b
+      ..useDarkTheme = false
+      ..build();
+  });
+}

@@ -12,7 +12,11 @@ abstract class AppActions extends ReduxActions {
 
   ActionDispatcher<Null> showTrainsPage;
   ActionDispatcher<Null> showSettingsPage;
+  ActionDispatcher<Null> showInterfaceSettingsPage;
   ActionDispatcher<Null> goBack;
+
+  ActionDispatcher<Null> enableDarkTheme;
+  ActionDispatcher<Null> disableDarkTheme;
 
   AppActions._();
   factory AppActions() => new _$AppActions();

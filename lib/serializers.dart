@@ -5,6 +5,8 @@ import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/model/train_type.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
 import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
+import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
+import 'package:Herald_flutter/redux/state/settings_state.dart';
 import 'package:Herald_flutter/redux/state/station_text_input_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:built_value/serializer.dart';
@@ -23,6 +25,8 @@ part 'serializers.g.dart';
   StationTextInputState,
   InitialScreenState,
   TrainsLoadedScreenState,
+  SettingsState,
+  InterfaceSettingsState,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

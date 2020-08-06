@@ -27,7 +27,12 @@ class _$AppActions extends AppActions {
   final showTrainsPage = ActionDispatcher<Null>('AppActions-showTrainsPage');
   final showSettingsPage =
       ActionDispatcher<Null>('AppActions-showSettingsPage');
+  final showInterfaceSettingsPage =
+      ActionDispatcher<Null>('AppActions-showInterfaceSettingsPage');
   final goBack = ActionDispatcher<Null>('AppActions-goBack');
+  final enableDarkTheme = ActionDispatcher<Null>('AppActions-enableDarkTheme');
+  final disableDarkTheme =
+      ActionDispatcher<Null>('AppActions-disableDarkTheme');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -38,7 +43,10 @@ class _$AppActions extends AppActions {
     serviceResponseAction.setDispatcher(dispatcher);
     showTrainsPage.setDispatcher(dispatcher);
     showSettingsPage.setDispatcher(dispatcher);
+    showInterfaceSettingsPage.setDispatcher(dispatcher);
     goBack.setDispatcher(dispatcher);
+    enableDarkTheme.setDispatcher(dispatcher);
+    disableDarkTheme.setDispatcher(dispatcher);
   }
 }
 
@@ -55,5 +63,10 @@ class AppActionsNames {
   static final showTrainsPage = ActionName<Null>('AppActions-showTrainsPage');
   static final showSettingsPage =
       ActionName<Null>('AppActions-showSettingsPage');
+  static final showInterfaceSettingsPage =
+      ActionName<Null>('AppActions-showInterfaceSettingsPage');
   static final goBack = ActionName<Null>('AppActions-goBack');
+  static final enableDarkTheme = ActionName<Null>('AppActions-enableDarkTheme');
+  static final disableDarkTheme =
+      ActionName<Null>('AppActions-disableDarkTheme');
 }

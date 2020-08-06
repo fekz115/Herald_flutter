@@ -14,6 +14,8 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
             createNavigateToTrainsMiddleware<Null>())
         ..add(AppActionsNames.showSettingsPage,
             createNavigateToSettingsMiddleware<Null>())
+        ..add(AppActionsNames.showInterfaceSettingsPage,
+            createNavigateToInterfaceSettingsMiddleware<Null>())
         ..add(AppActionsNames.goBack,
             createNavigateBackMiddleware<Null>()))
       .build();
@@ -45,6 +47,15 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
       ActionHandler next, Action<T> action) async {
     next(action);
     ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.settingsPage);
+  };
+}
+
+MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
+    createNavigateToInterfaceSettingsMiddleware<T>() {
+  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
+      ActionHandler next, Action<T> action) async {
+    next(action);
+    ExtendedNavigator.ofRouter<Router>().pushNamed(Routes.interfaceSettingsPage);
   };
 }
 

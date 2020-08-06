@@ -4,6 +4,8 @@ import 'package:Herald_flutter/redux/app_state.dart';
 import 'package:Herald_flutter/redux/middleware/middleware.dart';
 import 'package:Herald_flutter/redux/reducer.dart';
 import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
+import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
+import 'package:Herald_flutter/redux/state/settings_state.dart';
 import 'package:Herald_flutter/redux/state/station_text_input_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:Herald_flutter/services/html_parser_service.dart';
@@ -32,6 +34,12 @@ class HeraldApp extends StatefulWidget {
                         StationTextInputState((b) => b..value = "").toBuilder()
                     ..date = DateTime.now()
                 }).toBuilder()
+            ..settingsState = SettingsState((b) => {
+                  b
+                    ..interfaceSettingsState =
+                        InterfaceSettingsState((b) => {b..useDarkTheme = true})
+                            .toBuilder()
+                }).toBuilder()
         }),
     AppActions(),
     middleware: [
@@ -58,18 +66,34 @@ class HeraldAppState extends State<HeraldApp> {
 
   @override
   Widget build(BuildContext context) {
+    return ReduxProvider(
+      store: store,
+      child: InterfaceStateListener(),
+    );
+  }
+}
+
+class InterfaceStateListener
+    extends StoreConnector<AppState, AppActions, InterfaceSettingsState> {
+  Brightness _getBrightness(InterfaceSettingsState state) =>
+      state.useDarkTheme ? Brightness.dark : Brightness.light;
+
+  @override
+  Widget build(
+      BuildContext context, InterfaceSettingsState state, AppActions actions) {
     return MaterialApp(
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: _getBrightness(state),
       ),
-      home: ReduxProvider(
-        store: store,
-        child: Scaffold(
-          body: ExtendedNavigator<Router>(
-            router: Router(),
-          ),
+      home: Scaffold(
+        body: ExtendedNavigator<Router>(
+          router: Router(),
         ),
       ),
     );
   }
+
+  @override
+  InterfaceSettingsState connect(AppState state) =>
+      state.settingsState.interfaceSettingsState;
 }
