@@ -1,3 +1,9 @@
+import 'package:Herald_flutter/redux/actions.dart';
+import 'package:Herald_flutter/redux/app_state.dart';
+import 'package:built_redux/built_redux.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_built_redux/flutter_built_redux.dart';
+
 extension DateTimePrinter on DateTime {
   String toStringOnlyDate() {
     return '$year-$month-$day';
@@ -15,5 +21,15 @@ extension DateTimePrinter on DateTime {
 extension DurationPrinter on Duration {
   String toStringOnlyHM() {
     return (inHours > 0 ? '$inHoursч ' : '') + '${inMinutes % 60}мин';
+  }
+}
+
+extension StoreGetter on StatelessWidget {
+  AppState getAppState(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store.state as AppState);
+  }
+  
+  AppActions getAppActions(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store.actions as AppActions);
   }
 }
