@@ -15,7 +15,7 @@ class TrainLoadService {
     try {
       List<Train> trains = await _loadService
         .loadPage(find)
-        .then((value) => _parseService.parseTrains(value.body).map((train) {
+        .then((value) => _parseService.parseTrains(value).map((train) {
               var newDepartDate = DateTime(
                 find.date.year,
                 find.date.month,
@@ -25,7 +25,10 @@ class TrainLoadService {
                 train.departTime.second,
               );
               return train.rebuild((b) => b..departTime = newDepartDate);
-            }).toList());
+            }).toList())
+        .catchError((e) => {
+          print(e.toString())
+        });
       return TrainsLoadedResponse(trains);
     } on ParseException catch(e) {
       return ParseExceptionResponse(e);

@@ -8,8 +8,8 @@ class HttpLoadService extends LoadService {
   static const String BASE_URL = "https://pass.rw.by/ru/route";
 
   @override
-  Future<http.Response> loadPage(Find find) {
-    return http.get('$BASE_URL?from=${find.departStation}&to=${find.arriveStation}&date=${find.date.toStringOnlyDate()}');
+  Future<String> loadPage(Find find) async {
+    return Future.value((await http.get('$BASE_URL?from=${find.departStation}&to=${find.arriveStation}&date=${find.date.toStringOnlyDate()}')).body);
   }
 
 }
