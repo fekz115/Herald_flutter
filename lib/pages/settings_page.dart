@@ -1,10 +1,7 @@
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:Herald_flutter/extensions.dart';
 
 class SettingsPage extends StatelessWidget {
   void comingSoonOnTap(BuildContext context) async {
@@ -29,8 +26,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Store<AppState, AppStateBuilder, AppActions> store =
-        context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store;
     return Scaffold(
       appBar: AppBar(
         title: Text('Настройки'),
@@ -40,7 +35,7 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.palette),
             title: Text('Настройки интерфейса'),
-            onTap: store.actions.showInterfaceSettingsPage,
+            onTap: getAppActions(context).showInterfaceSettingsPage,
           ),
           ListTile(
             leading: Icon(Icons.settings),
