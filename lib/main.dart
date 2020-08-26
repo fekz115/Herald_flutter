@@ -11,7 +11,6 @@ import 'package:Herald_flutter/redux/state/station_text_input_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:Herald_flutter/services/html_parser_service.dart';
 import 'package:Herald_flutter/services/http_load_service.dart';
-import 'package:Herald_flutter/services/mock_load_service.dart';
 import 'package:Herald_flutter/services/train_load_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
@@ -49,7 +48,7 @@ class HeraldApp extends StatefulWidget {
         }),
     AppActions(),
     middleware: [
-      createMiddleware(TrainLoadService(MockLoadService(), HtmlParserService()))
+      createMiddleware(TrainLoadService(HttpLoadService(), HtmlParserService()))
     ],
   );
 
