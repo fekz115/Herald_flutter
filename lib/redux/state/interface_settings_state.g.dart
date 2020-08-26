@@ -6,8 +6,64 @@ part of 'interface_settings_state.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const Currency _$EUR = const Currency._('EUR');
+const Currency _$RUB = const Currency._('RUB');
+const Currency _$BYN = const Currency._('BYN');
+const Currency _$USD = const Currency._('USD');
+
+Currency _$currencyValueOf(String name) {
+  switch (name) {
+    case 'EUR':
+      return _$EUR;
+    case 'RUB':
+      return _$RUB;
+    case 'BYN':
+      return _$BYN;
+    case 'USD':
+      return _$USD;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<Currency> _$currencyValues =
+    new BuiltSet<Currency>(const <Currency>[
+  _$EUR,
+  _$RUB,
+  _$BYN,
+  _$USD,
+]);
+
+const CurrencyDisplaying _$LOCAL_NAME =
+    const CurrencyDisplaying._('LOCAL_NAME');
+const CurrencyDisplaying _$ICON = const CurrencyDisplaying._('ICON');
+const CurrencyDisplaying _$ISO = const CurrencyDisplaying._('ISO');
+
+CurrencyDisplaying _$currencyDisplayingValueOf(String name) {
+  switch (name) {
+    case 'LOCAL_NAME':
+      return _$LOCAL_NAME;
+    case 'ICON':
+      return _$ICON;
+    case 'ISO':
+      return _$ISO;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<CurrencyDisplaying> _$currencyDisplayingValues =
+    new BuiltSet<CurrencyDisplaying>(const <CurrencyDisplaying>[
+  _$LOCAL_NAME,
+  _$ICON,
+  _$ISO,
+]);
+
 Serializer<InterfaceSettingsState> _$interfaceSettingsStateSerializer =
     new _$InterfaceSettingsStateSerializer();
+Serializer<Currency> _$currencySerializer = new _$CurrencySerializer();
+Serializer<CurrencyDisplaying> _$currencyDisplayingSerializer =
+    new _$CurrencyDisplayingSerializer();
 
 class _$InterfaceSettingsStateSerializer
     implements StructuredSerializer<InterfaceSettingsState> {
@@ -27,6 +83,12 @@ class _$InterfaceSettingsStateSerializer
       'useDarkTheme',
       serializers.serialize(object.useDarkTheme,
           specifiedType: const FullType(bool)),
+      'selectedCurrency',
+      serializers.serialize(object.selectedCurrency,
+          specifiedType: const FullType(Currency)),
+      'currencyDisplaying',
+      serializers.serialize(object.currencyDisplaying,
+          specifiedType: const FullType(CurrencyDisplaying)),
     ];
 
     return result;
@@ -48,6 +110,15 @@ class _$InterfaceSettingsStateSerializer
           result.useDarkTheme = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'selectedCurrency':
+          result.selectedCurrency = serializers.deserialize(value,
+              specifiedType: const FullType(Currency)) as Currency;
+          break;
+        case 'currencyDisplaying':
+          result.currencyDisplaying = serializers.deserialize(value,
+                  specifiedType: const FullType(CurrencyDisplaying))
+              as CurrencyDisplaying;
+          break;
       }
     }
 
@@ -55,18 +126,67 @@ class _$InterfaceSettingsStateSerializer
   }
 }
 
+class _$CurrencySerializer implements PrimitiveSerializer<Currency> {
+  @override
+  final Iterable<Type> types = const <Type>[Currency];
+  @override
+  final String wireName = 'Currency';
+
+  @override
+  Object serialize(Serializers serializers, Currency object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  Currency deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      Currency.valueOf(serialized as String);
+}
+
+class _$CurrencyDisplayingSerializer
+    implements PrimitiveSerializer<CurrencyDisplaying> {
+  @override
+  final Iterable<Type> types = const <Type>[CurrencyDisplaying];
+  @override
+  final String wireName = 'CurrencyDisplaying';
+
+  @override
+  Object serialize(Serializers serializers, CurrencyDisplaying object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  CurrencyDisplaying deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      CurrencyDisplaying.valueOf(serialized as String);
+}
+
 class _$InterfaceSettingsState extends InterfaceSettingsState {
   @override
   final bool useDarkTheme;
+  @override
+  final Currency selectedCurrency;
+  @override
+  final CurrencyDisplaying currencyDisplaying;
 
   factory _$InterfaceSettingsState(
           [void Function(InterfaceSettingsStateBuilder) updates]) =>
       (new InterfaceSettingsStateBuilder()..update(updates)).build();
 
-  _$InterfaceSettingsState._({this.useDarkTheme}) : super._() {
+  _$InterfaceSettingsState._(
+      {this.useDarkTheme, this.selectedCurrency, this.currencyDisplaying})
+      : super._() {
     if (useDarkTheme == null) {
       throw new BuiltValueNullFieldError(
           'InterfaceSettingsState', 'useDarkTheme');
+    }
+    if (selectedCurrency == null) {
+      throw new BuiltValueNullFieldError(
+          'InterfaceSettingsState', 'selectedCurrency');
+    }
+    if (currencyDisplaying == null) {
+      throw new BuiltValueNullFieldError(
+          'InterfaceSettingsState', 'currencyDisplaying');
     }
   }
 
@@ -83,18 +203,24 @@ class _$InterfaceSettingsState extends InterfaceSettingsState {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is InterfaceSettingsState &&
-        useDarkTheme == other.useDarkTheme;
+        useDarkTheme == other.useDarkTheme &&
+        selectedCurrency == other.selectedCurrency &&
+        currencyDisplaying == other.currencyDisplaying;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, useDarkTheme.hashCode));
+    return $jf($jc(
+        $jc($jc(0, useDarkTheme.hashCode), selectedCurrency.hashCode),
+        currencyDisplaying.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('InterfaceSettingsState')
-          ..add('useDarkTheme', useDarkTheme))
+          ..add('useDarkTheme', useDarkTheme)
+          ..add('selectedCurrency', selectedCurrency)
+          ..add('currencyDisplaying', currencyDisplaying))
         .toString();
   }
 }
@@ -107,11 +233,23 @@ class InterfaceSettingsStateBuilder
   bool get useDarkTheme => _$this._useDarkTheme;
   set useDarkTheme(bool useDarkTheme) => _$this._useDarkTheme = useDarkTheme;
 
+  Currency _selectedCurrency;
+  Currency get selectedCurrency => _$this._selectedCurrency;
+  set selectedCurrency(Currency selectedCurrency) =>
+      _$this._selectedCurrency = selectedCurrency;
+
+  CurrencyDisplaying _currencyDisplaying;
+  CurrencyDisplaying get currencyDisplaying => _$this._currencyDisplaying;
+  set currencyDisplaying(CurrencyDisplaying currencyDisplaying) =>
+      _$this._currencyDisplaying = currencyDisplaying;
+
   InterfaceSettingsStateBuilder();
 
   InterfaceSettingsStateBuilder get _$this {
     if (_$v != null) {
       _useDarkTheme = _$v.useDarkTheme;
+      _selectedCurrency = _$v.selectedCurrency;
+      _currencyDisplaying = _$v.currencyDisplaying;
       _$v = null;
     }
     return this;
@@ -132,8 +270,11 @@ class InterfaceSettingsStateBuilder
 
   @override
   _$InterfaceSettingsState build() {
-    final _$result =
-        _$v ?? new _$InterfaceSettingsState._(useDarkTheme: useDarkTheme);
+    final _$result = _$v ??
+        new _$InterfaceSettingsState._(
+            useDarkTheme: useDarkTheme,
+            selectedCurrency: selectedCurrency,
+            currencyDisplaying: currencyDisplaying);
     replace(_$result);
     return _$result;
   }

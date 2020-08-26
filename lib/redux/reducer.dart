@@ -1,5 +1,6 @@
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
+import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:Herald_flutter/services/service_response.dart';
 import 'package:built_redux/built_redux.dart';
@@ -17,7 +18,10 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.enableDarkTheme, onEnableDarkTheme)
   ..add(AppActionsNames.disableDarkTheme, onDisableDarkTheme)
   
-  ..add(AppActionsNames.searchAction, onSearch);
+  ..add(AppActionsNames.searchAction, onSearch)
+
+  ..add(AppActionsNames.changeCurrency, onCurrencyChange)
+  ..add(AppActionsNames.changeCurrencyDisplayingMode, onCurrencyDisplayingModeChange);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
@@ -62,6 +66,22 @@ void onDisableDarkTheme(AppState state, Action<Null> action, AppStateBuilder bui
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..useDarkTheme = false
+      ..build();
+  });
+}
+
+void onCurrencyChange(AppState state, Action<Currency> action, AppStateBuilder builder) {
+  builder.settingsState.interfaceSettingsState.update((b) {
+    b
+      ..selectedCurrency = action.payload
+      ..build();
+  });
+}
+
+void onCurrencyDisplayingModeChange(AppState state, Action<CurrencyDisplaying> action, AppStateBuilder builder) {
+  builder.settingsState.interfaceSettingsState.update((b) {
+    b
+      ..currencyDisplaying = action.payload
       ..build();
   });
 }

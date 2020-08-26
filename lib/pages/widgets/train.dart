@@ -4,6 +4,7 @@ import 'package:Herald_flutter/extensions/theme_extensions.dart';
 import 'package:Herald_flutter/model/place_type.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/model/train_type.dart';
+import 'package:Herald_flutter/pages/widgets/widget_resolver.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,10 +42,6 @@ class TrainWidget extends StatelessWidget {
         return "";
         break;
     }
-  }
-
-  String _getPlaceCost(Place place, HeraldLocalizations localisation) {
-    return '${place.cost} ${localisation.costBYN}';
   }
 
   @override
@@ -225,11 +222,7 @@ class TrainWidget extends StatelessWidget {
                     ),
                   ),
                   TableCell(
-                    child: Text(
-                      _getPlaceCost(place, HeraldLocalizations.of(context)),
-                      style: Theme.of(context).tableItemTextStyle(),
-                      textAlign: TextAlign.end,
-                    ),
+                    child: WidgetResolver.buildCost(context, place),
                   ),
                 ],
               );

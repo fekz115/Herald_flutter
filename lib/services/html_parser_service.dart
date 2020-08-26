@@ -61,7 +61,10 @@ class HtmlParserService extends ParseService {
             b
               ..type = _parsePlaceType(placeElement)
               ..amount = _parsePlaceCount(placeElement)
-              ..cost = _parsePlacePrice(placeElement)
+              ..costBYN = _parsePlacePriceBYN(placeElement)
+              ..costEUR = _parsePlacePriceEUR(placeElement)
+              ..costRUB = _parsePlacePriceRUB(placeElement)
+              ..costUSD = _parsePlacePriceUSD(placeElement)
           });
     }).toList();
   }
@@ -83,10 +86,26 @@ class HtmlParserService extends ParseService {
     }
   }
 
-  double _parsePlacePrice(Element element) {
+  double _parsePlacePriceBYN(Element element) {
+    return _parsePlacePrice(element, "data-cost-byn");
+  }
+
+  double _parsePlacePriceRUB(Element element) {
+    return _parsePlacePrice(element, "data-cost-rub");
+  }
+
+  double _parsePlacePriceUSD(Element element) {
+    return _parsePlacePrice(element, "data-cost-usd");
+  }
+
+  double _parsePlacePriceEUR(Element element) {
+    return _parsePlacePrice(element, "data-cost-eur");
+  }
+
+  double _parsePlacePrice(Element element, String attr) {
     return double.parse(element
         .getElementsByClassName("js-price")[0]
-        .attributes["data-cost-byn"]
+        .attributes[attr]
         .replaceAll(",", "."));
   }
 

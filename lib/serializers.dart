@@ -27,6 +27,8 @@ part 'serializers.g.dart';
   TrainsLoadedScreenState,
   SettingsState,
   InterfaceSettingsState,
+  Currency,
+  CurrencyDisplaying,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

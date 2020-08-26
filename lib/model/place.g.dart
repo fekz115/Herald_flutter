@@ -23,8 +23,18 @@ class _$PlaceSerializer implements StructuredSerializer<Place> {
           specifiedType: const FullType(PlaceType)),
       'amount',
       serializers.serialize(object.amount, specifiedType: const FullType(int)),
-      'cost',
-      serializers.serialize(object.cost, specifiedType: const FullType(double)),
+      'costBYN',
+      serializers.serialize(object.costBYN,
+          specifiedType: const FullType(double)),
+      'costRUB',
+      serializers.serialize(object.costRUB,
+          specifiedType: const FullType(double)),
+      'costUSD',
+      serializers.serialize(object.costUSD,
+          specifiedType: const FullType(double)),
+      'costEUR',
+      serializers.serialize(object.costEUR,
+          specifiedType: const FullType(double)),
     ];
 
     return result;
@@ -49,8 +59,20 @@ class _$PlaceSerializer implements StructuredSerializer<Place> {
           result.amount = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'cost':
-          result.cost = serializers.deserialize(value,
+        case 'costBYN':
+          result.costBYN = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'costRUB':
+          result.costRUB = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'costUSD':
+          result.costUSD = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'costEUR':
+          result.costEUR = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
       }
@@ -66,20 +88,42 @@ class _$Place extends Place {
   @override
   final int amount;
   @override
-  final double cost;
+  final double costBYN;
+  @override
+  final double costRUB;
+  @override
+  final double costUSD;
+  @override
+  final double costEUR;
 
   factory _$Place([void Function(PlaceBuilder) updates]) =>
       (new PlaceBuilder()..update(updates)).build();
 
-  _$Place._({this.type, this.amount, this.cost}) : super._() {
+  _$Place._(
+      {this.type,
+      this.amount,
+      this.costBYN,
+      this.costRUB,
+      this.costUSD,
+      this.costEUR})
+      : super._() {
     if (type == null) {
       throw new BuiltValueNullFieldError('Place', 'type');
     }
     if (amount == null) {
       throw new BuiltValueNullFieldError('Place', 'amount');
     }
-    if (cost == null) {
-      throw new BuiltValueNullFieldError('Place', 'cost');
+    if (costBYN == null) {
+      throw new BuiltValueNullFieldError('Place', 'costBYN');
+    }
+    if (costRUB == null) {
+      throw new BuiltValueNullFieldError('Place', 'costRUB');
+    }
+    if (costUSD == null) {
+      throw new BuiltValueNullFieldError('Place', 'costUSD');
+    }
+    if (costEUR == null) {
+      throw new BuiltValueNullFieldError('Place', 'costEUR');
     }
   }
 
@@ -96,12 +140,22 @@ class _$Place extends Place {
     return other is Place &&
         type == other.type &&
         amount == other.amount &&
-        cost == other.cost;
+        costBYN == other.costBYN &&
+        costRUB == other.costRUB &&
+        costUSD == other.costUSD &&
+        costEUR == other.costEUR;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, type.hashCode), amount.hashCode), cost.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, type.hashCode), amount.hashCode),
+                    costBYN.hashCode),
+                costRUB.hashCode),
+            costUSD.hashCode),
+        costEUR.hashCode));
   }
 
   @override
@@ -109,7 +163,10 @@ class _$Place extends Place {
     return (newBuiltValueToStringHelper('Place')
           ..add('type', type)
           ..add('amount', amount)
-          ..add('cost', cost))
+          ..add('costBYN', costBYN)
+          ..add('costRUB', costRUB)
+          ..add('costUSD', costUSD)
+          ..add('costEUR', costEUR))
         .toString();
   }
 }
@@ -125,9 +182,21 @@ class PlaceBuilder implements Builder<Place, PlaceBuilder> {
   int get amount => _$this._amount;
   set amount(int amount) => _$this._amount = amount;
 
-  double _cost;
-  double get cost => _$this._cost;
-  set cost(double cost) => _$this._cost = cost;
+  double _costBYN;
+  double get costBYN => _$this._costBYN;
+  set costBYN(double costBYN) => _$this._costBYN = costBYN;
+
+  double _costRUB;
+  double get costRUB => _$this._costRUB;
+  set costRUB(double costRUB) => _$this._costRUB = costRUB;
+
+  double _costUSD;
+  double get costUSD => _$this._costUSD;
+  set costUSD(double costUSD) => _$this._costUSD = costUSD;
+
+  double _costEUR;
+  double get costEUR => _$this._costEUR;
+  set costEUR(double costEUR) => _$this._costEUR = costEUR;
 
   PlaceBuilder();
 
@@ -135,7 +204,10 @@ class PlaceBuilder implements Builder<Place, PlaceBuilder> {
     if (_$v != null) {
       _type = _$v.type;
       _amount = _$v.amount;
-      _cost = _$v.cost;
+      _costBYN = _$v.costBYN;
+      _costRUB = _$v.costRUB;
+      _costUSD = _$v.costUSD;
+      _costEUR = _$v.costEUR;
       _$v = null;
     }
     return this;
@@ -156,8 +228,14 @@ class PlaceBuilder implements Builder<Place, PlaceBuilder> {
 
   @override
   _$Place build() {
-    final _$result =
-        _$v ?? new _$Place._(type: type, amount: amount, cost: cost);
+    final _$result = _$v ??
+        new _$Place._(
+            type: type,
+            amount: amount,
+            costBYN: costBYN,
+            costRUB: costRUB,
+            costUSD: costUSD,
+            costEUR: costEUR);
     replace(_$result);
     return _$result;
   }

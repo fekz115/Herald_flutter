@@ -8,6 +8,8 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AppState.serializer)
+      ..add(Currency.serializer)
+      ..add(CurrencyDisplaying.serializer)
       ..add(Find.serializer)
       ..add(InitialScreenState.serializer)
       ..add(InterfaceSettingsState.serializer)

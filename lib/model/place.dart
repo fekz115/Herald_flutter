@@ -12,7 +12,10 @@ abstract class Place implements Built<Place, PlaceBuilder> {
   
   PlaceType get type;
   int get amount;
-  double get cost;
+  double get costBYN;
+  double get costRUB;
+  double get costUSD;
+  double get costEUR;
 
   Place._();
   factory Place([updates(PlaceBuilder b)]) = _$Place;

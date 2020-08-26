@@ -39,9 +39,12 @@ class HeraldApp extends StatefulWidget {
                 }).toBuilder()
             ..settingsState = SettingsState((b) => {
                   b
-                    ..interfaceSettingsState =
-                        InterfaceSettingsState((b) => {b..useDarkTheme = true})
-                            .toBuilder()
+                    ..interfaceSettingsState = InterfaceSettingsState((b) => {
+                          b
+                            ..useDarkTheme = true
+                            ..selectedCurrency = Currency.BYN
+                            ..currencyDisplaying = CurrencyDisplaying.LOCAL_NAME
+                        }).toBuilder()
                 }).toBuilder()
         }),
     AppActions(),

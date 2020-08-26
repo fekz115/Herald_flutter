@@ -33,6 +33,10 @@ class _$AppActions extends AppActions {
   final enableDarkTheme = ActionDispatcher<Null>('AppActions-enableDarkTheme');
   final disableDarkTheme =
       ActionDispatcher<Null>('AppActions-disableDarkTheme');
+  final changeCurrency =
+      ActionDispatcher<Currency>('AppActions-changeCurrency');
+  final changeCurrencyDisplayingMode = ActionDispatcher<CurrencyDisplaying>(
+      'AppActions-changeCurrencyDisplayingMode');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -47,6 +51,8 @@ class _$AppActions extends AppActions {
     goBack.setDispatcher(dispatcher);
     enableDarkTheme.setDispatcher(dispatcher);
     disableDarkTheme.setDispatcher(dispatcher);
+    changeCurrency.setDispatcher(dispatcher);
+    changeCurrencyDisplayingMode.setDispatcher(dispatcher);
   }
 }
 
@@ -69,4 +75,8 @@ class AppActionsNames {
   static final enableDarkTheme = ActionName<Null>('AppActions-enableDarkTheme');
   static final disableDarkTheme =
       ActionName<Null>('AppActions-disableDarkTheme');
+  static final changeCurrency =
+      ActionName<Currency>('AppActions-changeCurrency');
+  static final changeCurrencyDisplayingMode =
+      ActionName<CurrencyDisplaying>('AppActions-changeCurrencyDisplayingMode');
 }

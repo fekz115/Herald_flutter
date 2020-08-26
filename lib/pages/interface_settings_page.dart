@@ -23,6 +23,46 @@ class InterfaceSettingsPage
             ),
             trailing: BrightnessSwitch(),
           ),
+          ListTile(
+            title: Text(
+              HeraldLocalizations.of(context).currency,
+            ),
+            trailing: DropdownButton<Currency>(
+              onChanged: actions.changeCurrency,
+              items: Currency.values
+                  .map(
+                    (currency) => DropdownMenuItem(
+                      value: currency,
+                      child: Text(
+                        HeraldLocalizations.of(context)
+                            .getCurrencyName(currency),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              value: state.selectedCurrency,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              HeraldLocalizations.of(context).currencyDisplayMode,
+            ),
+            trailing: DropdownButton<CurrencyDisplaying>(
+              onChanged: actions.changeCurrencyDisplayingMode,
+              items: CurrencyDisplaying.values
+                  .map(
+                    (currency) => DropdownMenuItem(
+                      value: currency,
+                      child: Text(
+                        HeraldLocalizations.of(context)
+                            .getCurrencyDisplayingModeName(currency),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              value: state.currencyDisplaying,
+            ),
+          ),
         ],
       ),
     );

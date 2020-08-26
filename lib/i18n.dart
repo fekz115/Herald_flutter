@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +54,6 @@ class HeraldLocalizations {
       Keys.RESERVED_SEAT: 'Reserved seat',
       Keys.COMPARTMENT: 'Compartment',
       Keys.SV: 'SV',
-      Keys.COST_BYN: 'BYN',
       Keys.LANGUAGE: 'Language',
       Keys.LANGUAGE_NAME: 'English',
       Keys.CLOSE: 'Close',
@@ -65,6 +65,15 @@ class HeraldLocalizations {
       Keys.FLUTTER_POWERED: 'Powered by Flutter',
       Keys.HOURS: 'h',
       Keys.MINUTES: 'min',
+      Keys.CURRENCY_DISPLAYING_MODE: 'Currency displaying',
+      Keys.CURRENCY_DISPLAY_SYMBOL: 'Icon',
+      Keys.CURRENCY_DISPLAY_ISO: 'ISO',
+      Keys.CURRENCY_DISPLAY_NAME: 'Name',
+      Keys.CURRENCY: 'Currency',
+      Keys.CURRENCY_BYN: 'BYN',
+      Keys.CURRENCY_EUR: 'EUR',
+      Keys.CURRENCY_RUB: 'RUB',
+      Keys.CURRENCY_USD: 'USD',
     },
     'ru': {
       Keys.TITLE: 'Herald',
@@ -81,7 +90,6 @@ class HeraldLocalizations {
       Keys.RESERVED_SEAT: 'Плацкарт',
       Keys.COMPARTMENT: 'Купе',
       Keys.SV: 'СВ',
-      Keys.COST_BYN: 'руб.',
       Keys.LANGUAGE: 'Язык',
       Keys.LANGUAGE_NAME: 'Русский',
       Keys.CLOSE: 'Закрыть',
@@ -93,7 +101,44 @@ class HeraldLocalizations {
       Keys.FLUTTER_POWERED: 'Основано на фреймворке Flutter.',
       Keys.HOURS: 'ч',
       Keys.MINUTES: 'мин',
+      Keys.CURRENCY_DISPLAYING_MODE: 'Отображение валюты',
+      Keys.CURRENCY_DISPLAY_SYMBOL: 'Иконка',
+      Keys.CURRENCY_DISPLAY_ISO: 'Международное название',
+      Keys.CURRENCY_DISPLAY_NAME: 'Название',
+      Keys.CURRENCY: 'Валюта',
+      Keys.CURRENCY_BYN: 'Белорусский рубль',
+      Keys.CURRENCY_EUR: 'Евро',
+      Keys.CURRENCY_RUB: 'Российский рубль',
+      Keys.CURRENCY_USD: 'Доллар',
     },
+  };
+
+  static final _currencyCostMap = {
+    'en': {
+      Currency.BYN: 'byn',
+      Currency.USD: 'usd',
+      Currency.RUB: 'rub',
+      Currency.EUR: 'eur',
+    },
+    'ru': {
+      Currency.BYN: 'руб.',
+      Currency.USD: 'дол.',
+      Currency.RUB: 'руб.',
+      Currency.EUR: 'евро',
+    },
+  };
+
+  static final _currencyNameMap = {
+      Currency.BYN: Keys.CURRENCY_BYN,
+      Currency.USD: Keys.CURRENCY_USD,
+      Currency.RUB: Keys.CURRENCY_RUB,
+      Currency.EUR: Keys.CURRENCY_EUR,
+  };
+
+  static final _currencyDisplayingModeMap = {
+    CurrencyDisplaying.LOCAL_NAME: Keys.CURRENCY_DISPLAY_NAME,
+    CurrencyDisplaying.ISO: Keys.CURRENCY_DISPLAY_ISO,
+    CurrencyDisplaying.ICON: Keys.CURRENCY_DISPLAY_SYMBOL,
   };
 
   static Iterable<String> get supportedLocales => _localizationMap.keys;
@@ -115,7 +160,6 @@ class HeraldLocalizations {
   String get sv => _getValue(Keys.SV);
   String get language => _getValue(Keys.LANGUAGE);
   String get languageName => _getValue(Keys.LANGUAGE_NAME);
-  String get costBYN => _getValue(Keys.COST_BYN);
   String get close => _getValue(Keys.CLOSE);
   String get comingSoon => _getValue(Keys.COMING_SOON);
   String get comingSoonDescription => _getValue(Keys.COMING_SOON_DESCRIPTION);
@@ -125,6 +169,11 @@ class HeraldLocalizations {
   String get flutterPowered => _getValue(Keys.FLUTTER_POWERED);
   String get minutes => _getValue(Keys.MINUTES);
   String get hours => _getValue(Keys.HOURS);
+  String get currencyDisplaySymbol => _getValue(Keys.CURRENCY_DISPLAY_SYMBOL);
+  String get currencyDisplayName => _getValue(Keys.CURRENCY_DISPLAY_NAME);
+  String get currencyDisplayISO => _getValue(Keys.CURRENCY_DISPLAY_ISO);
+  String get currencyDisplayMode => _getValue(Keys.CURRENCY_DISPLAYING_MODE);
+  String get currency => _getValue(Keys.CURRENCY);
 
   DateFormat get timeFormat => _timeFormat;
   DateFormat get dateFormat => _dateFormat;
@@ -132,6 +181,16 @@ class HeraldLocalizations {
   String formatDuration(Duration d) {
     return d.toStringOnlyHM(hours, minutes);
   }
+
+  String getCurrencyCost(Currency currency) =>
+      _currencyCostMap[locale.languageCode][currency] ??
+      _currencyCostMap[_defaultLocale.languageCode][currency];
+
+  String getCurrencyName(Currency currency) => _getValue(_getCurrencyName(currency));
+  String getCurrencyDisplayingModeName(CurrencyDisplaying currencyDisplaying) => _getValue(_getCurrencyDisplayingModeName(currencyDisplaying));
+
+  Keys _getCurrencyName(Currency currency) => _currencyNameMap[currency];
+  Keys _getCurrencyDisplayingModeName(CurrencyDisplaying currencyDisplaying) => _currencyDisplayingModeMap[currencyDisplaying];
 
   String _getValue(Keys key) =>
       _localizationMap[locale.languageCode][key] ??
@@ -155,7 +214,6 @@ enum Keys {
   RESERVED_SEAT,
   COMPARTMENT,
   SV,
-  COST_BYN,
   CLOSE,
   COMING_SOON,
   COMING_SOON_DESCRIPTION,
@@ -165,4 +223,13 @@ enum Keys {
   FLUTTER_POWERED,
   MINUTES,
   HOURS,
+  CURRENCY_DISPLAY_NAME,
+  CURRENCY_DISPLAY_ISO,
+  CURRENCY_DISPLAY_SYMBOL,
+  CURRENCY_DISPLAYING_MODE,
+  CURRENCY,
+  CURRENCY_BYN,
+  CURRENCY_RUB,
+  CURRENCY_EUR,
+  CURRENCY_USD,
 }
