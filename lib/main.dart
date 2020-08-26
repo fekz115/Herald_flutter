@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:Herald_flutter/navigation.gr.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
@@ -16,6 +17,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(HeraldApp());
@@ -86,6 +88,14 @@ class InterfaceStateListener
       theme: ThemeData(
         brightness: _getBrightness(state),
       ),
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        HeraldLocalizationsDelegate(),
+      ],
+      supportedLocales: [
+        ...HeraldLocalizations.supportedLocales.map((e) => Locale(e)).toList()
+      ],
       home: Scaffold(
         body: ExtendedNavigator<Router>(
           router: Router(),

@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/pages/widgets/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
@@ -14,7 +15,7 @@ class TrainsPage
       BuildContext context, TrainsScreenState state, AppActions actions) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Herald'),
+        title: Text(HeraldLocalizations.of(context).title),
       ),
       body: RefreshIndicator(
         child: Scaffold(

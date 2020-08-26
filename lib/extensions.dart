@@ -1,6 +1,5 @@
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
@@ -19,8 +18,8 @@ extension DateTimePrinter on DateTime {
 }
 
 extension DurationPrinter on Duration {
-  String toStringOnlyHM() {
-    return (inHours > 0 ? '$inHoursч ' : '') + '${inMinutes % 60}мин';
+  String toStringOnlyHM(String h, String m) {
+    return (inHours > 0 ? '$inHours$h ' : '') + '${inMinutes % 60}$m';
   }
 }
 

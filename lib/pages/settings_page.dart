@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,11 +10,11 @@ class SettingsPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Скоро появится'),
-          content: Text('Данный функционал еще не реализован'),
+          title: Text(HeraldLocalizations.of(context).comingSoon),
+          content: Text(HeraldLocalizations.of(context).comingSoonDescription),
           actions: <Widget>[
             new FlatButton(
-              child: new Text("Закрыть"),
+              child: new Text(HeraldLocalizations.of(context).close),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -28,32 +29,32 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Настройки'),
+        title: Text(HeraldLocalizations.of(context).settings),
       ),
       body: ListView(
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.palette),
-            title: Text('Настройки интерфейса'),
+            title: Text(HeraldLocalizations.of(context).interfaceSettings),
             onTap: getAppActions(context).showInterfaceSettingsPage,
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Настройки поведения'),
+            title: Text(HeraldLocalizations.of(context).behaviorSettings),
             onTap: () => {comingSoonOnTap(context)},
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text('О приложении'),
+            title: Text(HeraldLocalizations.of(context).aboutApp),
             onTap: () {
               showAboutDialog(
                 context: context,
                 applicationIcon: Icon(Icons.train),
-                applicationName: 'Herald',
-                applicationVersion: '0.1.0-dev1',
+                applicationName: HeraldLocalizations.of(context).title,
+                applicationVersion: '0.1.0-dev2',
                 children: <Widget>[
                   Text(
-                    'Herald - приложение для получения информации о расписании поездов.',
+                    HeraldLocalizations.of(context).appDescription,
                   ),
                   SizedBox(
                     height: 10.0,
@@ -64,8 +65,7 @@ class SettingsPage extends StatelessWidget {
                         await launch(link.url);
                       }
                     },
-                    text:
-                        "Исходный код приложения доступен по ссылке https://github.com/fekz115/Herald_flutter",
+                    text: HeraldLocalizations.of(context).sourceCodeDescription,
                   ),
                   SizedBox(
                     height: 10.0,
@@ -76,14 +76,13 @@ class SettingsPage extends StatelessWidget {
                         await launch(link.url);
                       }
                     },
-                    text:
-                        "Информация о расписании взята с сайта https://www.rw.by/",
+                    text: HeraldLocalizations.of(context).informationSource,
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
                   Text(
-                    'Основано на фреймворке Flutter.',
+                    HeraldLocalizations.of(context).flutterPowered,
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -92,7 +91,7 @@ class SettingsPage extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.mail),
-            title: Text('Обратная связь'),
+            title: Text(HeraldLocalizations.of(context).feedback),
             onTap: () => {comingSoonOnTap(context)},
           ),
         ],

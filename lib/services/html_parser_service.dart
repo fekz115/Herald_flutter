@@ -6,11 +6,8 @@ import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/parse_service.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
-import 'package:intl/intl.dart';
 
 class HtmlParserService extends ParseService {
-  var df = new DateFormat.Hm();
-
   @override
   List<Train> parseTrains(String response) {
     var document = parse(response);
@@ -159,11 +156,15 @@ class HtmlParserService extends ParseService {
   }
 
   DateTime _parseDepartTime(Element element) {
-    return df.parse(element
+    var timeData = element
         .getElementsByClassName("train-from-time")[0]
         .text
         .replaceAll("[\n\t]", "")
-        .trim());
+        .trim()
+        .split(':')
+        .map((x) => int.parse(x))
+        .toList();
+    return DateTime(0, 1, 1, timeData[0], timeData[1]);
   }
 
   bool _checkIfReserved(Element element) {

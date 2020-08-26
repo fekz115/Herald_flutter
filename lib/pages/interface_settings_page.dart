@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:Herald_flutter/pages/widgets/brightness_switch.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
@@ -12,12 +13,14 @@ class InterfaceSettingsPage
       BuildContext context, InterfaceSettingsState state, AppActions actions) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Настройки интерфейса'),
+        title: Text(HeraldLocalizations.of(context).interfaceSettings),
       ),
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Темная тема'),
+            title: Text(
+              HeraldLocalizations.of(context).darkTheme,
+            ),
             trailing: BrightnessSwitch(),
           ),
         ],

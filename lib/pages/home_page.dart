@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:Herald_flutter/pages/widgets/date_button.dart';
 import 'package:Herald_flutter/pages/widgets/station_text_field.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Herald'),
+        title: Text(HeraldLocalizations.of(context).title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
@@ -23,20 +24,20 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             StationTextField(
               (state) => state.initialScreenState.departStationTextInputState,
-              'Станция отправления',
+              HeraldLocalizations.of(context).departStation,
               getAppActions(context).changeDepartStationAction,
             ),
             SizedBox(height: 30),
             StationTextField(
               (state) => state.initialScreenState.arriveStationTextInputState,
-              'Станция назначения',
+              HeraldLocalizations.of(context).arriveStation,
               getAppActions(context).changeArriveStationAction,
             ),
             SizedBox(height: 30),
             DateButton(),
             SizedBox(height: 10),
             RaisedButton(
-              child: Text('Поиск'),
+              child: Text(HeraldLocalizations.of(context).search),
               onPressed: getAppActions(context).searchAction,
             ),
           ],

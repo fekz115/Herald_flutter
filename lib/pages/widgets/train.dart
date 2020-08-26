@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/i18n.dart';
 import 'package:Herald_flutter/model/place.dart';
 import 'package:Herald_flutter/extensions/theme_extensions.dart';
 import 'package:Herald_flutter/model/place_type.dart';
@@ -5,7 +6,6 @@ import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/model/train_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:Herald_flutter/extensions.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -23,19 +23,19 @@ class TrainWidget extends StatelessWidget {
     (Train train) => train.speed: "speed.svg",
   };
 
-  String _getPlaceName(Place place) {
+  String _getPlaceName(Place place, HeraldLocalizations localization) {
     switch (place.type) {
       case PlaceType.sittingSeat:
-        return "Сидячее";
+        return localization.sittingSeat;
         break;
       case PlaceType.reservedSeat:
-        return "Плацкарт";
+        return localization.reservedSeat;
         break;
       case PlaceType.compartment:
-        return "Купе";
+        return localization.compartment;
         break;
       case PlaceType.sv:
-        return "СВ";
+        return localization.sv;
         break;
       default:
         return "";
@@ -43,8 +43,8 @@ class TrainWidget extends StatelessWidget {
     }
   }
 
-  String _getPlaceCost(Place place) {
-    return '${place.cost} руб.';
+  String _getPlaceCost(Place place, HeraldLocalizations localisation) {
+    return '${place.cost} ${localisation.costBYN}';
   }
 
   @override
@@ -152,11 +152,11 @@ class TrainWidget extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                train.departTime.toStringOnlyTime(),
+                HeraldLocalizations.of(context).timeFormat.format(train.departTime),
                 style: Theme.of(context).timeTextStyle(),
               ),
               Text(
-                train.departTime.toStringRus(),
+                HeraldLocalizations.of(context).dateFormat.format(train.departTime),
                 style: Theme.of(context).dateTextStyle(),
               ),
             ],
@@ -170,7 +170,7 @@ class TrainWidget extends StatelessWidget {
               Positioned(
                 bottom: 20,
                 child: Text(
-                  duration.toStringOnlyHM(),
+                  HeraldLocalizations.of(context).formatDuration(duration),
                   style: TextStyle(color: Theme.of(context).gray()),
                 ),
               ),
@@ -187,11 +187,11 @@ class TrainWidget extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                train.arriveTime.toStringOnlyTime(),
+                HeraldLocalizations.of(context).timeFormat.format(train.arriveTime),
                 style: Theme.of(context).timeTextStyle(),
               ),
               Text(
-                train.arriveTime.toStringRus(),
+                HeraldLocalizations.of(context).dateFormat.format(train.arriveTime),
                 style: Theme.of(context).dateTextStyle(),
               ),
             ],
@@ -213,7 +213,7 @@ class TrainWidget extends StatelessWidget {
                 children: <TableCell>[
                   TableCell(
                     child: Text(
-                      _getPlaceName(place),
+                      _getPlaceName(place, HeraldLocalizations.of(context)),
                       style: Theme.of(context).tableItemTextStyle(),
                     ),
                   ),
@@ -226,7 +226,7 @@ class TrainWidget extends StatelessWidget {
                   ),
                   TableCell(
                     child: Text(
-                      _getPlaceCost(place),
+                      _getPlaceCost(place, HeraldLocalizations.of(context)),
                       style: Theme.of(context).tableItemTextStyle(),
                       textAlign: TextAlign.end,
                     ),
