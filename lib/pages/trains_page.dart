@@ -22,7 +22,7 @@ class TrainsPage
           body: state.join(
             (TrainsLoadedScreenState state) => _buildTrainsList(state.trains),
             (TrainsParseExceptionScreenState state) =>
-                _buildErrorBody(state.exception),
+                _buildErrorBody(state.exception, context),
             (TrainsExceptionScreenState state) {
               _showError(context, state.exception, actions);
               return Container();
@@ -54,12 +54,12 @@ class TrainsPage
     );
   }
 
-  Widget _buildErrorBody(ParseException e) {
+  Widget _buildErrorBody(ParseException e, BuildContext context) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          e.message,
+          e is UnknownParseException && e.content != null ? e.content : HeraldLocalizations.of(context).getValue(e.message),
           textAlign: TextAlign.center,
         ),
       ),

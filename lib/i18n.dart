@@ -74,6 +74,10 @@ class HeraldLocalizations {
       Keys.CURRENCY_EUR: 'EUR',
       Keys.CURRENCY_RUB: 'RUB',
       Keys.CURRENCY_USD: 'USD',
+      Keys.ERROR_STATION_NOT_FOUND: 'Station not found',
+      Keys.ERROR_TOO_SHORT: 'Station name is too short. Please, type more than 3 letters',
+      Keys.ERROR_NO_DIRECT_PATH: 'There is no direct way between stations',
+      Keys.ERROR_UNKNOWN: 'Unknown error',
     },
     'ru': {
       Keys.TITLE: 'Herald',
@@ -110,6 +114,10 @@ class HeraldLocalizations {
       Keys.CURRENCY_EUR: 'Евро',
       Keys.CURRENCY_RUB: 'Российский рубль',
       Keys.CURRENCY_USD: 'Доллар',
+      Keys.ERROR_STATION_NOT_FOUND: 'Станция не найдена',
+      Keys.ERROR_TOO_SHORT: 'Наберите больше 3 букв',
+      Keys.ERROR_NO_DIRECT_PATH: 'Нет прямого сообщения между станциями',
+      Keys.ERROR_UNKNOWN: 'Неизвестная ошибка',
     },
   };
 
@@ -195,6 +203,8 @@ class HeraldLocalizations {
   String _getValue(Keys key) =>
       _localizationMap[locale.languageCode][key] ??
       _localizationMap[_defaultLocale.languageCode][key];
+
+  String getValue(Keys key) => _getValue(key);
 }
 
 enum Keys {
@@ -232,4 +242,8 @@ enum Keys {
   CURRENCY_RUB,
   CURRENCY_EUR,
   CURRENCY_USD,
+  ERROR_STATION_NOT_FOUND,
+  ERROR_TOO_SHORT,
+  ERROR_NO_DIRECT_PATH,
+  ERROR_UNKNOWN,
 }

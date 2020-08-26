@@ -26,10 +26,10 @@ class HtmlParserService extends ParseService {
           element.innerHtml.contains("Наберите не менее трех букв"))) {
         throw TooShortException();
       } else if (document.getElementsByClassName("error_content").length != 0) {
-        throw ParseException(
+        throw UnknownParseException(
             document.getElementsByClassName("error_content").first.text);
       } else {
-        throw UnknownParseException();
+        throw UnknownParseException(null);
       }
     }
   }
