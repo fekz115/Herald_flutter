@@ -13,24 +13,20 @@ class TrainLoadService {
 
   Future<ServiceResponse> loadTrains(Find find) async {
     try {
-      List<Train> trains = await _loadService
-        .loadPage(find)
-        .then((value) => _parseService.parseTrains(value).map((train) {
-              var newDepartDate = DateTime(
-                find.date.year,
-                find.date.month,
-                find.date.day,
-                train.departTime.hour,
-                train.departTime.minute,
-                train.departTime.second,
-              );
-              return train.rebuild((b) => b..departTime = newDepartDate);
-            }).toList())
-        .catchError((e) => {
-          print(e.toString())
-        });
+      String page = await _loadService.loadPage(find);
+      List<Train> trains = _parseService.parseTrains(page).map((train) {
+        var newDepartDate = DateTime(
+          find.date.year,
+          find.date.month,
+          find.date.day,
+          train.departTime.hour,
+          train.departTime.minute,
+          train.departTime.second,
+        );
+        return train.rebuild((b) => b..departTime = newDepartDate);
+      }).toList();
       return TrainsLoadedResponse(trains);
-    } on ParseException catch(e) {
+    } on ParseException catch (e) {
       return ParseExceptionResponse(e);
     }
   }
