@@ -9,7 +9,9 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
     TrainLoadService service) {
   return (MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
         ..add(AppActionsNames.searchAction,
-            createOnSearchMiddleware<Null>(service))
+            createOnSearchMiddleware<Null>())
+        ..add(AppActionsNames.refreshAction,
+            createOnRefreshMiddleware<Null>(service))
         ..add(AppActionsNames.showTrainsPage,
             createNavigateToTrainsMiddleware<Null>())
         ..add(AppActionsNames.showSettingsPage,
@@ -22,11 +24,20 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createOnSearchMiddleware<T>(TrainLoadService service) {
+    createOnSearchMiddleware<T>() {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
     api.actions.showTrainsPage();
+    api.actions.refreshAction();
+  };
+}
+
+MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
+createOnRefreshMiddleware<T>(TrainLoadService service) {
+  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
+      ActionHandler next, Action<T> action) async {
+    next(action);
     var response = await service.loadTrains(api.state.initialScreenState.find);
     api.actions.serviceResponseAction(response);
   };

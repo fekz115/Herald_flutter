@@ -31,7 +31,7 @@ class TrainsPage
           ),
         ),
         onRefresh: () async {
-          actions.searchAction();
+          actions.refreshAction();
         },
       ),
     );

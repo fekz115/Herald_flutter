@@ -18,7 +18,7 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.enableDarkTheme, onEnableDarkTheme)
   ..add(AppActionsNames.disableDarkTheme, onDisableDarkTheme)
   
-  ..add(AppActionsNames.searchAction, onSearch)
+  ..add(AppActionsNames.refreshAction, onRefresh)
 
   ..add(AppActionsNames.changeCurrency, onCurrencyChange)
   ..add(AppActionsNames.changeCurrencyDisplayingMode, onCurrencyDisplayingModeChange);
@@ -50,7 +50,7 @@ void onServiceResponse(
   );
 }
 
-void onSearch(AppState state, Action<Null> action, AppStateBuilder builder) {
+void onRefresh(AppState state, Action<Null> action, AppStateBuilder builder) {
   builder.trainsScreenState = TrainsLoadingScreenState();
 }
 

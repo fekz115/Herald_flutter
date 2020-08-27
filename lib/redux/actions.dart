@@ -10,6 +10,7 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<DateTime> changeDateAction;
   ActionDispatcher<Null> searchAction;
   ActionDispatcher<ServiceResponse> serviceResponseAction;
+  ActionDispatcher<Null> refreshAction;
 
   ActionDispatcher<Null> showTrainsPage;
   ActionDispatcher<Null> showSettingsPage;

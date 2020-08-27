@@ -24,6 +24,7 @@ class _$AppActions extends AppActions {
   final searchAction = ActionDispatcher<Null>('AppActions-searchAction');
   final serviceResponseAction =
       ActionDispatcher<ServiceResponse>('AppActions-serviceResponseAction');
+  final refreshAction = ActionDispatcher<Null>('AppActions-refreshAction');
   final showTrainsPage = ActionDispatcher<Null>('AppActions-showTrainsPage');
   final showSettingsPage =
       ActionDispatcher<Null>('AppActions-showSettingsPage');
@@ -45,6 +46,7 @@ class _$AppActions extends AppActions {
     changeDateAction.setDispatcher(dispatcher);
     searchAction.setDispatcher(dispatcher);
     serviceResponseAction.setDispatcher(dispatcher);
+    refreshAction.setDispatcher(dispatcher);
     showTrainsPage.setDispatcher(dispatcher);
     showSettingsPage.setDispatcher(dispatcher);
     showInterfaceSettingsPage.setDispatcher(dispatcher);
@@ -66,6 +68,7 @@ class AppActionsNames {
   static final searchAction = ActionName<Null>('AppActions-searchAction');
   static final serviceResponseAction =
       ActionName<ServiceResponse>('AppActions-serviceResponseAction');
+  static final refreshAction = ActionName<Null>('AppActions-refreshAction');
   static final showTrainsPage = ActionName<Null>('AppActions-showTrainsPage');
   static final showSettingsPage =
       ActionName<Null>('AppActions-showSettingsPage');
