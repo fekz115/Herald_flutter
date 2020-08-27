@@ -27,9 +27,11 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
     createOnSearchMiddleware<T>() {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
-    next(action);
     api.actions.showTrainsPage();
-    api.actions.refreshAction();
+    if(api.state.trainsScreenState.find != api.state.initialScreenState.find) {
+      next(action);
+      api.actions.refreshAction();
+    }
   };
 }
 

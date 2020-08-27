@@ -12,16 +12,14 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.changeDepartStationAction, changeDepartStation)
   ..add(AppActionsNames.changeArriveStationAction, changeArriveStation)
   ..add(AppActionsNames.changeDateAction, changeDate)
-  
   ..add(AppActionsNames.serviceResponseAction, onServiceResponse)
-
   ..add(AppActionsNames.enableDarkTheme, onEnableDarkTheme)
   ..add(AppActionsNames.disableDarkTheme, onDisableDarkTheme)
-  
   ..add(AppActionsNames.refreshAction, onRefresh)
-
   ..add(AppActionsNames.changeCurrency, onCurrencyChange)
-  ..add(AppActionsNames.changeCurrencyDisplayingMode, onCurrencyDisplayingModeChange);
+  ..add(AppActionsNames.changeCurrencyDisplayingMode,
+      onCurrencyDisplayingModeChange)
+  ..add(AppActionsNames.searchAction, onSearch);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
@@ -41,8 +39,11 @@ void changeDate(
 void onServiceResponse(
     AppState state, Action<ServiceResponse> action, AppStateBuilder builder) {
   builder.trainsScreenState = action.payload.join(
-    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState((b) =>
-        b..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()),
+    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState((b) => {
+          b
+            ..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()
+            ..find = state.initialScreenState.find.toBuilder()
+        }),
     (ParseExceptionResponse e) =>
         TrainsParseExceptionScreenState((b) => b..exception = e.exception),
     (ExceptionRespose e) =>
@@ -51,10 +52,19 @@ void onServiceResponse(
 }
 
 void onRefresh(AppState state, Action<Null> action, AppStateBuilder builder) {
-  builder.trainsScreenState = TrainsLoadingScreenState();
+  builder.trainsScreenState = TrainsLoadingScreenState((b) => {
+        if (state.trainsScreenState.find != null)
+          b..find = state.trainsScreenState.find.toBuilder()
+      });
 }
 
-void onEnableDarkTheme(AppState state, Action<Null> action, AppStateBuilder builder) {
+void onSearch(AppState state, Action<Null> action, AppStateBuilder builder) {
+  builder.trainsScreenState = TrainsLoadingScreenState(
+      (b) => {b..find = state.initialScreenState.find.toBuilder()});
+}
+
+void onEnableDarkTheme(
+    AppState state, Action<Null> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..useDarkTheme = true
@@ -62,7 +72,8 @@ void onEnableDarkTheme(AppState state, Action<Null> action, AppStateBuilder buil
   });
 }
 
-void onDisableDarkTheme(AppState state, Action<Null> action, AppStateBuilder builder) {
+void onDisableDarkTheme(
+    AppState state, Action<Null> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..useDarkTheme = false
@@ -70,7 +81,8 @@ void onDisableDarkTheme(AppState state, Action<Null> action, AppStateBuilder bui
   });
 }
 
-void onCurrencyChange(AppState state, Action<Currency> action, AppStateBuilder builder) {
+void onCurrencyChange(
+    AppState state, Action<Currency> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..selectedCurrency = action.payload
@@ -78,7 +90,8 @@ void onCurrencyChange(AppState state, Action<Currency> action, AppStateBuilder b
   });
 }
 
-void onCurrencyDisplayingModeChange(AppState state, Action<CurrencyDisplaying> action, AppStateBuilder builder) {
+void onCurrencyDisplayingModeChange(AppState state,
+    Action<CurrencyDisplaying> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..currencyDisplaying = action.payload

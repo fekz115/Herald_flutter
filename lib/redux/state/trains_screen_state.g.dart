@@ -29,7 +29,12 @@ class _$TrainsLoadedScreenStateSerializer
           specifiedType:
               const FullType(BuiltList, const [const FullType(Train)])),
     ];
-
+    if (object.find != null) {
+      result
+        ..add('find')
+        ..add(serializers.serialize(object.find,
+            specifiedType: const FullType(Find)));
+    }
     return result;
   }
 
@@ -51,6 +56,10 @@ class _$TrainsLoadedScreenStateSerializer
                       const FullType(BuiltList, const [const FullType(Train)]))
               as BuiltList<Object>);
           break;
+        case 'find':
+          result.find.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Find)) as Find);
+          break;
       }
     }
 
@@ -61,12 +70,14 @@ class _$TrainsLoadedScreenStateSerializer
 class _$TrainsLoadedScreenState extends TrainsLoadedScreenState {
   @override
   final BuiltList<Train> trains;
+  @override
+  final Find find;
 
   factory _$TrainsLoadedScreenState(
           [void Function(TrainsLoadedScreenStateBuilder) updates]) =>
       (new TrainsLoadedScreenStateBuilder()..update(updates)).build();
 
-  _$TrainsLoadedScreenState._({this.trains}) : super._() {
+  _$TrainsLoadedScreenState._({this.trains, this.find}) : super._() {
     if (trains == null) {
       throw new BuiltValueNullFieldError('TrainsLoadedScreenState', 'trains');
     }
@@ -84,18 +95,21 @@ class _$TrainsLoadedScreenState extends TrainsLoadedScreenState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TrainsLoadedScreenState && trains == other.trains;
+    return other is TrainsLoadedScreenState &&
+        trains == other.trains &&
+        find == other.find;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, trains.hashCode));
+    return $jf($jc($jc(0, trains.hashCode), find.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TrainsLoadedScreenState')
-          ..add('trains', trains))
+          ..add('trains', trains)
+          ..add('find', find))
         .toString();
   }
 }
@@ -109,11 +123,16 @@ class TrainsLoadedScreenStateBuilder
   ListBuilder<Train> get trains => _$this._trains ??= new ListBuilder<Train>();
   set trains(ListBuilder<Train> trains) => _$this._trains = trains;
 
+  FindBuilder _find;
+  FindBuilder get find => _$this._find ??= new FindBuilder();
+  set find(FindBuilder find) => _$this._find = find;
+
   TrainsLoadedScreenStateBuilder();
 
   TrainsLoadedScreenStateBuilder get _$this {
     if (_$v != null) {
       _trains = _$v.trains?.toBuilder();
+      _find = _$v.find?.toBuilder();
       _$v = null;
     }
     return this;
@@ -136,12 +155,16 @@ class TrainsLoadedScreenStateBuilder
   _$TrainsLoadedScreenState build() {
     _$TrainsLoadedScreenState _$result;
     try {
-      _$result = _$v ?? new _$TrainsLoadedScreenState._(trains: trains.build());
+      _$result = _$v ??
+          new _$TrainsLoadedScreenState._(
+              trains: trains.build(), find: _find?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'trains';
         trains.build();
+        _$failedField = 'find';
+        _find?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'TrainsLoadedScreenState', _$failedField, e.toString());
@@ -157,12 +180,14 @@ class _$TrainsParseExceptionScreenState
     extends TrainsParseExceptionScreenState {
   @override
   final ParseException exception;
+  @override
+  final Find find;
 
   factory _$TrainsParseExceptionScreenState(
           [void Function(TrainsParseExceptionScreenStateBuilder) updates]) =>
       (new TrainsParseExceptionScreenStateBuilder()..update(updates)).build();
 
-  _$TrainsParseExceptionScreenState._({this.exception}) : super._() {
+  _$TrainsParseExceptionScreenState._({this.exception, this.find}) : super._() {
     if (exception == null) {
       throw new BuiltValueNullFieldError(
           'TrainsParseExceptionScreenState', 'exception');
@@ -182,18 +207,20 @@ class _$TrainsParseExceptionScreenState
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TrainsParseExceptionScreenState &&
-        exception == other.exception;
+        exception == other.exception &&
+        find == other.find;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, exception.hashCode));
+    return $jf($jc($jc(0, exception.hashCode), find.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TrainsParseExceptionScreenState')
-          ..add('exception', exception))
+          ..add('exception', exception)
+          ..add('find', find))
         .toString();
   }
 }
@@ -208,11 +235,16 @@ class TrainsParseExceptionScreenStateBuilder
   ParseException get exception => _$this._exception;
   set exception(ParseException exception) => _$this._exception = exception;
 
+  FindBuilder _find;
+  FindBuilder get find => _$this._find ??= new FindBuilder();
+  set find(FindBuilder find) => _$this._find = find;
+
   TrainsParseExceptionScreenStateBuilder();
 
   TrainsParseExceptionScreenStateBuilder get _$this {
     if (_$v != null) {
       _exception = _$v.exception;
+      _find = _$v.find?.toBuilder();
       _$v = null;
     }
     return this;
@@ -233,8 +265,22 @@ class TrainsParseExceptionScreenStateBuilder
 
   @override
   _$TrainsParseExceptionScreenState build() {
-    final _$result =
-        _$v ?? new _$TrainsParseExceptionScreenState._(exception: exception);
+    _$TrainsParseExceptionScreenState _$result;
+    try {
+      _$result = _$v ??
+          new _$TrainsParseExceptionScreenState._(
+              exception: exception, find: _find?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'find';
+        _find?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'TrainsParseExceptionScreenState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -243,12 +289,14 @@ class TrainsParseExceptionScreenStateBuilder
 class _$TrainsExceptionScreenState extends TrainsExceptionScreenState {
   @override
   final Exception exception;
+  @override
+  final Find find;
 
   factory _$TrainsExceptionScreenState(
           [void Function(TrainsExceptionScreenStateBuilder) updates]) =>
       (new TrainsExceptionScreenStateBuilder()..update(updates)).build();
 
-  _$TrainsExceptionScreenState._({this.exception}) : super._() {
+  _$TrainsExceptionScreenState._({this.exception, this.find}) : super._() {
     if (exception == null) {
       throw new BuiltValueNullFieldError(
           'TrainsExceptionScreenState', 'exception');
@@ -267,18 +315,21 @@ class _$TrainsExceptionScreenState extends TrainsExceptionScreenState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TrainsExceptionScreenState && exception == other.exception;
+    return other is TrainsExceptionScreenState &&
+        exception == other.exception &&
+        find == other.find;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, exception.hashCode));
+    return $jf($jc($jc(0, exception.hashCode), find.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('TrainsExceptionScreenState')
-          ..add('exception', exception))
+          ..add('exception', exception)
+          ..add('find', find))
         .toString();
   }
 }
@@ -292,11 +343,16 @@ class TrainsExceptionScreenStateBuilder
   Exception get exception => _$this._exception;
   set exception(Exception exception) => _$this._exception = exception;
 
+  FindBuilder _find;
+  FindBuilder get find => _$this._find ??= new FindBuilder();
+  set find(FindBuilder find) => _$this._find = find;
+
   TrainsExceptionScreenStateBuilder();
 
   TrainsExceptionScreenStateBuilder get _$this {
     if (_$v != null) {
       _exception = _$v.exception;
+      _find = _$v.find?.toBuilder();
       _$v = null;
     }
     return this;
@@ -317,19 +373,36 @@ class TrainsExceptionScreenStateBuilder
 
   @override
   _$TrainsExceptionScreenState build() {
-    final _$result =
-        _$v ?? new _$TrainsExceptionScreenState._(exception: exception);
+    _$TrainsExceptionScreenState _$result;
+    try {
+      _$result = _$v ??
+          new _$TrainsExceptionScreenState._(
+              exception: exception, find: _find?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'find';
+        _find?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'TrainsExceptionScreenState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
 }
 
 class _$TrainsLoadingScreenState extends TrainsLoadingScreenState {
+  @override
+  final Find find;
+
   factory _$TrainsLoadingScreenState(
           [void Function(TrainsLoadingScreenStateBuilder) updates]) =>
       (new TrainsLoadingScreenStateBuilder()..update(updates)).build();
 
-  _$TrainsLoadingScreenState._() : super._();
+  _$TrainsLoadingScreenState._({this.find}) : super._();
 
   @override
   TrainsLoadingScreenState rebuild(
@@ -343,17 +416,19 @@ class _$TrainsLoadingScreenState extends TrainsLoadingScreenState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TrainsLoadingScreenState;
+    return other is TrainsLoadingScreenState && find == other.find;
   }
 
   @override
   int get hashCode {
-    return 454567763;
+    return $jf($jc(0, find.hashCode));
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('TrainsLoadingScreenState').toString();
+    return (newBuiltValueToStringHelper('TrainsLoadingScreenState')
+          ..add('find', find))
+        .toString();
   }
 }
 
@@ -362,7 +437,19 @@ class TrainsLoadingScreenStateBuilder
         Builder<TrainsLoadingScreenState, TrainsLoadingScreenStateBuilder> {
   _$TrainsLoadingScreenState _$v;
 
+  FindBuilder _find;
+  FindBuilder get find => _$this._find ??= new FindBuilder();
+  set find(FindBuilder find) => _$this._find = find;
+
   TrainsLoadingScreenStateBuilder();
+
+  TrainsLoadingScreenStateBuilder get _$this {
+    if (_$v != null) {
+      _find = _$v.find?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(TrainsLoadingScreenState other) {
@@ -379,7 +466,20 @@ class TrainsLoadingScreenStateBuilder
 
   @override
   _$TrainsLoadingScreenState build() {
-    final _$result = _$v ?? new _$TrainsLoadingScreenState._();
+    _$TrainsLoadingScreenState _$result;
+    try {
+      _$result = _$v ?? new _$TrainsLoadingScreenState._(find: _find?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'find';
+        _find?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'TrainsLoadingScreenState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

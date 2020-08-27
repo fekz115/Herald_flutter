@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/serializers.dart';
 import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
@@ -16,7 +17,10 @@ part 'trains_screen_state.g.dart';
   TrainsExceptionScreenState,
   TrainsLoadingScreenState
 ])
-abstract class TrainsScreenState {}
+abstract class TrainsScreenState {
+  @nullable
+  Find get find;
+}
 
 abstract class TrainsLoadedScreenState
     implements
