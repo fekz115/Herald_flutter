@@ -41,7 +41,7 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text(HeraldLocalizations.of(context).behaviorSettings),
-            onTap: () => {comingSoonOnTap(context)},
+            onTap: getAppActions(context).showBehaviorSettings,
           ),
           ListTile(
             leading: Icon(Icons.info),

@@ -4,6 +4,7 @@ import 'package:Herald_flutter/model/place.dart';
 import 'package:Herald_flutter/model/train_type.dart';
 
 import 'package:Herald_flutter/serializers.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -16,7 +17,7 @@ abstract class Train implements Built<Train, TrainBuilder> {
   String get departStation;
   String get arriveStation;
   DateTime get departTime;
-  List<Place> get places;
+  BuiltList<Place> get places;
   bool get reserved;
   bool get comfort;
   bool get speed;

@@ -8,6 +8,8 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AppState.serializer)
+      ..add(BehaviorSettingsState.serializer)
+      ..add(CachedState.serializer)
       ..add(Currency.serializer)
       ..add(CurrencyDisplaying.serializer)
       ..add(Find.serializer)
@@ -20,6 +22,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Train.serializer)
       ..add(TrainType.serializer)
       ..add(TrainsLoadedScreenState.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Find)]),
+          () => new ListBuilder<Find>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Place)]),
+          () => new ListBuilder<Place>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Train)]),
           () => new ListBuilder<Train>()))

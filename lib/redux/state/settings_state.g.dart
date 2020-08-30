@@ -22,6 +22,9 @@ class _$SettingsStateSerializer implements StructuredSerializer<SettingsState> {
       'interfaceSettingsState',
       serializers.serialize(object.interfaceSettingsState,
           specifiedType: const FullType(InterfaceSettingsState)),
+      'behaviorSettingsState',
+      serializers.serialize(object.behaviorSettingsState,
+          specifiedType: const FullType(BehaviorSettingsState)),
     ];
 
     return result;
@@ -44,6 +47,11 @@ class _$SettingsStateSerializer implements StructuredSerializer<SettingsState> {
                   specifiedType: const FullType(InterfaceSettingsState))
               as InterfaceSettingsState);
           break;
+        case 'behaviorSettingsState':
+          result.behaviorSettingsState.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(BehaviorSettingsState))
+              as BehaviorSettingsState);
+          break;
       }
     }
 
@@ -54,14 +62,21 @@ class _$SettingsStateSerializer implements StructuredSerializer<SettingsState> {
 class _$SettingsState extends SettingsState {
   @override
   final InterfaceSettingsState interfaceSettingsState;
+  @override
+  final BehaviorSettingsState behaviorSettingsState;
 
   factory _$SettingsState([void Function(SettingsStateBuilder) updates]) =>
       (new SettingsStateBuilder()..update(updates)).build();
 
-  _$SettingsState._({this.interfaceSettingsState}) : super._() {
+  _$SettingsState._({this.interfaceSettingsState, this.behaviorSettingsState})
+      : super._() {
     if (interfaceSettingsState == null) {
       throw new BuiltValueNullFieldError(
           'SettingsState', 'interfaceSettingsState');
+    }
+    if (behaviorSettingsState == null) {
+      throw new BuiltValueNullFieldError(
+          'SettingsState', 'behaviorSettingsState');
     }
   }
 
@@ -76,18 +91,21 @@ class _$SettingsState extends SettingsState {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SettingsState &&
-        interfaceSettingsState == other.interfaceSettingsState;
+        interfaceSettingsState == other.interfaceSettingsState &&
+        behaviorSettingsState == other.behaviorSettingsState;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, interfaceSettingsState.hashCode));
+    return $jf($jc($jc(0, interfaceSettingsState.hashCode),
+        behaviorSettingsState.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('SettingsState')
-          ..add('interfaceSettingsState', interfaceSettingsState))
+          ..add('interfaceSettingsState', interfaceSettingsState)
+          ..add('behaviorSettingsState', behaviorSettingsState))
         .toString();
   }
 }
@@ -103,11 +121,19 @@ class SettingsStateBuilder
           InterfaceSettingsStateBuilder interfaceSettingsState) =>
       _$this._interfaceSettingsState = interfaceSettingsState;
 
+  BehaviorSettingsStateBuilder _behaviorSettingsState;
+  BehaviorSettingsStateBuilder get behaviorSettingsState =>
+      _$this._behaviorSettingsState ??= new BehaviorSettingsStateBuilder();
+  set behaviorSettingsState(
+          BehaviorSettingsStateBuilder behaviorSettingsState) =>
+      _$this._behaviorSettingsState = behaviorSettingsState;
+
   SettingsStateBuilder();
 
   SettingsStateBuilder get _$this {
     if (_$v != null) {
       _interfaceSettingsState = _$v.interfaceSettingsState?.toBuilder();
+      _behaviorSettingsState = _$v.behaviorSettingsState?.toBuilder();
       _$v = null;
     }
     return this;
@@ -132,12 +158,15 @@ class SettingsStateBuilder
     try {
       _$result = _$v ??
           new _$SettingsState._(
-              interfaceSettingsState: interfaceSettingsState.build());
+              interfaceSettingsState: interfaceSettingsState.build(),
+              behaviorSettingsState: behaviorSettingsState.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'interfaceSettingsState';
         interfaceSettingsState.build();
+        _$failedField = 'behaviorSettingsState';
+        behaviorSettingsState.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'SettingsState', _$failedField, e.toString());

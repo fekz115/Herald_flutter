@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:Herald_flutter/serializers.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:hive/hive.dart';
 
 import 'place_type.dart';
 
 part 'place.g.dart';
 
+@HiveType(typeId: 1)
 abstract class Place implements Built<Place, PlaceBuilder> {
-  
+
   PlaceType get type;
   int get amount;
   double get costBYN;

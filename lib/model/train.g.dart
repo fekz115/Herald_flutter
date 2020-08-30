@@ -35,7 +35,8 @@ class _$TrainSerializer implements StructuredSerializer<Train> {
           specifiedType: const FullType(DateTime)),
       'places',
       serializers.serialize(object.places,
-          specifiedType: const FullType(List, const [const FullType(Place)])),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Place)])),
       'reserved',
       serializers.serialize(object.reserved,
           specifiedType: const FullType(bool)),
@@ -87,10 +88,10 @@ class _$TrainSerializer implements StructuredSerializer<Train> {
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
         case 'places':
-          result.places = serializers.deserialize(value,
+          result.places.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(Place)]))
-              as List<Place>;
+                      const FullType(BuiltList, const [const FullType(Place)]))
+              as BuiltList<Object>);
           break;
         case 'reserved':
           result.reserved = serializers.deserialize(value,
@@ -131,7 +132,7 @@ class _$Train extends Train {
   @override
   final DateTime departTime;
   @override
-  final List<Place> places;
+  final BuiltList<Place> places;
   @override
   final bool reserved;
   @override
@@ -285,9 +286,9 @@ class TrainBuilder implements Builder<Train, TrainBuilder> {
   DateTime get departTime => _$this._departTime;
   set departTime(DateTime departTime) => _$this._departTime = departTime;
 
-  List<Place> _places;
-  List<Place> get places => _$this._places;
-  set places(List<Place> places) => _$this._places = places;
+  ListBuilder<Place> _places;
+  ListBuilder<Place> get places => _$this._places ??= new ListBuilder<Place>();
+  set places(ListBuilder<Place> places) => _$this._places = places;
 
   bool _reserved;
   bool get reserved => _$this._reserved;
@@ -318,7 +319,7 @@ class TrainBuilder implements Builder<Train, TrainBuilder> {
       _departStation = _$v.departStation;
       _arriveStation = _$v.arriveStation;
       _departTime = _$v.departTime;
-      _places = _$v.places;
+      _places = _$v.places?.toBuilder();
       _reserved = _$v.reserved;
       _comfort = _$v.comfort;
       _speed = _$v.speed;
@@ -344,19 +345,32 @@ class TrainBuilder implements Builder<Train, TrainBuilder> {
 
   @override
   _$Train build() {
-    final _$result = _$v ??
-        new _$Train._(
-            trainId: trainId,
-            type: type,
-            departStation: departStation,
-            arriveStation: arriveStation,
-            departTime: departTime,
-            places: places,
-            reserved: reserved,
-            comfort: comfort,
-            speed: speed,
-            accessible: accessible,
-            duration: duration);
+    _$Train _$result;
+    try {
+      _$result = _$v ??
+          new _$Train._(
+              trainId: trainId,
+              type: type,
+              departStation: departStation,
+              arriveStation: arriveStation,
+              departTime: departTime,
+              places: places.build(),
+              reserved: reserved,
+              comfort: comfort,
+              speed: speed,
+              accessible: accessible,
+              duration: duration);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'places';
+        places.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'Train', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

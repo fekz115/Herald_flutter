@@ -1,3 +1,4 @@
+import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
@@ -19,7 +20,12 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.changeCurrency, onCurrencyChange)
   ..add(AppActionsNames.changeCurrencyDisplayingMode,
       onCurrencyDisplayingModeChange)
-  ..add(AppActionsNames.searchAction, onSearch);
+  ..add(AppActionsNames.searchAction, onSearch)
+  ..add(AppActionsNames.saved, onGetSaved)
+  ..add(AppActionsNames.showCached, onNavigateSaved)
+  ..add(AppActionsNames.clearCache, onClearCache)
+  ..add(AppActionsNames.openCached, onOpenCached)
+  ..add(AppActionsNames.found, onFound);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
@@ -97,4 +103,45 @@ void onCurrencyDisplayingModeChange(AppState state,
       ..currencyDisplaying = action.payload
       ..build();
   });
+}
+
+void onGetSaved(
+    AppState state, Action<Iterable<Find>> action, AppStateBuilder builder) {
+  builder.settingsState.behaviorSettingsState.cachedState.update((b) {
+    b..cached = BuiltList.of(action.payload).toBuilder();
+  });
+}
+
+void onNavigateSaved(
+    AppState state, Action<Iterable<Find>> action, AppStateBuilder builder) {
+  builder.settingsState.behaviorSettingsState.cachedState.update((b) {
+    b..cached = null;
+  });
+}
+
+void onFound(
+    AppState state, Action<Iterable<Train>> action, AppStateBuilder builder) {
+  builder.update((b) {
+    b
+      ..trainsScreenState = TrainsLoadedScreenState((b) => {
+            b
+              ..find = state.trainsScreenState.find.toBuilder()
+              ..trains = BuiltList.of(action.payload).toBuilder()
+          });
+  });
+}
+
+void onClearCache(
+    AppState state, Action<DateTime> action, AppStateBuilder builder) {
+  builder.update((b) {
+    b
+      ..settingsState.behaviorSettingsState.cachedState.update((b) {
+        b..cached = null;
+      });
+  });
+}
+
+void onOpenCached(AppState state, Action<Find> action, AppStateBuilder builder) {
+  builder.trainsScreenState = TrainsLoadingScreenState(
+      (b) => {b..find = action.payload.toBuilder()});
 }

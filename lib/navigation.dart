@@ -1,3 +1,5 @@
+import 'package:Herald_flutter/pages/behavior_settings_page.dart';
+import 'package:Herald_flutter/pages/cached_page.dart';
 import 'package:Herald_flutter/pages/home_page.dart';
 import 'package:Herald_flutter/pages/interface_settings_page.dart';
 import 'package:Herald_flutter/pages/settings_page.dart';
@@ -27,6 +29,16 @@ import 'package:flutter/material.dart';
       transitionsBuilder: zoomInTransition,
       durationInMilliseconds: 400,
       page: InterfaceSettingsPage,
+    ),
+    CustomRoute(
+      transitionsBuilder: zoomInTransition,
+      durationInMilliseconds: 400,
+      page: BehaviorSettingsPage,
+    ),
+    CustomRoute(
+      transitionsBuilder: zoomInTransition,
+      durationInMilliseconds: 400,
+      page: CachedPage,
     ),
   ],
 )

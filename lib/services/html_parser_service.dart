@@ -4,6 +4,7 @@ import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/model/train_type.dart';
 import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:Herald_flutter/services/parse_service.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
 
@@ -38,7 +39,7 @@ class HtmlParserService extends ParseService {
     return elements.map((element) {
       return Train((b) => {
             b
-              ..places = _parsePlaces(element)
+              ..places = BuiltList.of(_parsePlaces(element)).toBuilder()
               ..departStation = _parseDepartStation(element)
               ..arriveStation = _parseArriveStation(element)
               ..trainId = _parseTrainId(element)

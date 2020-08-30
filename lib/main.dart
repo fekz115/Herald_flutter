@@ -11,6 +11,7 @@ import 'package:Herald_flutter/redux/state/station_text_input_state.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:Herald_flutter/services/html_parser_service.dart';
 import 'package:Herald_flutter/services/http_load_service.dart';
+import 'package:Herald_flutter/services/persistence/hive/hive_persistence_service.dart';
 import 'package:Herald_flutter/services/train_load_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
@@ -34,7 +35,7 @@ class HeraldApp extends StatefulWidget {
                         StationTextInputState((b) => b..value = "").toBuilder()
                     ..departStationTextInputState =
                         StationTextInputState((b) => b..value = "").toBuilder()
-                    ..date = DateTime.now()
+                    ..date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
                 }).toBuilder()
             ..settingsState = SettingsState((b) => {
                   b
@@ -48,7 +49,7 @@ class HeraldApp extends StatefulWidget {
         }),
     AppActions(),
     middleware: [
-      createMiddleware(TrainLoadService(HttpLoadService(), HtmlParserService()))
+      createMiddleware(TrainLoadService(HttpLoadService(), HtmlParserService()), HivePersistenceService())
     ],
   );
 
@@ -66,6 +67,7 @@ class HeraldAppState extends State<HeraldApp> {
   @override
   void initState() {
     store = widget.store;
+    store.actions.appInit();
     super.initState();
   }
 
@@ -75,6 +77,12 @@ class HeraldAppState extends State<HeraldApp> {
       store: store,
       child: InterfaceStateListener(),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    store.actions.appClose();
   }
 }
 
