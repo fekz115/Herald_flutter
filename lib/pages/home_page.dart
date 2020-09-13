@@ -23,15 +23,15 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             StationTextField(
-              (state) => state.initialScreenState.departStationTextInputState,
-              HeraldLocalizations.of(context).departStation,
-              getAppActions(context).changeDepartStationAction,
+              connector: (state) => state.initialScreenState.departStationTextInputState,
+              label: HeraldLocalizations.of(context).departStation,
+              onTextChanged: getAppActions(context).changeDepartStationAction,
             ),
             SizedBox(height: 30),
             StationTextField(
-              (state) => state.initialScreenState.arriveStationTextInputState,
-              HeraldLocalizations.of(context).arriveStation,
-              getAppActions(context).changeArriveStationAction,
+              connector: (state) => state.initialScreenState.arriveStationTextInputState,
+              label: HeraldLocalizations.of(context).arriveStation,
+              onTextChanged: getAppActions(context).changeArriveStationAction,
             ),
             SizedBox(height: 30),
             DateButton(),
