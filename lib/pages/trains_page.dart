@@ -1,8 +1,8 @@
 import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/pages/widgets/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
+import 'package:Herald_flutter/redux/pages/widgets/redux_list.dart';
 import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
 import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class TrainsPage
       body: RefreshIndicator(
         child: Scaffold(
           body: state.join(
-            (TrainsLoadedScreenState state) => _buildTrainsList(state.trains),
+            (TrainsLoadedScreenState state) => _buildTrainsList(),
             (TrainsParseExceptionScreenState state) =>
                 _buildErrorBody(state.exception, context),
             (TrainsExceptionScreenState state) {
@@ -43,14 +43,19 @@ class TrainsPage
     );
   }
 
-  Widget _buildTrainsList(Iterable<Train> trains) {
-    var iterator = trains.iterator;
-    return ListView.builder(
-      itemCount: trains.length,
-      itemBuilder: (context, index) {
-        iterator.moveNext();
-        return TrainWidget(train: iterator.current);
-      },
+  Widget _buildTrainsList() {
+    return ReduxList(
+      builder: (c, a, i) => FadeTransition(
+        opacity: a,
+        child: SizeTransition(
+          sizeFactor: a,
+          child: TrainWidget(train: i),
+        ),
+      ),
+      mapper: (AppState state) =>
+          (state.trainsScreenState as TrainsLoadedScreenState).trains,
+      insertDuration: Duration(milliseconds: 100),
+      removeDuration: Duration(milliseconds: 100),
     );
   }
 
@@ -59,7 +64,9 @@ class TrainsPage
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          e is UnknownParseException && e.content != null ? e.content : HeraldLocalizations.of(context).getValue(e.message),
+          e is UnknownParseException && e.content != null
+              ? e.content
+              : HeraldLocalizations.of(context).getValue(e.message),
           textAlign: TextAlign.center,
         ),
       ),
