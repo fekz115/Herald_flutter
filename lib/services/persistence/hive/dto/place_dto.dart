@@ -7,6 +7,25 @@ part 'place_dto.g.dart';
 
 @HiveType(typeId: HiveTypeId.placeId)
 class PlaceDto {
+  const PlaceDto({
+    this.type,
+    this.amount,
+    this.costBYN,
+    this.costRUB,
+    this.costUSD,
+    this.costEUR,
+  });
+  factory PlaceDto.convertToDto(Place entity) {
+    return PlaceDto(
+      type: convertToPlaceTypeDto(entity.type),
+      amount: entity.amount,
+      costBYN: entity.costBYN,
+      costRUB: entity.costRUB,
+      costUSD: entity.costUSD,
+      costEUR: entity.costEUR,
+    );
+  }
+
   @HiveField(0)
   final PlaceTypeDto type;
   @HiveField(1)
@@ -20,21 +39,13 @@ class PlaceDto {
   @HiveField(5)
   final double costEUR;
 
-  PlaceDto(this.type, this.amount, this.costBYN, this.costRUB, this.costUSD, this.costEUR);
-
-  static PlaceDto convertToDto(Place entity) {
-    return PlaceDto(convertToPlaceTypeDto(entity.type), entity.amount, entity.costBYN, entity.costRUB, entity.costUSD, entity.costEUR);
-  }
-
   Place convertToEntity() {
-    return Place((b) => {
-      b
+    return Place((b) => b
       ..type = convertToPlaceTypeEntity(type)
       ..amount = amount
       ..costBYN = costBYN
       ..costRUB = costRUB
       ..costEUR = costEUR
-      ..costUSD = costUSD
-    });
+      ..costUSD = costUSD);
   }
 }

@@ -13,19 +13,19 @@ import 'package:built_redux/built_redux.dart';
 Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
     TrainLoadService service, PersistenceService persistenceService) {
   return (MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
-        ..add(AppActionsNames.searchAction, createOnSearchMiddleware<Null>())
+        ..add(AppActionsNames.searchAction, createOnSearchMiddleware<void>())
         ..add(AppActionsNames.refreshAction,
-            createOnRefreshMiddleware<Null>(service))
+            createOnRefreshMiddleware<void>(service))
         ..add(AppActionsNames.showTrainsPage,
-            createNavigateToTrainsMiddleware<Null>())
+            createNavigateToTrainsMiddleware<void>())
         ..add(AppActionsNames.showSettingsPage,
-            createNavigateToSettingsMiddleware<Null>())
+            createNavigateToSettingsMiddleware<void>())
         ..add(AppActionsNames.showInterfaceSettingsPage,
-            createNavigateToInterfaceSettingsMiddleware<Null>())
+            createNavigateToInterfaceSettingsMiddleware<void>())
         ..add(AppActionsNames.showBehaviorSettings,
-            createNavigateToBehaviorSettingsMiddleware<Null>())
+            createNavigateToBehaviorSettingsMiddleware<void>())
         ..add(AppActionsNames.showCached, createNavigateToCachedMiddleware())
-        ..add(AppActionsNames.goBack, createNavigateBackMiddleware<Null>())
+        ..add(AppActionsNames.goBack, createNavigateBackMiddleware<void>())
         ..add(AppActionsNames.appInit,
             createInitAppMiddleware(persistenceService))
         ..add(AppActionsNames.appClose,
@@ -36,10 +36,10 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
             createFindCachedMiddleware(persistenceService))
         ..add(AppActionsNames.openCached,
             createOpenCachedMiddleware(persistenceService))
-        ..add(AppActionsNames.found,
-            createFoundMiddleware())
+        ..add(AppActionsNames.found, createFoundMiddleware())
         ..add(AppActionsNames.save, createSaveMiddleware(persistenceService))
-        ..add(AppActionsNames.clearCache, createClearCachedMiddleware(persistenceService)))
+        ..add(AppActionsNames.clearCache,
+            createClearCachedMiddleware(persistenceService)))
       .build();
 }
 
@@ -60,15 +60,15 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ServiceResponse response =
+    final ServiceResponse response =
         await service.loadTrains(api.state.trainsScreenState.find);
     response.continued(
         (r) => {
               api.actions.save(SaveFindToPersistanceRequest(
-                  api.state.trainsScreenState.find, r.trains))
+                  find: api.state.trainsScreenState.find, trains: r.trains))
             },
-        (r) => {},
-        (r) => {});
+        (r) {},
+        (r) {});
     api.actions.serviceResponseAction(response);
   };
 }
@@ -78,7 +78,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").push(Routes.trainsPage);
+    await ExtendedNavigator.named('mainNav').push(Routes.trainsPage);
   };
 }
 
@@ -87,7 +87,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").push(Routes.settingsPage);
+    await ExtendedNavigator.named('mainNav').push(Routes.settingsPage);
   };
 }
 
@@ -96,7 +96,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").push(Routes.interfaceSettingsPage);
+    await ExtendedNavigator.named('mainNav').push(Routes.interfaceSettingsPage);
   };
 }
 
@@ -105,7 +105,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").pop();
+    ExtendedNavigator.named('mainNav').pop();
   };
 }
 
@@ -114,16 +114,16 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").push(Routes.behaviorSettingsPage);
+    await ExtendedNavigator.named('mainNav').push(Routes.behaviorSettingsPage);
   };
 }
 
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null>
+MiddlewareHandler<AppState, AppStateBuilder, AppActions, void>
     createNavigateToCachedMiddleware() {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<Null> action) async {
+      ActionHandler next, Action<void> action) async {
     next(action);
-    ExtendedNavigator.named("mainNav").push(Routes.cachedPage);
+    await ExtendedNavigator.named('mainNav').push(Routes.cachedPage);
   };
 }
 
@@ -132,7 +132,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    persistenceService.init();
+    await persistenceService.init();
   };
 }
 
@@ -141,14 +141,14 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
     next(action);
-    persistenceService.close();
+    await persistenceService.close();
   };
 }
 
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null>
+MiddlewareHandler<AppState, AppStateBuilder, AppActions, void>
     createGetCachedMiddleware(PersistenceService persistenceService) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<Null> action) async {
+      ActionHandler next, Action<void> action) async {
     next(action);
     final saved = await persistenceService.savedFinds();
     api.actions.saved(saved);

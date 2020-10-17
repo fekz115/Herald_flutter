@@ -11,62 +11,60 @@ import 'package:html/parser.dart' show parse;
 class HtmlParserService extends ParseService {
   @override
   List<Train> parseTrains(String response) {
-    var document = parse(response);
+    final document = parse(response);
     try {
-      var list =
-          _parseTrains(document.getElementsByClassName("sch-table__row-wrap"));
-      if (list.length == 0) throw Exception();
+      final list =
+          _parseTrains(document.getElementsByClassName('sch-table__row-wrap'));
+      if (list.isEmpty) {
+        throw Exception();
+      }
       return list;
     } catch (e) {
-      print(e);
       if (document
-          .getElementsByClassName("edit_list")
-          .any((element) => element.innerHtml.contains("Станция не найдена"))) {
+          .getElementsByClassName('edit_list')
+          .any((element) => element.innerHtml.contains('Станция не найдена'))) {
         throw StationNotFoundException();
-      } else if (document.getElementsByClassName("edit_list").any((element) =>
-          element.innerHtml.contains("Наберите не менее трех букв"))) {
+      } else if (document.getElementsByClassName('edit_list').any((element) =>
+          element.innerHtml.contains('Наберите не менее трех букв'))) {
         throw TooShortException();
-      } else if (document.getElementsByClassName("error_content").length != 0) {
+      } else if (document.getElementsByClassName('error_content').isNotEmpty) {
         throw UnknownParseException(
-            document.getElementsByClassName("error_content").first.text);
+            content:
+                document.getElementsByClassName('error_content').first.text);
       } else {
-        throw UnknownParseException(null);
+        throw UnknownParseException();
       }
     }
   }
 
   List<Train> _parseTrains(List<Element> elements) {
     return elements.map((element) {
-      return Train((b) => {
-            b
-              ..places = BuiltList.of(_parsePlaces(element)).toBuilder()
-              ..departStation = _parseDepartStation(element)
-              ..arriveStation = _parseArriveStation(element)
-              ..trainId = _parseTrainId(element)
-              ..type = _parseTrainType(element)
-              ..departTime = _parseDepartTime(element)
-              ..duration = _parseDuration(element)
-              ..reserved = _checkIfReserved(element)
-              ..comfort = _checkIfComfort(element)
-              ..speed = _checkIfSpeed(element)
-              ..accessible = _checkIfSpecial(element)
-          });
+      return Train((b) => b
+        ..places = BuiltList.of(_parsePlaces(element)).toBuilder()
+        ..departStation = _parseDepartStation(element)
+        ..arriveStation = _parseArriveStation(element)
+        ..trainId = _parseTrainId(element)
+        ..type = _parseTrainType(element)
+        ..departTime = _parseDepartTime(element)
+        ..duration = _parseDuration(element)
+        ..reserved = _checkIfReserved(element)
+        ..comfort = _checkIfComfort(element)
+        ..speed = _checkIfSpeed(element)
+        ..accessible = _checkIfSpecial(element));
     }).toList();
   }
 
   List<Place> _parsePlaces(Element element) {
     return element
-        .getElementsByClassName("sch-table__t-item")
+        .getElementsByClassName('sch-table__t-item')
         .map((placeElement) {
-      return Place((b) => {
-            b
-              ..type = _parsePlaceType(placeElement)
-              ..amount = _parsePlaceCount(placeElement)
-              ..costBYN = _parsePlacePriceBYN(placeElement)
-              ..costEUR = _parsePlacePriceEUR(placeElement)
-              ..costRUB = _parsePlacePriceRUB(placeElement)
-              ..costUSD = _parsePlacePriceUSD(placeElement)
-          });
+      return Place((b) => b
+        ..type = _parsePlaceType(placeElement)
+        ..amount = _parsePlaceCount(placeElement)
+        ..costBYN = _parsePlacePriceBYN(placeElement)
+        ..costEUR = _parsePlacePriceEUR(placeElement)
+        ..costRUB = _parsePlacePriceRUB(placeElement)
+        ..costUSD = _parsePlacePriceUSD(placeElement));
     }).toList();
   }
 
@@ -74,54 +72,54 @@ class HtmlParserService extends ParseService {
     return Duration(
         minutes: int.parse(element
             .getElementsByClassName(
-                "sch-table__duration train-duration-time")[0]
-            .attributes["data-value"]));
+                'sch-table__duration train-duration-time')[0]
+            .attributes['data-value']));
   }
 
   int _parsePlaceCount(Element element) {
     try {
       return int.parse(
-          element.getElementsByClassName("sch-table__t-quant")[0].text);
+          element.getElementsByClassName('sch-table__t-quant')[0].text);
     } catch (_) {
       return 0;
     }
   }
 
   double _parsePlacePriceBYN(Element element) {
-    return _parsePlacePrice(element, "data-cost-byn");
+    return _parsePlacePrice(element, 'data-cost-byn');
   }
 
   double _parsePlacePriceRUB(Element element) {
-    return _parsePlacePrice(element, "data-cost-rub");
+    return _parsePlacePrice(element, 'data-cost-rub');
   }
 
   double _parsePlacePriceUSD(Element element) {
-    return _parsePlacePrice(element, "data-cost-usd");
+    return _parsePlacePrice(element, 'data-cost-usd');
   }
 
   double _parsePlacePriceEUR(Element element) {
-    return _parsePlacePrice(element, "data-cost-eur");
+    return _parsePlacePrice(element, 'data-cost-eur');
   }
 
   double _parsePlacePrice(Element element, String attr) {
     return double.parse(element
-        .getElementsByClassName("js-price")[0]
+        .getElementsByClassName('js-price')[0]
         .attributes[attr]
-        .replaceAll(",", "."));
+        .replaceAll(',', '.'));
   }
 
   PlaceType _parsePlaceType(Element element) {
-    switch (element.getElementsByClassName("sch-table__t-name")[0].text) {
-      case "Купейный":
+    switch (element.getElementsByClassName('sch-table__t-name')[0].text) {
+      case 'Купейный':
         return PlaceType.compartment;
         break;
-      case "Сидячий":
+      case 'Сидячий':
         return PlaceType.sittingSeat;
         break;
-      case "Плацкартный":
+      case 'Плацкартный':
         return PlaceType.reservedSeat;
         break;
-      case "СВ":
+      case 'СВ':
         return PlaceType.sv;
         break;
       default:
@@ -130,27 +128,28 @@ class HtmlParserService extends ParseService {
   }
 
   TrainType _parseTrainType(Element element) {
-    var trainType = element.getElementsByClassName("sch-table__train-type")[0];
-    switch (trainType.getElementsByTagName("i")[0].className) {
-      case "svg-bus":
+    final trainType =
+        element.getElementsByClassName('sch-table__train-type')[0];
+    switch (trainType.getElementsByTagName('i')[0].className) {
+      case 'svg-bus':
         return TrainType.bus;
         break;
-      case "svg-regional_economy":
+      case 'svg-regional_economy':
         return TrainType.regionalEconomy;
         break;
-      case "svg-regional_business":
+      case 'svg-regional_business':
         return TrainType.regionalBusiness;
         break;
-      case "svg-interregional_economy":
+      case 'svg-interregional_economy':
         return TrainType.interregionalEconomy;
         break;
-      case "svg-interregional_business":
+      case 'svg-interregional_business':
         return TrainType.interregionalBusiness;
         break;
-      case "svg-international":
+      case 'svg-international':
         return TrainType.international;
         break;
-      case "svg-city":
+      case 'svg-city':
         return TrainType.cityLines;
         break;
       default:
@@ -160,46 +159,46 @@ class HtmlParserService extends ParseService {
   }
 
   String _parseTrainId(Element element) {
-    return element.getElementsByClassName("train-number")[0].text;
+    return element.getElementsByClassName('train-number')[0].text;
   }
 
   String _parseDepartStation(Element element) {
-    var trainText =
-        element.getElementsByClassName("train-route")[0].text.split("—");
+    final trainText =
+        element.getElementsByClassName('train-route')[0].text.split('—');
     return trainText[0].trimRight();
   }
 
   String _parseArriveStation(Element element) {
-    var trainText =
-        element.getElementsByClassName("train-route")[0].text.split("—");
+    final trainText =
+        element.getElementsByClassName('train-route')[0].text.split('—');
     return trainText[1].trimLeft();
   }
 
   DateTime _parseDepartTime(Element element) {
-    var timeData = element
-        .getElementsByClassName("train-from-time")[0]
+    final timeData = element
+        .getElementsByClassName('train-from-time')[0]
         .text
-        .replaceAll("[\n\t]", "")
+        .replaceAll('[\n\t]', '')
         .trim()
         .split(':')
-        .map((x) => int.parse(x))
+        .map(int.parse)
         .toList();
     return DateTime(0, 1, 1, timeData[0], timeData[1]);
   }
 
   bool _checkIfReserved(Element element) {
-    return element.getElementsByClassName("svg-tag-er").isNotEmpty;
+    return element.getElementsByClassName('svg-tag-er').isNotEmpty;
   }
 
   bool _checkIfComfort(Element element) {
-    return element.getElementsByClassName("svg-tag-fp").isNotEmpty;
+    return element.getElementsByClassName('svg-tag-fp').isNotEmpty;
   }
 
   bool _checkIfSpeed(Element element) {
-    return element.getElementsByClassName("svg-tag-express").isNotEmpty;
+    return element.getElementsByClassName('svg-tag-express').isNotEmpty;
   }
 
   bool _checkIfSpecial(Element element) {
-    return element.getElementsByClassName("svg-tag-special").isNotEmpty;
+    return element.getElementsByClassName('svg-tag-special').isNotEmpty;
   }
 }

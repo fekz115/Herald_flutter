@@ -10,20 +10,19 @@ part 'initial_screen_state.g.dart';
 
 abstract class InitialScreenState
     implements Built<InitialScreenState, InitialScreenStateBuilder> {
+  factory InitialScreenState(
+      [InitialScreenStateBuilder Function(InitialScreenStateBuilder b)
+          updates]) = _$InitialScreenState;
+  InitialScreenState._();
+
   StationTextInputState get arriveStationTextInputState;
   StationTextInputState get departStationTextInputState;
   DateTime get date;
 
-  Find get find => Find(
-        (b) => b
-          ..arriveStation = arriveStationTextInputState.value
-          ..departStation = departStationTextInputState.value
-          ..date = date,
-      );
-
-  InitialScreenState._();
-  factory InitialScreenState([updates(InitialScreenStateBuilder b)]) =
-      _$InitialScreenState;
+  Find get find => Find((b) => b
+    ..arriveStation = arriveStationTextInputState.value
+    ..departStation = departStationTextInputState.value
+    ..date = date);
 
   String toJson() {
     return json

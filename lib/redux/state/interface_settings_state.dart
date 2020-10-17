@@ -9,13 +9,14 @@ part 'interface_settings_state.g.dart';
 
 abstract class InterfaceSettingsState
     implements Built<InterfaceSettingsState, InterfaceSettingsStateBuilder> {
+  factory InterfaceSettingsState(
+      [InterfaceSettingsStateBuilder Function(InterfaceSettingsStateBuilder b)
+          updates]) = _$InterfaceSettingsState;
+  InterfaceSettingsState._();
+
   bool get useDarkTheme;
   Currency get selectedCurrency;
   CurrencyDisplaying get currencyDisplaying;
-
-  InterfaceSettingsState._();
-  factory InterfaceSettingsState([updates(InterfaceSettingsStateBuilder b)]) =
-      _$InterfaceSettingsState;
 
   String toJson() {
     return json.encode(
@@ -32,6 +33,8 @@ abstract class InterfaceSettingsState
 }
 
 class Currency extends EnumClass {
+  const Currency._(String name) : super(name);
+
   static Serializer<Currency> get serializer => _$currencySerializer;
 
   static const Currency EUR = _$EUR;
@@ -39,21 +42,21 @@ class Currency extends EnumClass {
   static const Currency BYN = _$BYN;
   static const Currency USD = _$USD;
 
-  const Currency._(String name) : super(name);
-
   static BuiltSet<Currency> get values => _$currencyValues;
   static Currency valueOf(String name) => _$currencyValueOf(name);
 }
 
 class CurrencyDisplaying extends EnumClass {
-  static Serializer<CurrencyDisplaying> get serializer => _$currencyDisplayingSerializer;
+  const CurrencyDisplaying._(String name) : super(name);
+
+  static Serializer<CurrencyDisplaying> get serializer =>
+      _$currencyDisplayingSerializer;
 
   static const CurrencyDisplaying LOCAL_NAME = _$LOCAL_NAME;
   static const CurrencyDisplaying ICON = _$ICON;
   static const CurrencyDisplaying ISO = _$ISO;
 
-  const CurrencyDisplaying._(String name) : super(name);
-
   static BuiltSet<CurrencyDisplaying> get values => _$currencyDisplayingValues;
-  static CurrencyDisplaying valueOf(String name) => _$currencyDisplayingValueOf(name);
+  static CurrencyDisplaying valueOf(String name) =>
+      _$currencyDisplayingValueOf(name);
 }

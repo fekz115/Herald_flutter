@@ -1,4 +1,5 @@
 import 'package:Herald_flutter/i18n.dart';
+import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/pages/widgets/train.dart';
 import 'package:Herald_flutter/redux/actions.dart';
 import 'package:Herald_flutter/redux/app_state.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class TrainsPage
     extends StoreConnector<AppState, AppActions, TrainsScreenState> {
+  TrainsPage({Key key}) : super(key: key);
+
   @override
   Widget build(
       BuildContext context, TrainsScreenState state, AppActions actions) {
@@ -18,6 +21,9 @@ class TrainsPage
         title: Text(HeraldLocalizations.of(context).title),
       ),
       body: RefreshIndicator(
+        onRefresh: () async {
+          actions.refreshAction();
+        },
         child: Scaffold(
           body: state.join(
             (TrainsLoadedScreenState state) => _buildTrainsList(),
@@ -30,21 +36,18 @@ class TrainsPage
             (TrainsLoadingScreenState state) => _buildLoadingBody(),
           ),
         ),
-        onRefresh: () async {
-          actions.refreshAction();
-        },
       ),
     );
   }
 
   Widget _buildLoadingBody() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
   Widget _buildTrainsList() {
-    return ReduxList(
+    return ReduxList<AppState, AppStateBuilder, Train>(
       builder: (c, a, i) => FadeTransition(
         opacity: a,
         child: SizeTransition(
@@ -53,16 +56,17 @@ class TrainsPage
         ),
       ),
       mapper: (AppState state) =>
+        // ignore: avoid_as
           (state.trainsScreenState as TrainsLoadedScreenState).trains,
-      insertDuration: Duration(milliseconds: 100),
-      removeDuration: Duration(milliseconds: 100),
+      insertDuration: const Duration(milliseconds: 100),
+      removeDuration: const Duration(milliseconds: 100),
     );
   }
 
   Widget _buildErrorBody(ParseException e, BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Text(
           e is UnknownParseException && e.content != null
               ? e.content
@@ -74,7 +78,6 @@ class TrainsPage
   }
 
   void _showError(BuildContext context, Exception e, AppActions actions) {
-    print(e.toString());
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text(e.toString()),
     ));

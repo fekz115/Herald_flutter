@@ -21,29 +21,29 @@ class _$AppActions extends AppActions {
       ActionDispatcher<String>('AppActions-changeArriveStationAction');
   final changeDateAction =
       ActionDispatcher<DateTime>('AppActions-changeDateAction');
-  final searchAction = ActionDispatcher<Null>('AppActions-searchAction');
+  final searchAction = ActionDispatcher<Void>('AppActions-searchAction');
   final serviceResponseAction =
       ActionDispatcher<ServiceResponse>('AppActions-serviceResponseAction');
-  final refreshAction = ActionDispatcher<Null>('AppActions-refreshAction');
-  final showTrainsPage = ActionDispatcher<Null>('AppActions-showTrainsPage');
+  final refreshAction = ActionDispatcher<Void>('AppActions-refreshAction');
+  final showTrainsPage = ActionDispatcher<Void>('AppActions-showTrainsPage');
   final showSettingsPage =
-      ActionDispatcher<Null>('AppActions-showSettingsPage');
+      ActionDispatcher<Void>('AppActions-showSettingsPage');
   final showInterfaceSettingsPage =
-      ActionDispatcher<Null>('AppActions-showInterfaceSettingsPage');
+      ActionDispatcher<Void>('AppActions-showInterfaceSettingsPage');
   final showBehaviorSettings =
-      ActionDispatcher<Null>('AppActions-showBehaviorSettings');
-  final showCached = ActionDispatcher<Null>('AppActions-showCached');
-  final goBack = ActionDispatcher<Null>('AppActions-goBack');
-  final enableDarkTheme = ActionDispatcher<Null>('AppActions-enableDarkTheme');
+      ActionDispatcher<Void>('AppActions-showBehaviorSettings');
+  final showCached = ActionDispatcher<Void>('AppActions-showCached');
+  final goBack = ActionDispatcher<Void>('AppActions-goBack');
+  final enableDarkTheme = ActionDispatcher<Void>('AppActions-enableDarkTheme');
   final disableDarkTheme =
-      ActionDispatcher<Null>('AppActions-disableDarkTheme');
+      ActionDispatcher<Void>('AppActions-disableDarkTheme');
   final changeCurrency =
       ActionDispatcher<Currency>('AppActions-changeCurrency');
   final changeCurrencyDisplayingMode = ActionDispatcher<CurrencyDisplaying>(
       'AppActions-changeCurrencyDisplayingMode');
-  final appInit = ActionDispatcher<Null>('AppActions-appInit');
-  final appClose = ActionDispatcher<Null>('AppActions-appClose');
-  final getCached = ActionDispatcher<Null>('AppActions-getCached');
+  final appInit = ActionDispatcher<Void>('AppActions-appInit');
+  final appClose = ActionDispatcher<Void>('AppActions-appClose');
+  final getCached = ActionDispatcher<Void>('AppActions-getCached');
   final findCached = ActionDispatcher<Find>('AppActions-findCached');
   final removeCached = ActionDispatcher<Find>('AppActions-removeCached');
   final clearCache = ActionDispatcher<DateTime>('AppActions-clearCache');
@@ -91,29 +91,29 @@ class AppActionsNames {
       ActionName<String>('AppActions-changeArriveStationAction');
   static final changeDateAction =
       ActionName<DateTime>('AppActions-changeDateAction');
-  static final searchAction = ActionName<Null>('AppActions-searchAction');
+  static final searchAction = ActionName<Void>('AppActions-searchAction');
   static final serviceResponseAction =
       ActionName<ServiceResponse>('AppActions-serviceResponseAction');
-  static final refreshAction = ActionName<Null>('AppActions-refreshAction');
-  static final showTrainsPage = ActionName<Null>('AppActions-showTrainsPage');
+  static final refreshAction = ActionName<Void>('AppActions-refreshAction');
+  static final showTrainsPage = ActionName<Void>('AppActions-showTrainsPage');
   static final showSettingsPage =
-      ActionName<Null>('AppActions-showSettingsPage');
+      ActionName<Void>('AppActions-showSettingsPage');
   static final showInterfaceSettingsPage =
-      ActionName<Null>('AppActions-showInterfaceSettingsPage');
+      ActionName<Void>('AppActions-showInterfaceSettingsPage');
   static final showBehaviorSettings =
-      ActionName<Null>('AppActions-showBehaviorSettings');
-  static final showCached = ActionName<Null>('AppActions-showCached');
-  static final goBack = ActionName<Null>('AppActions-goBack');
-  static final enableDarkTheme = ActionName<Null>('AppActions-enableDarkTheme');
+      ActionName<Void>('AppActions-showBehaviorSettings');
+  static final showCached = ActionName<Void>('AppActions-showCached');
+  static final goBack = ActionName<Void>('AppActions-goBack');
+  static final enableDarkTheme = ActionName<Void>('AppActions-enableDarkTheme');
   static final disableDarkTheme =
-      ActionName<Null>('AppActions-disableDarkTheme');
+      ActionName<Void>('AppActions-disableDarkTheme');
   static final changeCurrency =
       ActionName<Currency>('AppActions-changeCurrency');
   static final changeCurrencyDisplayingMode =
       ActionName<CurrencyDisplaying>('AppActions-changeCurrencyDisplayingMode');
-  static final appInit = ActionName<Null>('AppActions-appInit');
-  static final appClose = ActionName<Null>('AppActions-appClose');
-  static final getCached = ActionName<Null>('AppActions-getCached');
+  static final appInit = ActionName<Void>('AppActions-appInit');
+  static final appClose = ActionName<Void>('AppActions-appClose');
+  static final getCached = ActionName<Void>('AppActions-getCached');
   static final findCached = ActionName<Find>('AppActions-findCached');
   static final removeCached = ActionName<Find>('AppActions-removeCached');
   static final clearCache = ActionName<DateTime>('AppActions-clearCache');

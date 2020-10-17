@@ -8,11 +8,12 @@ part 'station_text_input_state.g.dart';
 
 abstract class StationTextInputState
     implements Built<StationTextInputState, StationTextInputStateBuilder> {
-  String get value;
-
+  factory StationTextInputState(
+      [StationTextInputStateBuilder Function(StationTextInputStateBuilder b)
+          updates]) = _$StationTextInputState;
   StationTextInputState._();
-  factory StationTextInputState([updates(StationTextInputStateBuilder b)]) =
-      _$StationTextInputState;
+
+  String get value;
 
   String toJson() {
     return json.encode(

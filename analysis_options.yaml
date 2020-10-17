@@ -6,7 +6,10 @@ analyzer:
   language:
     strict-inference: true
     strict-raw-types: true
-    
+  exclude: 
+    - '**/*.g.dart'
+    - '**/*.gr.dart'
+
 linter:
   rules:
     - always_declare_return_types

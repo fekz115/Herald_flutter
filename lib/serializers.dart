@@ -17,7 +17,7 @@ import 'package:built_collection/built_collection.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
   Find,
   PlaceType,
   Place,

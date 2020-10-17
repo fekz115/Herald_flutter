@@ -7,14 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class CachedPage extends StoreConnector<AppState, AppActions, CachedState> {
+  CachedPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, CachedState state, AppActions actions) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Сохраненные'),
+        title: const Text('Сохраненные'),
         actions: [
           IconButton(
-            icon: Icon(Icons.clear),
+            icon: const Icon(Icons.clear),
             onPressed: () {
               actions.clearCache(null);
             },
@@ -29,14 +31,14 @@ class CachedPage extends StoreConnector<AppState, AppActions, CachedState> {
 
   Widget _buildLoadingBody(AppActions actions) {
     actions.getCached();
-    return Center(
+    return const Center(
       child: Text('Сохраненная информация отсутствует'),
     );
   }
 
   Widget _buildLoadedBody(Iterable<Find> finds) {
     return ListView(
-      children: finds.map((x) => FindWidget(x)).toList(),
+      children: finds.map((x) => FindWidget(find: x)).toList(),
     );
   }
 

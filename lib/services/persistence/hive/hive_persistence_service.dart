@@ -11,19 +11,20 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HivePersistenceService extends PersistenceService {
-  Box _cachedBox;
-  Box _stateBox;
+  Box<dynamic> _cachedBox;
+  //Box<AppState> _stateBox;
 
   @override
   Future<void> init() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(PlaceTypeDtoAdapter());
-    Hive.registerAdapter(PlaceDtoAdapter());
-    Hive.registerAdapter(TrainTypeDtoAdapter());
-    Hive.registerAdapter(TrainDtoAdapter());
-    Hive.registerAdapter(EntryAdapter());
+    Hive
+      ..registerAdapter(PlaceTypeDtoAdapter())
+      ..registerAdapter(PlaceDtoAdapter())
+      ..registerAdapter(TrainTypeDtoAdapter())
+      ..registerAdapter(TrainDtoAdapter())
+      ..registerAdapter(EntryAdapter());
     _cachedBox = await Hive.openBox('cached');
-    _stateBox = await Hive.openBox('state');
+    //_stateBox = await Hive.openBox('state');
   }
 
   @override
@@ -43,14 +44,12 @@ class HivePersistenceService extends PersistenceService {
 
   @override
   Future<Iterable<Train>> findTrains(Find find) async {
-    var f = _cachedBox.values
-        .map((e) => e as Entry)
+    final f = _cachedBox.values
+        .cast<Entry>()
         .where((element) => element != null && element.find == find)
         .map((e) => e.trains);
-    if(f != null && f.isNotEmpty) {
-      return f.first
-        .map((e) => e.convertDtoToEntity())
-        .toList();
+    if (f != null && f.isNotEmpty) {
+      return f.first.map((e) => e.convertDtoToEntity()).toList();
     } else {
       return null;
     }
@@ -75,6 +74,6 @@ class HivePersistenceService extends PersistenceService {
 
   @override
   Future<Iterable<Find>> savedFinds() async {
-    return _cachedBox.values.map((x) => (x as Entry).find).toList();
+    return _cachedBox.values.cast<Entry>().map((x) => x.find).toList();
   }
 }

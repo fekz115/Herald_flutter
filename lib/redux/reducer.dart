@@ -45,11 +45,9 @@ void changeDate(
 void onServiceResponse(
     AppState state, Action<ServiceResponse> action, AppStateBuilder builder) {
   builder.trainsScreenState = action.payload.join(
-    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState((b) => {
-          b
-            ..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()
-            ..find = state.initialScreenState.find.toBuilder()
-        }),
+    (TrainsLoadedResponse loadedResponse) => TrainsLoadedScreenState((b) => b
+      ..trains = BuiltList<Train>.from(loadedResponse.trains).toBuilder()
+      ..find = state.initialScreenState.find.toBuilder()),
     (ParseExceptionResponse e) =>
         TrainsParseExceptionScreenState((b) => b..exception = e.exception),
     (ExceptionRespose e) =>
@@ -57,20 +55,22 @@ void onServiceResponse(
   );
 }
 
-void onRefresh(AppState state, Action<Null> action, AppStateBuilder builder) {
-  builder.trainsScreenState = TrainsLoadingScreenState((b) => {
-        if (state.trainsScreenState.find != null)
-          b..find = state.trainsScreenState.find.toBuilder()
-      });
+void onRefresh(AppState state, Action<void> action, AppStateBuilder builder) {
+  builder.trainsScreenState = TrainsLoadingScreenState((b) {
+    if (state.trainsScreenState.find != null) {
+      b.find = state.trainsScreenState.find.toBuilder();
+    }
+    return b;
+  });
 }
 
-void onSearch(AppState state, Action<Null> action, AppStateBuilder builder) {
+void onSearch(AppState state, Action<void> action, AppStateBuilder builder) {
   builder.trainsScreenState = TrainsLoadingScreenState(
-      (b) => {b..find = state.initialScreenState.find.toBuilder()});
+      (b) => b..find = state.initialScreenState.find.toBuilder());
 }
 
 void onEnableDarkTheme(
-    AppState state, Action<Null> action, AppStateBuilder builder) {
+    AppState state, Action<void> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..useDarkTheme = true
@@ -79,7 +79,7 @@ void onEnableDarkTheme(
 }
 
 void onDisableDarkTheme(
-    AppState state, Action<Null> action, AppStateBuilder builder) {
+    AppState state, Action<void> action, AppStateBuilder builder) {
   builder.settingsState.interfaceSettingsState.update((b) {
     b
       ..useDarkTheme = false
@@ -108,14 +108,14 @@ void onCurrencyDisplayingModeChange(AppState state,
 void onGetSaved(
     AppState state, Action<Iterable<Find>> action, AppStateBuilder builder) {
   builder.settingsState.behaviorSettingsState.cachedState.update((b) {
-    b..cached = BuiltList.of(action.payload).toBuilder();
+    b.cached = BuiltList.of(action.payload).toBuilder();
   });
 }
 
 void onNavigateSaved(
-    AppState state, Action<Iterable<Find>> action, AppStateBuilder builder) {
+    AppState state, Action<void> action, AppStateBuilder builder) {
   builder.settingsState.behaviorSettingsState.cachedState.update((b) {
-    b..cached = null;
+    b.cached = null;
   });
 }
 
@@ -123,11 +123,9 @@ void onFound(
     AppState state, Action<Iterable<Train>> action, AppStateBuilder builder) {
   builder.update((b) {
     b
-      ..trainsScreenState = TrainsLoadedScreenState((b) => {
-            b
-              ..find = state.trainsScreenState.find.toBuilder()
-              ..trains = BuiltList.of(action.payload).toBuilder()
-          });
+      .trainsScreenState = TrainsLoadedScreenState((b) => b
+        ..find = state.trainsScreenState.find.toBuilder()
+        ..trains = BuiltList.of(action.payload).toBuilder());
   });
 }
 
@@ -135,13 +133,14 @@ void onClearCache(
     AppState state, Action<DateTime> action, AppStateBuilder builder) {
   builder.update((b) {
     b
-      ..settingsState.behaviorSettingsState.cachedState.update((b) {
-        b..cached = null;
+      .settingsState.behaviorSettingsState.cachedState.update((b) {
+        b.cached = null;
       });
   });
 }
 
-void onOpenCached(AppState state, Action<Find> action, AppStateBuilder builder) {
-  builder.trainsScreenState = TrainsLoadingScreenState(
-      (b) => {b..find = action.payload.toBuilder()});
+void onOpenCached(
+    AppState state, Action<Find> action, AppStateBuilder builder) {
+  builder.trainsScreenState =
+      TrainsLoadingScreenState((b) => b..find = action.payload.toBuilder());
 }

@@ -17,10 +17,10 @@ class EntryAdapter extends TypeAdapter<Entry> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Entry(
-      fields[0] as String,
-      fields[1] as String,
-      fields[2] as DateTime,
-      (fields[3] as List)?.cast<TrainDto>(),
+      departStation: fields[0] as String,
+      arriveStation: fields[1] as String,
+      dateTime: fields[2] as DateTime,
+      trains: (fields[3] as List)?.cast<TrainDto>(),
     );
   }
 

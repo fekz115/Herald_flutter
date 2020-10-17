@@ -8,19 +8,25 @@ part 'service_response.g.dart';
 abstract class ServiceResponse {}
 
 class TrainsLoadedResponse implements ServiceResponse {
-  final Iterable<Train> trains;
+  const TrainsLoadedResponse({
+    this.trains,
+  });
 
-  TrainsLoadedResponse(this.trains);
+  final Iterable<Train> trains;
 }
 
 class ParseExceptionResponse implements ServiceResponse {
-  final ParseException exception;
+  const ParseExceptionResponse({
+    this.exception,
+  });
 
-  ParseExceptionResponse(this.exception);
+  final ParseException exception;
 }
 
 class ExceptionRespose implements ServiceResponse {
-  final Exception exception;
+  const ExceptionRespose({
+    this.exception,
+  });
 
-  ExceptionRespose(this.exception);
+  final Exception exception;
 }

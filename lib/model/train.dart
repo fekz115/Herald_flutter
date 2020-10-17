@@ -11,6 +11,8 @@ import 'package:built_value/serializer.dart';
 part 'train.g.dart';
 
 abstract class Train implements Built<Train, TrainBuilder> {
+  factory Train([TrainBuilder Function(TrainBuilder b) updates]) = _$Train;
+  Train._();
 
   String get trainId;
   TrainType get type;
@@ -26,12 +28,8 @@ abstract class Train implements Built<Train, TrainBuilder> {
 
   DateTime get arriveTime => departTime.add(duration);
 
-  Train._();
-  factory Train([updates(TrainBuilder b)]) = _$Train;
-
   String toJson() {
-    return json
-        .encode(serializers.serializeWith(Train.serializer, this));
+    return json.encode(serializers.serializeWith(Train.serializer, this));
   }
 
   static Train fromJson(String jsonString) {
@@ -40,5 +38,4 @@ abstract class Train implements Built<Train, TrainBuilder> {
   }
 
   static Serializer<Train> get serializer => _$trainSerializer;
-
 }

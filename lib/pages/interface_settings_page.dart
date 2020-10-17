@@ -8,6 +8,8 @@ import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class InterfaceSettingsPage
     extends StoreConnector<AppState, AppActions, InterfaceSettingsState> {
+  InterfaceSettingsPage({Key key}) : super(key: key);
+
   @override
   Widget build(
       BuildContext context, InterfaceSettingsState state, AppActions actions) {

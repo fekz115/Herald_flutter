@@ -20,22 +20,22 @@ void main() {
 }
 
 void correctPagesTests() {
-  ParseService parseService = HtmlParserService();
-  List<String> pages = [
+  final ParseService parseService = HtmlParserService();
+  final List<String> pages = [
     testPage1,
     testPage2,
   ];
   int i = 1;
-  pages.forEach((page) {
+  for(final page in pages) {
     test('Correct page test $i', () {
       expect(parseService.parseTrains(page), isNotEmpty);
     });
     i++;
-  });
+  }
 }
 
 void withoutDirectWayTests() {
-  ParseService parseService = HtmlParserService();
+  final ParseService parseService = HtmlParserService();
   test('Error test - there is not direct way 1', () {
     expect(() => parseService.parseTrains(testPage3),
         throwsA(isInstanceOf<ParseException>()));
@@ -43,7 +43,7 @@ void withoutDirectWayTests() {
 }
 
 void stationNotFoundTests() {
-  ParseService parseService = HtmlParserService();
+  final ParseService parseService = HtmlParserService();
   test('Error test - station not found 1', () {
     expect(() => parseService.parseTrains(testPage4),
         throwsA(isInstanceOf<StationNotFoundException>()));
@@ -59,7 +59,7 @@ void stationNotFoundTests() {
 }
 
 void tooShortTests() {
-  ParseService parseService = HtmlParserService();
+  final ParseService parseService = HtmlParserService();
   test('Error test - too short 1', () {
     expect(() => parseService.parseTrains(testPage7),
         throwsA(isInstanceOf<TooShortException>()));

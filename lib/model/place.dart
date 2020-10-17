@@ -11,6 +11,8 @@ part 'place.g.dart';
 
 @HiveType(typeId: 1)
 abstract class Place implements Built<Place, PlaceBuilder> {
+  factory Place([PlaceBuilder Function(PlaceBuilder b) updates]) = _$Place;
+  Place._();
 
   PlaceType get type;
   int get amount;
@@ -19,12 +21,8 @@ abstract class Place implements Built<Place, PlaceBuilder> {
   double get costUSD;
   double get costEUR;
 
-  Place._();
-  factory Place([updates(PlaceBuilder b)]) = _$Place;
-
   String toJson() {
-    return json
-        .encode(serializers.serializeWith(Place.serializer, this));
+    return json.encode(serializers.serializeWith(Place.serializer, this));
   }
 
   static Place fromJson(String jsonString) {
@@ -33,5 +31,4 @@ abstract class Place implements Built<Place, PlaceBuilder> {
   }
 
   static Serializer<Place> get serializer => _$placeSerializer;
-
 }

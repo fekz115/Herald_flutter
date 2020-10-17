@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 extension ThemeExtensions on ThemeData {
 
   Color gray() {
-    return this.brightness == Brightness.light ? 
+    return brightness == Brightness.light ? 
       Colors.black45 : 
       Colors.white54;
   }
@@ -58,15 +58,15 @@ extension ThemeExtensions on ThemeData {
   }
 
   double iconMargin() {
-    return 5.0;
+    return 5;
   }
 
   double cardVerticalAlignment() {
-    return 10.0;
+    return 10;
   }
 
   double cardPadding() {
-    return 8.0;
+    return 8;
   }
 
 }

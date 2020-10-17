@@ -14,7 +14,7 @@ class HeraldLocalizationsDelegate
   @override
   Future<HeraldLocalizations> load(Locale locale) {
     return SynchronousFuture<HeraldLocalizations>(
-        HeraldLocalizations(Locale('ru'), locale));
+        HeraldLocalizations(const Locale('ru'), locale));
   }
 
   @override
@@ -24,15 +24,15 @@ class HeraldLocalizationsDelegate
 }
 
 class HeraldLocalizations {
-  final Locale locale;
-  final Locale _defaultLocale;
-  DateFormat _dateFormat;
-  DateFormat _timeFormat;
-
   HeraldLocalizations(this._defaultLocale, this.locale) {
     _dateFormat = DateFormat.yMd();
     _timeFormat = DateFormat.Hm();
   }
+
+  final Locale locale;
+  final Locale _defaultLocale;
+  DateFormat _dateFormat;
+  DateFormat _timeFormat;
 
   static HeraldLocalizations of(BuildContext context) {
     return Localizations.of<HeraldLocalizations>(context, HeraldLocalizations);

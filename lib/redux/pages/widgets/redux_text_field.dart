@@ -1,32 +1,36 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:built_redux/built_redux.dart';
+import 'package:built_value/built_value.dart';
+import 'package:flutter/material.dart' hide Builder;
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-typedef void TextListener(String data);
-typedef String Mapper<S>(S state);
-typedef Widget Builder(TextEditingController controller, BuildContext context);
+typedef TextListener = void Function(String data);
+typedef Mapper<S extends Built<S, SB>, SB extends Builder<S, SB>> = String Function(S state);
+typedef WidgetBuilder = Widget Function(
+    TextEditingController controller, BuildContext context);
 
-class ReduxTextField extends StatefulWidget {
-  final TextListener listener;
-  final Mapper mapper;
-  final Builder builder;
-
-  ReduxTextField({
+class ReduxTextField<S extends Built<S, SB>, SB extends Builder<S, SB>> extends StatefulWidget {
+  const ReduxTextField({
+    Key key,
     @required this.listener,
     @required this.mapper,
     @required this.builder,
-  });
+  }) : super(key: key);
+
+  final TextListener listener;
+  final Mapper<S, SB> mapper;
+  final WidgetBuilder builder;
 
   @override
   State<StatefulWidget> createState() {
-    return _ReduxTextFieldState();
+    return _ReduxTextFieldState<S, SB>();
   }
 }
 
-class _ReduxTextFieldState<S> extends State<ReduxTextField> {
+class _ReduxTextFieldState<S extends Built<S, SB>, SB extends Builder<S, SB>> extends State<ReduxTextField<S, SB>> {
   TextEditingController _controller;
-  StreamSubscription _streamSubscription;
+  StreamSubscription<SubstateChange<String>> _streamSubscription;
 
   @override
   void didChangeDependencies() {
@@ -42,7 +46,7 @@ class _ReduxTextFieldState<S> extends State<ReduxTextField> {
     _streamSubscription = context
         .dependOnInheritedWidgetOfExactType<ReduxProvider>()
         .store
-        .substateStream(widget.mapper)
+        .substateStream<String>(widget.mapper)
         .listen((event) {
       if (_controller.text != event.next) {
         _controller.text = event.next;

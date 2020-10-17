@@ -10,11 +10,13 @@ part 'settings_state.g.dart';
 
 abstract class SettingsState
     implements Built<SettingsState, SettingsStateBuilder> {
+  factory SettingsState(
+          [SettingsStateBuilder Function(SettingsStateBuilder b) updates]) =
+      _$SettingsState;
+  SettingsState._();
+
   InterfaceSettingsState get interfaceSettingsState;
   BehaviorSettingsState get behaviorSettingsState;
-
-  SettingsState._();
-  factory SettingsState([updates(SettingsStateBuilder b)]) = _$SettingsState;
 
   String toJson() {
     return json

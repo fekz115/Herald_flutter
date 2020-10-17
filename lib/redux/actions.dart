@@ -1,3 +1,5 @@
+import 'dart:wasm';
+
 import 'package:Herald_flutter/model/find.dart';
 import 'package:Herald_flutter/model/train.dart';
 import 'package:Herald_flutter/redux/actions_args.dart';
@@ -8,30 +10,33 @@ import 'package:built_redux/built_redux.dart';
 part 'actions.g.dart';
 
 abstract class AppActions extends ReduxActions {
+  factory AppActions() => _$AppActions();
+  AppActions._();
+
   ActionDispatcher<String> changeDepartStationAction;
   ActionDispatcher<String> changeArriveStationAction;
   ActionDispatcher<DateTime> changeDateAction;
-  ActionDispatcher<Null> searchAction;
+  ActionDispatcher<Void> searchAction;
   ActionDispatcher<ServiceResponse> serviceResponseAction;
-  ActionDispatcher<Null> refreshAction;
+  ActionDispatcher<Void> refreshAction;
 
-  ActionDispatcher<Null> showTrainsPage;
-  ActionDispatcher<Null> showSettingsPage;
-  ActionDispatcher<Null> showInterfaceSettingsPage;
-  ActionDispatcher<Null> showBehaviorSettings;
-  ActionDispatcher<Null> showCached;
-  ActionDispatcher<Null> goBack;
+  ActionDispatcher<Void> showTrainsPage;
+  ActionDispatcher<Void> showSettingsPage;
+  ActionDispatcher<Void> showInterfaceSettingsPage;
+  ActionDispatcher<Void> showBehaviorSettings;
+  ActionDispatcher<Void> showCached;
+  ActionDispatcher<Void> goBack;
 
-  ActionDispatcher<Null> enableDarkTheme;
-  ActionDispatcher<Null> disableDarkTheme;
+  ActionDispatcher<Void> enableDarkTheme;
+  ActionDispatcher<Void> disableDarkTheme;
 
   ActionDispatcher<Currency> changeCurrency;
   ActionDispatcher<CurrencyDisplaying> changeCurrencyDisplayingMode;
 
-  ActionDispatcher<Null> appInit;
-  ActionDispatcher<Null> appClose;
+  ActionDispatcher<Void> appInit;
+  ActionDispatcher<Void> appClose;
 
-  ActionDispatcher<Null> getCached;
+  ActionDispatcher<Void> getCached;
   ActionDispatcher<Find> findCached;
   ActionDispatcher<Find> removeCached;
   ActionDispatcher<DateTime> clearCache;
@@ -39,7 +44,4 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<Iterable<Find>> saved;
   ActionDispatcher<Iterable<Train>> found;
   ActionDispatcher<Find> openCached;
-
-  AppActions._();
-  factory AppActions() => new _$AppActions();
 }

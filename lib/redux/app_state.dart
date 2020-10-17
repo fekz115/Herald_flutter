@@ -10,12 +10,13 @@ import 'package:built_value/serializer.dart';
 part 'app_state.g.dart';
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
+  factory AppState([AppStateBuilder Function(AppStateBuilder b) updates]) =
+      _$AppState;
+  AppState._();
+
   InitialScreenState get initialScreenState;
   TrainsScreenState get trainsScreenState;
   SettingsState get settingsState;
-
-  AppState._();
-  factory AppState([updates(AppStateBuilder b)]) = _$AppState;
 
   String toJson() {
     return json.encode(serializers.serializeWith(AppState.serializer, this));

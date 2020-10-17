@@ -8,19 +8,17 @@ import 'package:built_value/serializer.dart';
 
 part 'cached_state.g.dart';
 
-abstract class CachedState
-    implements Built<CachedState, CachedStateBuilder> {
+abstract class CachedState implements Built<CachedState, CachedStateBuilder> {
+  factory CachedState(
+          [CachedStateBuilder Function(CachedStateBuilder b) updates]) =
+      _$CachedState;
+  CachedState._();
 
   @nullable
   BuiltList<Find> get cached;
 
-  CachedState._();
-  factory CachedState([updates(CachedStateBuilder b)]) =
-      _$CachedState;
-
   String toJson() {
-    return json.encode(
-        serializers.serializeWith(CachedState.serializer, this));
+    return json.encode(serializers.serializeWith(CachedState.serializer, this));
   }
 
   static CachedState fromJson(String jsonString) {
@@ -28,6 +26,5 @@ abstract class CachedState
         CachedState.serializer, json.decode(jsonString));
   }
 
-  static Serializer<CachedState> get serializer =>
-      _$cachedStateSerializer;
+  static Serializer<CachedState> get serializer => _$cachedStateSerializer;
 }

@@ -9,12 +9,12 @@ part 'behavior_settings_state.g.dart';
 
 abstract class BehaviorSettingsState
     implements Built<BehaviorSettingsState, BehaviorSettingsStateBuilder> {
+  factory BehaviorSettingsState(
+      [BehaviorSettingsStateBuilder Function(BehaviorSettingsStateBuilder b)
+          updates]) = _$BehaviorSettingsState;
+  BehaviorSettingsState._();
 
   CachedState get cachedState;
-
-  BehaviorSettingsState._();
-  factory BehaviorSettingsState([updates(BehaviorSettingsStateBuilder b)]) =
-      _$BehaviorSettingsState;
 
   String toJson() {
     return json.encode(

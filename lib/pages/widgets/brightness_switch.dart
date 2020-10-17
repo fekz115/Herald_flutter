@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class BrightnessSwitch extends StoreConnector<AppState, AppActions, bool> {
+  BrightnessSwitch({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, bool state, AppActions actions) {
     return Switch(

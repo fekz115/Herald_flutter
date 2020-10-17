@@ -11,17 +11,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TrainWidget extends StatelessWidget {
-  final Train train;
-
   TrainWidget({Key key, @required this.train}) : super(key: key);
 
-  static const String iconsPath = "assets/images/icons";  
+  final Train train;
+
+  static const String iconsPath = 'assets/images/icons';  
 
   final Map<bool Function(Train), String> _flagsMap = {
-    (Train train) => train.accessible: "accessible.svg",
-    (Train train) => train.comfort: "comfort.svg",
-    (Train train) => train.reserved: "reserved.svg",
-    (Train train) => train.speed: "speed.svg",
+    (Train train) => train.accessible: 'accessible.svg',
+    (Train train) => train.comfort: 'comfort.svg',
+    (Train train) => train.reserved: 'reserved.svg',
+    (Train train) => train.speed: 'speed.svg',
   };
 
   String _getPlaceName(Place place, HeraldLocalizations localization) {
@@ -39,7 +39,7 @@ class TrainWidget extends StatelessWidget {
         return localization.sv;
         break;
       default:
-        return "";
+        return '';
         break;
     }
   }
@@ -77,7 +77,7 @@ class TrainWidget extends StatelessWidget {
   Widget _buildTrainType(BuildContext context) {
     if (train.type != TrainType.none) {
       return  SvgPicture.asset(
-          "$iconsPath/${train.type.name}.svg",
+          '$iconsPath/${train.type.name}.svg',
       );
     } else {
       return Container();
@@ -91,7 +91,7 @@ class TrainWidget extends StatelessWidget {
           .map((e) => e.value)
           .map((e) => Padding(
             padding: EdgeInsets.only(left: Theme.of(context).iconMargin()),
-            child: SvgPicture.asset("$iconsPath/$e"),
+            child: SvgPicture.asset('$iconsPath/$e'),
           ))
           .toList(),
     );
@@ -140,7 +140,7 @@ class TrainWidget extends StatelessWidget {
   }
 
   Widget _buildTrainTime(BuildContext context) {
-    var duration = train.duration;
+    final duration = train.duration;
     return Row(
       children: [
         Flexible(
@@ -199,7 +199,7 @@ class TrainWidget extends StatelessWidget {
   }
 
   Widget _buildTrainFooter(BuildContext context) {
-    return train.places.length == 0
+    return train.places.isEmpty
         ? Container()
         : Table(
             border: TableBorder(

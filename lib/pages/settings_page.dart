@@ -5,19 +5,21 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:Herald_flutter/extensions.dart';
 
 class SettingsPage extends StatelessWidget {
-  void comingSoonOnTap(BuildContext context) async {
-    showDialog(
+  const SettingsPage({Key key}) : super(key: key);
+
+  Future<void> comingSoonOnTap(BuildContext context) async {
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(HeraldLocalizations.of(context).comingSoon),
           content: Text(HeraldLocalizations.of(context).comingSoonDescription),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text(HeraldLocalizations.of(context).close),
+            FlatButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: Text(HeraldLocalizations.of(context).close),
             ),
           ],
         );
@@ -34,30 +36,30 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.palette),
+            leading: const Icon(Icons.palette),
             title: Text(HeraldLocalizations.of(context).interfaceSettings),
-            onTap: getAppActions(context).showInterfaceSettingsPage,
+            onTap: () => getAppActions(context).showInterfaceSettingsPage(),
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: const Icon(Icons.settings),
             title: Text(HeraldLocalizations.of(context).behaviorSettings),
-            onTap: getAppActions(context).showBehaviorSettings,
+            onTap: () => getAppActions(context).showBehaviorSettings(),
           ),
           ListTile(
-            leading: Icon(Icons.info),
+            leading: const Icon(Icons.info),
             title: Text(HeraldLocalizations.of(context).aboutApp),
             onTap: () {
               showAboutDialog(
                 context: context,
-                applicationIcon: Icon(Icons.train),
+                applicationIcon: const Icon(Icons.train),
                 applicationName: HeraldLocalizations.of(context).title,
                 applicationVersion: '0.1.0-dev2',
                 children: <Widget>[
                   Text(
                     HeraldLocalizations.of(context).appDescription,
                   ),
-                  SizedBox(
-                    height: 10.0,
+                  const SizedBox(
+                    height: 10,
                   ),
                   Linkify(
                     onOpen: (link) async {
@@ -67,8 +69,8 @@ class SettingsPage extends StatelessWidget {
                     },
                     text: HeraldLocalizations.of(context).sourceCodeDescription,
                   ),
-                  SizedBox(
-                    height: 10.0,
+                  const SizedBox(
+                    height: 10,
                   ),
                   Linkify(
                     onOpen: (link) async {
@@ -78,8 +80,8 @@ class SettingsPage extends StatelessWidget {
                     },
                     text: HeraldLocalizations.of(context).informationSource,
                   ),
-                  SizedBox(
-                    height: 10.0,
+                  const SizedBox(
+                    height: 10,
                   ),
                   Text(
                     HeraldLocalizations.of(context).flutterPowered,
@@ -90,9 +92,9 @@ class SettingsPage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.mail),
+            leading: const Icon(Icons.mail),
             title: Text(HeraldLocalizations.of(context).feedback),
-            onTap: () => {comingSoonOnTap(context)},
+            onTap: () => comingSoonOnTap(context),
           ),
         ],
       ),

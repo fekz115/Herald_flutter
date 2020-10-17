@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:Herald_flutter/extensions.dart';
 
 class FindWidget extends StatelessWidget {
+  const FindWidget({Key key, this.find}) : super(key: key);
 
   final Find find;
-
-  const FindWidget(this.find);
 
   @override
   Widget build(BuildContext context) {
@@ -18,5 +17,4 @@ class FindWidget extends StatelessWidget {
       },
     );
   }
-
 }

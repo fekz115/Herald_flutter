@@ -26,11 +26,12 @@ abstract class TrainsLoadedScreenState
     implements
         Built<TrainsLoadedScreenState, TrainsLoadedScreenStateBuilder>,
         TrainsScreenState {
-  BuiltList<Train> get trains;
-
+  factory TrainsLoadedScreenState(
+      [TrainsLoadedScreenStateBuilder Function(TrainsLoadedScreenStateBuilder b)
+          updates]) = _$TrainsLoadedScreenState;
   TrainsLoadedScreenState._();
-  factory TrainsLoadedScreenState([updates(TrainsLoadedScreenStateBuilder b)]) =
-      _$TrainsLoadedScreenState;
+
+  BuiltList<Train> get trains;
 
   String toJson() {
     return json.encode(
@@ -51,32 +52,35 @@ abstract class TrainsParseExceptionScreenState
         Built<TrainsParseExceptionScreenState,
             TrainsParseExceptionScreenStateBuilder>,
         TrainsScreenState {
-  ParseException get exception;
-
-  TrainsParseExceptionScreenState._();
   factory TrainsParseExceptionScreenState(
-          [updates(TrainsParseExceptionScreenStateBuilder b)]) =
-      _$TrainsParseExceptionScreenState;
+      [TrainsParseExceptionScreenStateBuilder Function(
+              TrainsParseExceptionScreenStateBuilder b)
+          updates]) = _$TrainsParseExceptionScreenState;
+  TrainsParseExceptionScreenState._();
+
+  ParseException get exception;
 }
 
 abstract class TrainsExceptionScreenState
     implements
         Built<TrainsExceptionScreenState, TrainsExceptionScreenStateBuilder>,
         TrainsScreenState {
-  Exception get exception;
-
-  TrainsExceptionScreenState._();
   factory TrainsExceptionScreenState(
-          [updates(TrainsExceptionScreenStateBuilder b)]) =
-      _$TrainsExceptionScreenState;
+      [TrainsExceptionScreenStateBuilder Function(
+              TrainsExceptionScreenStateBuilder b)
+          updates]) = _$TrainsExceptionScreenState;
+  TrainsExceptionScreenState._();
+
+  Exception get exception;
 }
 
 abstract class TrainsLoadingScreenState
     implements
         Built<TrainsLoadingScreenState, TrainsLoadingScreenStateBuilder>,
         TrainsScreenState {
-  TrainsLoadingScreenState._();
   factory TrainsLoadingScreenState(
-          [updates(TrainsLoadingScreenStateBuilder b)]) =
-      _$TrainsLoadingScreenState;
+      [TrainsLoadingScreenStateBuilder Function(
+              TrainsLoadingScreenStateBuilder b)
+          updates]) = _$TrainsLoadingScreenState;
+  TrainsLoadingScreenState._();
 }

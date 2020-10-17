@@ -1,5 +1,3 @@
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
@@ -9,26 +7,34 @@ extension DateTimePrinter on DateTime {
   }
 
   String toStringOnlyTime() {
-    return '${hour < 10 ? '0' + hour.toString() : hour}:${minute < 10 ? '0' + minute.toString() : minute}';
+    return '${hour < 10 ? '0$hour' : hour}:${minute < 10 ? '0$minute' : minute}';
   }
 
   String toStringRus() {
-    return '${day < 10 ? '0' + day.toString() : day}.${month < 10 ? '0' + month.toString() : month}.$year';
+    return '${day < 10 ? '0$day' : day}.${month < 10 ? '0$month' : month}.$year';
   }
 }
 
 extension DurationPrinter on Duration {
   String toStringOnlyHM(String h, String m) {
-    return (inHours > 0 ? '$inHours$h ' : '') + '${inMinutes % 60}$m';
+    return '${inHours > 0 ? '$inHours$h ' : ''}${'${inMinutes % 60}$m'}';
   }
 }
 
 extension StoreGetter on StatelessWidget {
-  AppState getAppState(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store.state as AppState);
+  S getAppState<S>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<ReduxProvider>()
+        .store
+        // ignore: avoid_as
+        .state as S;
   }
-  
-  AppActions getAppActions(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ReduxProvider>().store.actions as AppActions);
+
+  A getAppActions<A>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<ReduxProvider>()
+        .store
+        // ignore: avoid_as
+        .actions as A;
   }
 }

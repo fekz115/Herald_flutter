@@ -7,17 +7,15 @@ import 'package:built_value/serializer.dart';
 part 'find.g.dart';
 
 abstract class Find implements Built<Find, FindBuilder> {
-  
+  factory Find([FindBuilder Function(FindBuilder b) updates]) = _$Find;
+  Find._();
+
   String get departStation;
   String get arriveStation;
   DateTime get date;
 
-  Find._();
-  factory Find([updates(FindBuilder b)]) = _$Find;
-
   String toJson() {
-    return json
-        .encode(serializers.serializeWith(Find.serializer, this));
+    return json.encode(serializers.serializeWith(Find.serializer, this));
   }
 
   static Find fromJson(String jsonString) {
@@ -26,5 +24,4 @@ abstract class Find implements Built<Find, FindBuilder> {
   }
 
   static Serializer<Find> get serializer => _$findSerializer;
-
 }

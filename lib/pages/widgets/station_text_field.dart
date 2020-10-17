@@ -5,25 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class StationTextField extends StatelessWidget {
-  final StationTextInputState Function(AppState) connector;
-  final String label;
-  final Function(String) onTextChanged;
-
-  StationTextField({
+  const StationTextField({
+    Key key,
     @required this.connector,
     @required this.label,
     @required this.onTextChanged,
-  });
+  }) : super(key: key);
+
+  final StationTextInputState Function(AppState) connector;
+  final String label;
+  final ValueChanged<String> onTextChanged;
 
   @override
   Widget build(BuildContext context) {
-    return ReduxTextField(
+    return ReduxTextField<AppState, AppStateBuilder>(
       listener: onTextChanged,
       mapper: (state) => connector(state).value,
       builder: (controller, context) => TextField(
         textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: label,
         ),
         controller: controller,

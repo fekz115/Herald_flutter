@@ -17,12 +17,12 @@ class PlaceDtoAdapter extends TypeAdapter<PlaceDto> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PlaceDto(
-      fields[0] as PlaceTypeDto,
-      fields[1] as int,
-      fields[2] as double,
-      fields[3] as double,
-      fields[4] as double,
-      fields[5] as double,
+      type: fields[0] as PlaceTypeDto,
+      amount: fields[1] as int,
+      costBYN: fields[2] as double,
+      costRUB: fields[3] as double,
+      costUSD: fields[4] as double,
+      costEUR: fields[5] as double,
     );
   }
 

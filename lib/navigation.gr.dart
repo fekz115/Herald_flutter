@@ -50,15 +50,20 @@ class HeraldRouter extends RouterBase {
   final _pagesMap = <Type, AutoRouteFactory>{
     HomePage: (data) {
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomePage(),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
     TrainsPage: (data) {
+      final args = data.getArgs<TrainsPageArguments>(
+        orElse: () => TrainsPageArguments(),
+      );
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => TrainsPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            TrainsPage(key: args.key),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
@@ -66,16 +71,20 @@ class HeraldRouter extends RouterBase {
     },
     SettingsPage: (data) {
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => SettingsPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const SettingsPage(),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
     InterfaceSettingsPage: (data) {
+      final args = data.getArgs<InterfaceSettingsPageArguments>(
+        orElse: () => InterfaceSettingsPageArguments(),
+      );
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            InterfaceSettingsPage(),
+            InterfaceSettingsPage(key: args.key),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
@@ -84,19 +93,45 @@ class HeraldRouter extends RouterBase {
     BehaviorSettingsPage: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            BehaviorSettingsPage(),
+            const BehaviorSettingsPage(),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
     CachedPage: (data) {
+      final args = data.getArgs<CachedPageArguments>(
+        orElse: () => CachedPageArguments(),
+      );
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => CachedPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CachedPage(key: args.key),
         settings: data,
         transitionsBuilder: zoomInTransition,
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// TrainsPage arguments holder class
+class TrainsPageArguments {
+  final Key key;
+  TrainsPageArguments({this.key});
+}
+
+/// InterfaceSettingsPage arguments holder class
+class InterfaceSettingsPageArguments {
+  final Key key;
+  InterfaceSettingsPageArguments({this.key});
+}
+
+/// CachedPage arguments holder class
+class CachedPageArguments {
+  final Key key;
+  CachedPageArguments({this.key});
 }

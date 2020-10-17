@@ -6,16 +6,16 @@ import 'package:Herald_flutter/services/parse_service.dart';
 import 'package:Herald_flutter/services/service_response.dart';
 
 class TrainLoadService {
+  const TrainLoadService(this._loadService, this._parseService);
+
   final LoadService _loadService;
   final ParseService _parseService;
 
-  TrainLoadService(this._loadService, this._parseService);
-
   Future<ServiceResponse> loadTrains(Find find) async {
     try {
-      String page = await _loadService.loadPage(find);
-      List<Train> trains = _parseService.parseTrains(page).map((train) {
-        var newDepartDate = DateTime(
+      final String page = await _loadService.loadPage(find);
+      final List<Train> trains = _parseService.parseTrains(page).map((train) {
+        final newDepartDate = DateTime(
           find.date.year,
           find.date.month,
           find.date.day,
@@ -25,9 +25,9 @@ class TrainLoadService {
         );
         return train.rebuild((b) => b..departTime = newDepartDate);
       }).toList();
-      return TrainsLoadedResponse(trains);
+      return TrainsLoadedResponse(trains: trains);
     } on ParseException catch (e) {
-      return ParseExceptionResponse(e);
+      return ParseExceptionResponse(exception: e);
     }
   }
 }

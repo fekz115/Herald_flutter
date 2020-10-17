@@ -17,17 +17,17 @@ class TrainDtoAdapter extends TypeAdapter<TrainDto> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TrainDto(
-      fields[0] as String,
-      fields[1] as TrainTypeDto,
-      fields[2] as String,
-      fields[3] as String,
-      fields[4] as DateTime,
-      (fields[5] as List)?.cast<PlaceDto>(),
-      fields[6] as bool,
-      fields[7] as bool,
-      fields[8] as bool,
-      fields[9] as bool,
-      fields[10] as int,
+      trainId: fields[0] as String,
+      type: fields[1] as TrainTypeDto,
+      departStation: fields[2] as String,
+      arriveStation: fields[3] as String,
+      departTime: fields[4] as DateTime,
+      places: (fields[5] as List)?.cast<PlaceDto>(),
+      reserved: fields[6] as bool,
+      comfort: fields[7] as bool,
+      speed: fields[8] as bool,
+      accessible: fields[9] as bool,
+      duration: fields[10] as int,
     );
   }
 

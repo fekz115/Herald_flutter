@@ -1,23 +1,25 @@
 import 'package:Herald_flutter/i18n.dart';
 
 class ParseException implements Exception {
+  ParseException({
+    this.message,
+  });
 
   final Keys message;
-
-  ParseException(this.message);
 }
 
 class StationNotFoundException extends ParseException {
-  StationNotFoundException() : super(Keys.ERROR_STATION_NOT_FOUND);
+  StationNotFoundException() : super(message: Keys.ERROR_STATION_NOT_FOUND);
 }
 
 class TooShortException extends ParseException {
-  TooShortException() : super(Keys.ERROR_TOO_SHORT);
+  TooShortException() : super(message: Keys.ERROR_TOO_SHORT);
 }
 
 class UnknownParseException extends ParseException {
+  UnknownParseException({this.content,}) : super(message: Keys.ERROR_UNKNOWN);
+
   final String content;
-  UnknownParseException(this.content) : super(Keys.ERROR_UNKNOWN);
 
   @override
   String toString() {
@@ -26,5 +28,5 @@ class UnknownParseException extends ParseException {
 }
 
 class NoDirectPathException extends ParseException {
-  NoDirectPathException() : super(Keys.ERROR_NO_DIRECT_PATH);
+  NoDirectPathException() : super(message: Keys.ERROR_NO_DIRECT_PATH);
 }

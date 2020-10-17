@@ -46,6 +46,6 @@ class $HeraldRouter {}
 
 Widget zoomInTransition(BuildContext context, Animation<double> animation,
     Animation<double> secondaryAnimation, Widget child) {
-  return ZoomPageTransitionsBuilder()
+  return const ZoomPageTransitionsBuilder()
       .buildTransitions(null, context, animation, secondaryAnimation, child);
 }
