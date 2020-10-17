@@ -42,7 +42,7 @@ import 'package:flutter/material.dart';
     ),
   ],
 )
-class $Router {}
+class $HeraldRouter {}
 
 Widget zoomInTransition(BuildContext context, Animation<double> animation,
     Animation<double> secondaryAnimation, Widget child) {

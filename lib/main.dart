@@ -107,8 +107,8 @@ class InterfaceStateListener
         ...HeraldLocalizations.supportedLocales.map((e) => Locale(e)).toList()
       ],
       home: Scaffold(
-        body: ExtendedNavigator<Router>(
-          router: Router(),
+        body: ExtendedNavigator<HeraldRouter>(
+          router: HeraldRouter(),
           name: "mainNav",
         ),
       ),
