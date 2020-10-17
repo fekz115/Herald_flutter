@@ -92,10 +92,11 @@ class _ReduxList<S extends Built<S, SB>, SB extends Builder<S, SB>, I> extends S
         }
         i++;
       }
+      int q = 0;
       for (final element in deleted) {
         final t = _items[element];
         _listKey.currentState.removeItem(
-          element,
+          element - q++,
           (context, animation) => widget.builder(context, animation, t),
           duration: widget.removeDuration,
         );

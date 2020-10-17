@@ -46,7 +46,7 @@ class _ReduxTextFieldState<S extends Built<S, SB>, SB extends Builder<S, SB>> ex
     _streamSubscription = context
         .dependOnInheritedWidgetOfExactType<ReduxProvider>()
         .store
-        .substateStream<String>(widget.mapper)
+        .substateStream<String>((state) => widget.mapper(state))
         .listen((event) {
       if (_controller.text != event.next) {
         _controller.text = event.next;
