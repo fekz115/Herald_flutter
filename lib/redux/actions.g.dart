@@ -52,6 +52,7 @@ class _$AppActions extends AppActions {
   final saved = ActionDispatcher<Iterable<Find>>('AppActions-saved');
   final found = ActionDispatcher<Iterable<Train>>('AppActions-found');
   final openCached = ActionDispatcher<Find>('AppActions-openCached');
+  final openFeedback = ActionDispatcher<Void>('AppActions-openFeedback');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -81,6 +82,7 @@ class _$AppActions extends AppActions {
     saved.setDispatcher(dispatcher);
     found.setDispatcher(dispatcher);
     openCached.setDispatcher(dispatcher);
+    openFeedback.setDispatcher(dispatcher);
   }
 }
 
@@ -122,4 +124,5 @@ class AppActionsNames {
   static final saved = ActionName<Iterable<Find>>('AppActions-saved');
   static final found = ActionName<Iterable<Train>>('AppActions-found');
   static final openCached = ActionName<Find>('AppActions-openCached');
+  static final openFeedback = ActionName<Void>('AppActions-openFeedback');
 }

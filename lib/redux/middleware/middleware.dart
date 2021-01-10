@@ -9,6 +9,8 @@ import 'package:Herald/services/service_response.dart';
 import 'package:Herald/services/train_load_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:device_info/device_info.dart';
 
 Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
     TrainLoadService service, PersistenceService persistenceService) {
@@ -39,7 +41,8 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
         ..add(AppActionsNames.found, createFoundMiddleware())
         ..add(AppActionsNames.save, createSaveMiddleware(persistenceService))
         ..add(AppActionsNames.clearCache,
-            createClearCachedMiddleware(persistenceService)))
+            createClearCachedMiddleware(persistenceService))
+            ..add(AppActionsNames.openFeedback, openFeedbackMiddleware))
       .build();
 }
 
@@ -206,4 +209,22 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, Find>
     api.actions.showTrainsPage();
     api.actions.findCached(action.payload);
   };
+}
+
+Future<void> openFeedbackMiddleware(MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
+    ActionHandler next, Action<void> action) async {
+  next(action);
+
+  final deviceInfo = DeviceInfoPlugin();
+  final androidInfo = await deviceInfo.androidInfo;
+
+  const mail = 'fekz115@gmail.com';
+  const subject = 'Herald feedback';
+  const appVersion = '0.1.0-dev3';
+  
+  final body = 'App version: $appVersion\nDevice: ${androidInfo.model}\nOS Version: ${androidInfo.version.release}\n\n'; //TODO: Support other OS
+
+  final url = Uri.encodeFull('mailto:$mail?subject=$subject&body=$body');
+
+  await launch(url);
 }

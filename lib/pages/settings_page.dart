@@ -1,4 +1,5 @@
 import 'package:Herald/i18n.dart';
+import 'package:Herald/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,7 +54,7 @@ class SettingsPage extends StatelessWidget {
                 context: context,
                 applicationIcon: const Icon(Icons.train),
                 applicationName: HeraldLocalizations.of(context).title,
-                applicationVersion: '0.1.0-dev2',
+                applicationVersion: '0.1.0-dev3',
                 children: <Widget>[
                   Text(
                     HeraldLocalizations.of(context).appDescription,
@@ -94,7 +95,7 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.mail),
             title: Text(HeraldLocalizations.of(context).feedback),
-            onTap: () => comingSoonOnTap(context),
+            onTap: () => getAppActions<AppActions>(context).openFeedback(),
           ),
         ],
       ),

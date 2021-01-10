@@ -44,4 +44,6 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<Iterable<Find>> saved;
   ActionDispatcher<Iterable<Train>> found;
   ActionDispatcher<Find> openCached;
+
+  ActionDispatcher<Void> openFeedback;
 }
