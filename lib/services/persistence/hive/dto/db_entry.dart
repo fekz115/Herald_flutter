@@ -1,6 +1,6 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/train_dto.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/services/persistence/hive/dto/train_dto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'hive_type_ids.dart';

@@ -1,6 +1,6 @@
-import 'package:Herald_flutter/i18n.dart';
+import 'package:Herald/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:Herald_flutter/extensions.dart';
+import 'package:Herald/extensions.dart';
 
 class BehaviorSettingsPage extends StatelessWidget {
   const BehaviorSettingsPage({Key key}) : super(key: key);

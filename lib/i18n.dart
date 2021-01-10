@@ -1,4 +1,4 @@
-import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
+import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -60,7 +60,7 @@ class HeraldLocalizations {
       Keys.COMING_SOON: 'Coming soon',
       Keys.COMING_SOON_DESCRIPTION: 'This functionality still not implemented',
       Keys.APP_DESCRIPTION: 'Herald - simple application for searching trains schedule.',
-      Keys.SOURCE_CODE_DESCRIPTION: 'Source code of application available on https://github.com/fekz115/Herald_flutter',
+      Keys.SOURCE_CODE_DESCRIPTION: 'Source code of application available on https://github.com/fekz115/Herald',
       Keys.INFORMATION_SOURCE: 'Information taken from https://www.rw.by ',
       Keys.FLUTTER_POWERED: 'Powered by Flutter',
       Keys.HOURS: 'h',
@@ -100,7 +100,7 @@ class HeraldLocalizations {
       Keys.COMING_SOON: 'Скоро появится',
       Keys.COMING_SOON_DESCRIPTION: 'Данный функционал еще не реализован',
       Keys.APP_DESCRIPTION: 'Herald - приложение для получения информации о расписании поездов.',
-      Keys.SOURCE_CODE_DESCRIPTION: 'Исходный код приложения доступен по ссылке https://github.com/fekz115/Herald_flutter',
+      Keys.SOURCE_CODE_DESCRIPTION: 'Исходный код приложения доступен по ссылке https://github.com/fekz115/Herald',
       Keys.INFORMATION_SOURCE: 'Информация о расписании взята с сайта https://www.rw.by/',
       Keys.FLUTTER_POWERED: 'Основано на фреймворке Flutter.',
       Keys.HOURS: 'ч',

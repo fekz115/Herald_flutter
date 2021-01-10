@@ -1,4 +1,4 @@
-import 'package:Herald_flutter/model/find.dart';
+import 'package:Herald/model/find.dart';
 
 // ignore: one_member_abstracts
 abstract class LoadService {

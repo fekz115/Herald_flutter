@@ -1,12 +1,12 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/db_entry.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/place_dto.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/place_type_dto.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/train_dto.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/train_type_dto.dart';
-import 'package:Herald_flutter/services/persistence/persistence_service.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/services/persistence/hive/dto/db_entry.dart';
+import 'package:Herald/services/persistence/hive/dto/place_dto.dart';
+import 'package:Herald/services/persistence/hive/dto/place_type_dto.dart';
+import 'package:Herald/services/persistence/hive/dto/train_dto.dart';
+import 'package:Herald/services/persistence/hive/dto/train_type_dto.dart';
+import 'package:Herald/services/persistence/persistence_service.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

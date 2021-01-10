@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/serializers.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/serializers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';

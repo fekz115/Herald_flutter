@@ -1,12 +1,12 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/navigation.gr.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/actions_args.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/services/persistence/persistence_service.dart';
-import 'package:Herald_flutter/services/service_response.dart';
-import 'package:Herald_flutter/services/train_load_service.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/navigation.gr.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/actions_args.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/services/persistence/persistence_service.dart';
+import 'package:Herald/services/service_response.dart';
+import 'package:Herald/services/train_load_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:built_redux/built_redux.dart';
 

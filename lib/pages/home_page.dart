@@ -1,8 +1,8 @@
-import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/pages/widgets/date_button.dart';
-import 'package:Herald_flutter/pages/widgets/station_text_field.dart';
+import 'package:Herald/i18n.dart';
+import 'package:Herald/pages/widgets/date_button.dart';
+import 'package:Herald/pages/widgets/station_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:Herald_flutter/extensions.dart';
+import 'package:Herald/extensions.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

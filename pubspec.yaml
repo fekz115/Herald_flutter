@@ -1,4 +1,4 @@
-name: Herald_flutter
+name: Herald
 description: Herald is a simple application that can download and show trains schedule of Belarus (schedule provided by https://rasp.rw.by).
 
 publish_to: 'none'

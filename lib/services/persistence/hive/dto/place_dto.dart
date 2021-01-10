@@ -1,5 +1,5 @@
-import 'package:Herald_flutter/model/place.dart';
-import 'package:Herald_flutter/services/persistence/hive/dto/hive_type_ids.dart';
+import 'package:Herald/model/place.dart';
+import 'package:Herald/services/persistence/hive/dto/hive_type_ids.dart';
 import 'package:hive/hive.dart';
 
 import 'place_type_dto.dart';

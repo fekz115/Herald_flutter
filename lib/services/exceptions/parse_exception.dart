@@ -1,4 +1,4 @@
-import 'package:Herald_flutter/i18n.dart';
+import 'package:Herald/i18n.dart';
 
 class ParseException implements Exception {
   ParseException({

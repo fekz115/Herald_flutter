@@ -1,7 +1,7 @@
-import 'package:Herald_flutter/model/find.dart';
+import 'package:Herald/model/find.dart';
 import 'package:http/http.dart' as http;
-import 'package:Herald_flutter/extensions.dart';
-import 'package:Herald_flutter/services/load_service.dart';
+import 'package:Herald/extensions.dart';
+import 'package:Herald/services/load_service.dart';
 
 class HttpLoadService extends LoadService {
   static const String BASE_URL = 'https://pass.rw.by/ru/route';

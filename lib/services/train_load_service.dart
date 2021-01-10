@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
-import 'package:Herald_flutter/services/load_service.dart';
-import 'package:Herald_flutter/services/parse_service.dart';
-import 'package:Herald_flutter/services/service_response.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/services/exceptions/parse_exception.dart';
+import 'package:Herald/services/load_service.dart';
+import 'package:Herald/services/parse_service.dart';
+import 'package:Herald/services/service_response.dart';
 
 class TrainLoadService {
   const TrainLoadService(this._loadService, this._parseService);

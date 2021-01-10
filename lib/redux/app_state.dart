@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:Herald_flutter/redux/state/initial_screen_state.dart';
-import 'package:Herald_flutter/redux/state/settings_state.dart';
-import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
-import 'package:Herald_flutter/serializers.dart';
+import 'package:Herald/redux/state/initial_screen_state.dart';
+import 'package:Herald/redux/state/settings_state.dart';
+import 'package:Herald/redux/state/trains_screen_state.dart';
+import 'package:Herald/serializers.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

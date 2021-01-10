@@ -1,4 +1,4 @@
-package com.example.Herald_flutter
+package com.example.Herald
 
 import io.flutter.embedding.android.FlutterActivity
 

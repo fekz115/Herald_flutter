@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/pages/behavior_settings_page.dart';
-import 'package:Herald_flutter/pages/cached_page.dart';
-import 'package:Herald_flutter/pages/home_page.dart';
-import 'package:Herald_flutter/pages/interface_settings_page.dart';
-import 'package:Herald_flutter/pages/settings_page.dart';
-import 'package:Herald_flutter/pages/trains_page.dart';
+import 'package:Herald/pages/behavior_settings_page.dart';
+import 'package:Herald/pages/cached_page.dart';
+import 'package:Herald/pages/home_page.dart';
+import 'package:Herald/pages/interface_settings_page.dart';
+import 'package:Herald/pages/settings_page.dart';
+import 'package:Herald/pages/trains_page.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:Herald_flutter/model/find.dart';
+import 'package:Herald/model/find.dart';
 import 'package:flutter/material.dart';
-import 'package:Herald_flutter/extensions.dart';
+import 'package:Herald/extensions.dart';
 
 class FindWidget extends StatelessWidget {
   const FindWidget({Key key, this.find}) : super(key: key);

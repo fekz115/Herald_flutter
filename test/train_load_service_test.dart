@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/services/html_parser_service.dart';
-import 'package:Herald_flutter/services/http_load_service.dart';
-import 'package:Herald_flutter/services/train_load_service.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/services/html_parser_service.dart';
+import 'package:Herald/services/http_load_service.dart';
+import 'package:Herald/services/train_load_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Herald_flutter/services/service_response.dart';
+import 'package:Herald/services/service_response.dart';
 
 var finds = [
   Find((b) => b

@@ -1,6 +1,6 @@
-import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
-import 'package:Herald_flutter/services/html_parser_service.dart';
-import 'package:Herald_flutter/services/parse_service.dart';
+import 'package:Herald/services/exceptions/parse_exception.dart';
+import 'package:Herald/services/html_parser_service.dart';
+import 'package:Herald/services/parse_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testfiles/parser/page1.dart';

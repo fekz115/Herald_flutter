@@ -1,5 +1,5 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
 
 class SaveFindToPersistanceRequest {
   SaveFindToPersistanceRequest({

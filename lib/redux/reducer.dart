@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
-import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
-import 'package:Herald_flutter/services/service_response.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/state/interface_settings_state.dart';
+import 'package:Herald/redux/state/trains_screen_state.dart';
+import 'package:Herald/services/service_response.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:built_collection/built_collection.dart';
 

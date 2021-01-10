@@ -1,5 +1,5 @@
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 

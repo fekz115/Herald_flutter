@@ -1,4 +1,4 @@
-import 'package:Herald_flutter/model/train.dart';
+import 'package:Herald/model/train.dart';
 
 // ignore: one_member_abstracts
 abstract class ParseService {

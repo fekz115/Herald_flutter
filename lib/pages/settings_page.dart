@@ -1,8 +1,8 @@
-import 'package:Herald_flutter/i18n.dart';
+import 'package:Herald/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:Herald_flutter/extensions.dart';
+import 'package:Herald/extensions.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key key}) : super(key: key);

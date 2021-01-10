@@ -1,6 +1,6 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/redux/app_state.dart';
 
 abstract class PersistenceService {
   Future<Iterable<Train>> findTrains(Find find);

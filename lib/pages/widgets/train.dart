@@ -1,10 +1,10 @@
-import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/model/place.dart';
-import 'package:Herald_flutter/extensions/theme_extensions.dart';
-import 'package:Herald_flutter/model/place_type.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/model/train_type.dart';
-import 'package:Herald_flutter/pages/widgets/widget_resolver.dart';
+import 'package:Herald/i18n.dart';
+import 'package:Herald/model/place.dart';
+import 'package:Herald/extensions/theme_extensions.dart';
+import 'package:Herald/model/place_type.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/model/train_type.dart';
+import 'package:Herald/pages/widgets/widget_resolver.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

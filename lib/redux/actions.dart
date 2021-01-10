@@ -1,10 +1,10 @@
 import 'dart:wasm';
 
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/redux/actions_args.dart';
-import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
-import 'package:Herald_flutter/services/service_response.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/redux/actions_args.dart';
+import 'package:Herald/redux/state/interface_settings_state.dart';
+import 'package:Herald/services/service_response.dart';
 import 'package:built_redux/built_redux.dart';
 
 part 'actions.g.dart';

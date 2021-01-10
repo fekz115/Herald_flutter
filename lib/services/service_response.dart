@@ -1,5 +1,5 @@
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/services/exceptions/parse_exception.dart';
 import 'package:sealed_class/sealed_class.dart';
 
 part 'service_response.g.dart';

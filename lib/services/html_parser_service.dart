@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/model/place.dart';
-import 'package:Herald_flutter/model/place_type.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/model/train_type.dart';
-import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
-import 'package:Herald_flutter/services/parse_service.dart';
+import 'package:Herald/model/place.dart';
+import 'package:Herald/model/place_type.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/model/train_type.dart';
+import 'package:Herald/services/exceptions/parse_exception.dart';
+import 'package:Herald/services/parse_service.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;

@@ -1,11 +1,11 @@
-import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/model/train.dart';
-import 'package:Herald_flutter/pages/widgets/train.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/pages/widgets/redux_list.dart';
-import 'package:Herald_flutter/redux/state/trains_screen_state.dart';
-import 'package:Herald_flutter/services/exceptions/parse_exception.dart';
+import 'package:Herald/i18n.dart';
+import 'package:Herald/model/train.dart';
+import 'package:Herald/pages/widgets/train.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/redux/pages/widgets/redux_list.dart';
+import 'package:Herald/redux/state/trains_screen_state.dart';
+import 'package:Herald/services/exceptions/parse_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 

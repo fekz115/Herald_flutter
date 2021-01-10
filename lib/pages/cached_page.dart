@@ -1,8 +1,8 @@
-import 'package:Herald_flutter/model/find.dart';
-import 'package:Herald_flutter/pages/widgets/find.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/state/cached_state.dart';
+import 'package:Herald/model/find.dart';
+import 'package:Herald/pages/widgets/find.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/redux/state/cached_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 

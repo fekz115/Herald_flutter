@@ -1,8 +1,8 @@
-import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/pages/widgets/brightness_switch.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
+import 'package:Herald/i18n.dart';
+import 'package:Herald/pages/widgets/brightness_switch.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 

@@ -1,9 +1,9 @@
-import 'package:Herald_flutter/i18n.dart';
-import 'package:Herald_flutter/extensions/theme_extensions.dart';
-import 'package:Herald_flutter/model/place.dart';
-import 'package:Herald_flutter/redux/actions.dart';
-import 'package:Herald_flutter/redux/app_state.dart';
-import 'package:Herald_flutter/redux/state/interface_settings_state.dart';
+import 'package:Herald/i18n.dart';
+import 'package:Herald/extensions/theme_extensions.dart';
+import 'package:Herald/model/place.dart';
+import 'package:Herald/redux/actions.dart';
+import 'package:Herald/redux/app_state.dart';
+import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
