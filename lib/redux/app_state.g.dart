@@ -27,6 +27,10 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
       'settingsState',
       serializers.serialize(object.settingsState,
           specifiedType: const FullType(SettingsState)),
+      'navigationStack',
+      serializers.serialize(object.navigationStack,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Pages)])),
     ];
 
     return result;
@@ -57,6 +61,12 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
           result.settingsState.replace(serializers.deserialize(value,
               specifiedType: const FullType(SettingsState)) as SettingsState);
           break;
+        case 'navigationStack':
+          result.navigationStack.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Pages)]))
+              as BuiltList<Object>);
+          break;
       }
     }
 
@@ -71,12 +81,17 @@ class _$AppState extends AppState {
   final TrainsScreenState trainsScreenState;
   @override
   final SettingsState settingsState;
+  @override
+  final BuiltList<Pages> navigationStack;
 
   factory _$AppState([void Function(AppStateBuilder) updates]) =>
       (new AppStateBuilder()..update(updates)).build();
 
   _$AppState._(
-      {this.initialScreenState, this.trainsScreenState, this.settingsState})
+      {this.initialScreenState,
+      this.trainsScreenState,
+      this.settingsState,
+      this.navigationStack})
       : super._() {
     if (initialScreenState == null) {
       throw new BuiltValueNullFieldError('AppState', 'initialScreenState');
@@ -86,6 +101,9 @@ class _$AppState extends AppState {
     }
     if (settingsState == null) {
       throw new BuiltValueNullFieldError('AppState', 'settingsState');
+    }
+    if (navigationStack == null) {
+      throw new BuiltValueNullFieldError('AppState', 'navigationStack');
     }
   }
 
@@ -102,14 +120,18 @@ class _$AppState extends AppState {
     return other is AppState &&
         initialScreenState == other.initialScreenState &&
         trainsScreenState == other.trainsScreenState &&
-        settingsState == other.settingsState;
+        settingsState == other.settingsState &&
+        navigationStack == other.navigationStack;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, initialScreenState.hashCode), trainsScreenState.hashCode),
-        settingsState.hashCode));
+        $jc(
+            $jc($jc(0, initialScreenState.hashCode),
+                trainsScreenState.hashCode),
+            settingsState.hashCode),
+        navigationStack.hashCode));
   }
 
   @override
@@ -117,7 +139,8 @@ class _$AppState extends AppState {
     return (newBuiltValueToStringHelper('AppState')
           ..add('initialScreenState', initialScreenState)
           ..add('trainsScreenState', trainsScreenState)
-          ..add('settingsState', settingsState))
+          ..add('settingsState', settingsState)
+          ..add('navigationStack', navigationStack))
         .toString();
   }
 }
@@ -142,6 +165,12 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   set settingsState(SettingsStateBuilder settingsState) =>
       _$this._settingsState = settingsState;
 
+  ListBuilder<Pages> _navigationStack;
+  ListBuilder<Pages> get navigationStack =>
+      _$this._navigationStack ??= new ListBuilder<Pages>();
+  set navigationStack(ListBuilder<Pages> navigationStack) =>
+      _$this._navigationStack = navigationStack;
+
   AppStateBuilder();
 
   AppStateBuilder get _$this {
@@ -149,6 +178,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       _initialScreenState = _$v.initialScreenState?.toBuilder();
       _trainsScreenState = _$v.trainsScreenState;
       _settingsState = _$v.settingsState?.toBuilder();
+      _navigationStack = _$v.navigationStack?.toBuilder();
       _$v = null;
     }
     return this;
@@ -175,7 +205,8 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
           new _$AppState._(
               initialScreenState: initialScreenState.build(),
               trainsScreenState: trainsScreenState,
-              settingsState: settingsState.build());
+              settingsState: settingsState.build(),
+              navigationStack: navigationStack.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -184,6 +215,8 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
         _$failedField = 'settingsState';
         settingsState.build();
+        _$failedField = 'navigationStack';
+        navigationStack.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'AppState', _$failedField, e.toString());

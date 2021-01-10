@@ -15,6 +15,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Find.serializer)
       ..add(InitialScreenState.serializer)
       ..add(InterfaceSettingsState.serializer)
+      ..add(Pages.serializer)
       ..add(Place.serializer)
       ..add(PlaceType.serializer)
       ..add(SettingsState.serializer)
@@ -25,6 +26,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Find)]),
           () => new ListBuilder<Find>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Pages)]),
+          () => new ListBuilder<Pages>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Place)]),
           () => new ListBuilder<Place>())

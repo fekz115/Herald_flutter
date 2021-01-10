@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/state/initial_screen_state.dart';
 import 'package:Herald/redux/state/settings_state.dart';
 import 'package:Herald/redux/state/trains_screen_state.dart';
 import 'package:Herald/serializers.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -17,6 +19,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   InitialScreenState get initialScreenState;
   TrainsScreenState get trainsScreenState;
   SettingsState get settingsState;
+
+  BuiltList<Pages> get navigationStack;
 
   String toJson() {
     return json.encode(serializers.serializeWith(AppState.serializer, this));

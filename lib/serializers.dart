@@ -3,6 +3,7 @@ import 'package:Herald/model/place.dart';
 import 'package:Herald/model/place_type.dart';
 import 'package:Herald/model/train.dart';
 import 'package:Herald/model/train_type.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/app_state.dart';
 import 'package:Herald/redux/state/behavior_settings_state.dart';
 import 'package:Herald/redux/state/cached_state.dart';
@@ -33,6 +34,7 @@ part 'serializers.g.dart';
   CurrencyDisplaying,
   BehaviorSettingsState,
   CachedState,
+  Pages,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
