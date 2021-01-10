@@ -10,7 +10,7 @@ import 'package:html/parser.dart' show parse;
 
 class HtmlParserService extends ParseService {
   @override
-  List<Train> parseTrains(String response) {
+  Future<List<Train>> parseTrains(String response) async {
     final document = parse(response);
     try {
       final list =

@@ -14,7 +14,7 @@ class TrainLoadService {
   Future<ServiceResponse> loadTrains(Find find) async {
     try {
       final String page = await _loadService.loadPage(find);
-      final List<Train> trains = _parseService.parseTrains(page).map((train) {
+      final List<Train> trains = (await _parseService.parseTrains(page)).map((train) {
         final newDepartDate = DateTime(
           find.date.year,
           find.date.month,
