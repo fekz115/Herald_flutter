@@ -17,47 +17,56 @@ class HeraldNavigator
     Key key,
   }) : super(key: key);
 
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context, BuiltList<Pages> state,
       AppActions actions) {
-    return Navigator(
-      pages: state.map((page) {
-        switch (page) {
-          case Pages.trainsPage:
-            return MaterialPage<TrainsPage>(
-              child: TrainsPage(),
-            );
-            break;
-          case Pages.settingsPage:
-            return const MaterialPage<SettingsPage>(
-              child: SettingsPage(),
-            );
-          case Pages.behaviorSettingsPage:
-            return const MaterialPage<BehaviorSettingsPage>(
-              child: BehaviorSettingsPage(),
-            );
-            break;
-          case Pages.interfaceSettingsPage:
-            return MaterialPage<InterfaceSettingsPage>(
-              child: InterfaceSettingsPage(),
-            );
-            break;
-          case Pages.cachedPage:
-            return MaterialPage<CachedPage>(
-              child: CachedPage(),
-            );
-            break;
-          case Pages.homePage:
-          default:
-            return const MaterialPage<HomePage>(
-              child: HomePage(),
-            );
-        }
-      }).toList(),
-      onPopPage: (route, result) {
-        actions.goBack();
-        return false;
-      },
+    return WillPopScope(
+      onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
+      child: Navigator(
+        key: _navigatorKey,
+        pages: state.map((page) {
+          switch (page) {
+            case Pages.trainsPage:
+              return MaterialPage<TrainsPage>(
+                child: TrainsPage(),
+              );
+              break;
+            case Pages.settingsPage:
+              return const MaterialPage<SettingsPage>(
+                child: SettingsPage(),
+              );
+            case Pages.behaviorSettingsPage:
+              return const MaterialPage<BehaviorSettingsPage>(
+                child: BehaviorSettingsPage(),
+              );
+              break;
+            case Pages.interfaceSettingsPage:
+              return MaterialPage<InterfaceSettingsPage>(
+                child: InterfaceSettingsPage(),
+              );
+              break;
+            case Pages.cachedPage:
+              return MaterialPage<CachedPage>(
+                child: CachedPage(),
+              );
+              break;
+            case Pages.homePage:
+            default:
+              return const MaterialPage<HomePage>(
+                child: HomePage(),
+              );
+          }
+        }).toList(),
+        onPopPage: (route, result) {
+          actions.goBack();
+          if (route.didPop(result)) {
+            return true;
+          }
+          return false;
+        },
+      ),
     );
   }
 
