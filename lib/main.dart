@@ -1,5 +1,4 @@
 import 'package:Herald/i18n.dart';
-import 'package:Herald/navigation.gr.dart';
 import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/pages/behavior_settings_page.dart';
 import 'package:Herald/pages/cached_page.dart';
@@ -20,7 +19,6 @@ import 'package:Herald/services/html_parser_service.dart';
 import 'package:Herald/services/http_load_service.dart';
 import 'package:Herald/services/persistence/hive/hive_persistence_service.dart';
 import 'package:Herald/services/train_load_service.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
