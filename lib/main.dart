@@ -1,11 +1,5 @@
 import 'package:Herald/i18n.dart';
 import 'package:Herald/navigation/pages.dart';
-import 'package:Herald/pages/behavior_settings_page.dart';
-import 'package:Herald/pages/cached_page.dart';
-import 'package:Herald/pages/home_page.dart';
-import 'package:Herald/pages/interface_settings_page.dart';
-import 'package:Herald/pages/settings_page.dart';
-import 'package:Herald/pages/trains_page.dart';
 import 'package:Herald/redux/actions.dart';
 import 'package:Herald/redux/app_state.dart';
 import 'package:Herald/redux/middleware/middleware.dart';
@@ -19,6 +13,7 @@ import 'package:Herald/services/html_parser_service.dart';
 import 'package:Herald/services/http_load_service.dart';
 import 'package:Herald/services/persistence/hive/hive_persistence_service.dart';
 import 'package:Herald/services/train_load_service.dart';
+import 'package:Herald/navigation/herald_navigator.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
@@ -113,50 +108,7 @@ class InterfaceStateListener
       supportedLocales: [
         ...HeraldLocalizations.supportedLocales.map((e) => Locale(e)).toList()
       ],
-      home: Scaffold(
-        body: StoreConnection<AppState, AppActions, BuiltList<Pages>>(
-          connect: (state) => state.navigationStack,
-          builder: (context, navigationStack, actions) => Navigator(
-            pages: navigationStack.map((page) {
-              switch (page) {
-                case Pages.trainsPage:
-                  return MaterialPage<TrainsPage>(
-                    child: TrainsPage(),
-                  );
-                break;
-                case Pages.settingsPage:
-                  return const MaterialPage<SettingsPage>(
-                    child: SettingsPage(),
-                  );
-                case Pages.behaviorSettingsPage:
-                  return const MaterialPage<BehaviorSettingsPage>(
-                    child: BehaviorSettingsPage(),
-                  );
-                break;
-                case Pages.interfaceSettingsPage:
-                  return MaterialPage<InterfaceSettingsPage>(
-                    child: InterfaceSettingsPage(),
-                  );
-                break;
-                case Pages.cachedPage:
-                  return MaterialPage<CachedPage>(
-                    child: CachedPage(),
-                  );
-                break;
-                case Pages.homePage:
-                default:
-                  return const MaterialPage<HomePage>(
-                    child: HomePage(),
-                  );
-              }
-            }).toList(),
-            onPopPage: (route, result) {
-              actions.goBack();
-              return false;
-            },
-          ),
-        ),
-      ),
+      home: HeraldNavigator(),
     );
   }
 
