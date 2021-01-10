@@ -25,14 +25,7 @@ class _$AppActions extends AppActions {
   final serviceResponseAction =
       ActionDispatcher<ServiceResponse>('AppActions-serviceResponseAction');
   final refreshAction = ActionDispatcher<Void>('AppActions-refreshAction');
-  final showTrainsPage = ActionDispatcher<Void>('AppActions-showTrainsPage');
-  final showSettingsPage =
-      ActionDispatcher<Void>('AppActions-showSettingsPage');
-  final showInterfaceSettingsPage =
-      ActionDispatcher<Void>('AppActions-showInterfaceSettingsPage');
-  final showBehaviorSettings =
-      ActionDispatcher<Void>('AppActions-showBehaviorSettings');
-  final showCached = ActionDispatcher<Void>('AppActions-showCached');
+  final navigate = ActionDispatcher<Pages>('AppActions-navigate');
   final goBack = ActionDispatcher<Void>('AppActions-goBack');
   final enableDarkTheme = ActionDispatcher<Void>('AppActions-enableDarkTheme');
   final disableDarkTheme =
@@ -62,11 +55,7 @@ class _$AppActions extends AppActions {
     searchAction.setDispatcher(dispatcher);
     serviceResponseAction.setDispatcher(dispatcher);
     refreshAction.setDispatcher(dispatcher);
-    showTrainsPage.setDispatcher(dispatcher);
-    showSettingsPage.setDispatcher(dispatcher);
-    showInterfaceSettingsPage.setDispatcher(dispatcher);
-    showBehaviorSettings.setDispatcher(dispatcher);
-    showCached.setDispatcher(dispatcher);
+    navigate.setDispatcher(dispatcher);
     goBack.setDispatcher(dispatcher);
     enableDarkTheme.setDispatcher(dispatcher);
     disableDarkTheme.setDispatcher(dispatcher);
@@ -97,14 +86,7 @@ class AppActionsNames {
   static final serviceResponseAction =
       ActionName<ServiceResponse>('AppActions-serviceResponseAction');
   static final refreshAction = ActionName<Void>('AppActions-refreshAction');
-  static final showTrainsPage = ActionName<Void>('AppActions-showTrainsPage');
-  static final showSettingsPage =
-      ActionName<Void>('AppActions-showSettingsPage');
-  static final showInterfaceSettingsPage =
-      ActionName<Void>('AppActions-showInterfaceSettingsPage');
-  static final showBehaviorSettings =
-      ActionName<Void>('AppActions-showBehaviorSettings');
-  static final showCached = ActionName<Void>('AppActions-showCached');
+  static final navigate = ActionName<Pages>('AppActions-navigate');
   static final goBack = ActionName<Void>('AppActions-goBack');
   static final enableDarkTheme = ActionName<Void>('AppActions-enableDarkTheme');
   static final disableDarkTheme =

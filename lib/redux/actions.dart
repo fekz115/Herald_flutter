@@ -2,6 +2,7 @@ import 'dart:wasm';
 
 import 'package:Herald/model/find.dart';
 import 'package:Herald/model/train.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/actions_args.dart';
 import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:Herald/services/service_response.dart';
@@ -20,11 +21,7 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<ServiceResponse> serviceResponseAction;
   ActionDispatcher<Void> refreshAction;
 
-  ActionDispatcher<Void> showTrainsPage;
-  ActionDispatcher<Void> showSettingsPage;
-  ActionDispatcher<Void> showInterfaceSettingsPage;
-  ActionDispatcher<Void> showBehaviorSettings;
-  ActionDispatcher<Void> showCached;
+  ActionDispatcher<Pages> navigate;
   ActionDispatcher<Void> goBack;
 
   ActionDispatcher<Void> enableDarkTheme;

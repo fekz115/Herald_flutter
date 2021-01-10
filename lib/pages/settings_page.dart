@@ -1,4 +1,5 @@
 import 'package:Herald/i18n.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -39,12 +40,12 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.palette),
             title: Text(HeraldLocalizations.of(context).interfaceSettings),
-            onTap: () => getAppActions(context).showInterfaceSettingsPage(),
+            onTap: () => getAppActions<AppActions>(context).navigate(Pages.interfaceSettingsPage),
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: Text(HeraldLocalizations.of(context).behaviorSettings),
-            onTap: () => getAppActions(context).showBehaviorSettings(),
+            onTap: () => getAppActions<AppActions>(context).navigate(Pages.behaviorSettingsPage),
           ),
           ListTile(
             leading: const Icon(Icons.info),

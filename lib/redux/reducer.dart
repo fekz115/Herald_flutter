@@ -1,5 +1,6 @@
 import 'package:Herald/model/find.dart';
 import 'package:Herald/model/train.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/actions.dart';
 import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:Herald/redux/state/trains_screen_state.dart';
@@ -22,10 +23,11 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
       onCurrencyDisplayingModeChange)
   ..add(AppActionsNames.searchAction, onSearch)
   ..add(AppActionsNames.saved, onGetSaved)
-  ..add(AppActionsNames.showCached, onNavigateSaved)
   ..add(AppActionsNames.clearCache, onClearCache)
   ..add(AppActionsNames.openCached, onOpenCached)
-  ..add(AppActionsNames.found, onFound);
+  ..add(AppActionsNames.found, onFound)
+  ..add(AppActionsNames.goBack, onGoBack)
+  ..add(AppActionsNames.navigate, onNavigate);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
@@ -143,4 +145,13 @@ void onOpenCached(
     AppState state, Action<Find> action, AppStateBuilder builder) {
   builder.trainsScreenState =
       TrainsLoadingScreenState((b) => b..find = action.payload.toBuilder());
+}
+
+void onNavigate(
+    AppState state, Action<Pages> action, AppStateBuilder builder) {
+  builder.navigationStack.add(action.payload);
+}
+
+void onGoBack(AppState state, Action<void> action, AppStateBuilder builder) {
+  builder.navigationStack.removeLast();
 }

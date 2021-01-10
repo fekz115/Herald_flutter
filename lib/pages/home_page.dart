@@ -1,6 +1,8 @@
 import 'package:Herald/i18n.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/pages/widgets/date_button.dart';
 import 'package:Herald/pages/widgets/station_text_field.dart';
+import 'package:Herald/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:Herald/extensions.dart';
 
@@ -15,7 +17,7 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => getAppActions(context).showSettingsPage(),
+            onPressed: () => getAppActions<AppActions>(context).navigate(Pages.settingsPage),
           ),
         ],
       ),

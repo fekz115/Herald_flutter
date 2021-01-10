@@ -1,6 +1,7 @@
 import 'package:Herald/model/find.dart';
 import 'package:Herald/model/train.dart';
 import 'package:Herald/navigation.gr.dart';
+import 'package:Herald/navigation/pages.dart';
 import 'package:Herald/redux/actions.dart';
 import 'package:Herald/redux/actions_args.dart';
 import 'package:Herald/redux/app_state.dart';
@@ -18,16 +19,6 @@ Middleware<AppState, AppStateBuilder, AppActions> createMiddleware(
         ..add(AppActionsNames.searchAction, createOnSearchMiddleware<void>())
         ..add(AppActionsNames.refreshAction,
             createOnRefreshMiddleware<void>(service))
-        ..add(AppActionsNames.showTrainsPage,
-            createNavigateToTrainsMiddleware<void>())
-        ..add(AppActionsNames.showSettingsPage,
-            createNavigateToSettingsMiddleware<void>())
-        ..add(AppActionsNames.showInterfaceSettingsPage,
-            createNavigateToInterfaceSettingsMiddleware<void>())
-        ..add(AppActionsNames.showBehaviorSettings,
-            createNavigateToBehaviorSettingsMiddleware<void>())
-        ..add(AppActionsNames.showCached, createNavigateToCachedMiddleware())
-        ..add(AppActionsNames.goBack, createNavigateBackMiddleware<void>())
         ..add(AppActionsNames.appInit,
             createInitAppMiddleware(persistenceService))
         ..add(AppActionsNames.appClose,
@@ -50,7 +41,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
     createOnSearchMiddleware<T>() {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) async {
-    api.actions.showTrainsPage();
+    api.actions.navigate(Pages.trainsPage);
     if (api.state.trainsScreenState.find != api.state.initialScreenState.find) {
       next(action);
       api.actions.findCached(api.state.initialScreenState.find);
@@ -73,60 +64,6 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
         (r) {},
         (r) {});
     api.actions.serviceResponseAction(response);
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createNavigateToTrainsMiddleware<T>() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<T> action) async {
-    next(action);
-    await ExtendedNavigator.named('mainNav').push(Routes.trainsPage);
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createNavigateToSettingsMiddleware<T>() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<T> action) async {
-    next(action);
-    await ExtendedNavigator.named('mainNav').push(Routes.settingsPage);
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createNavigateToInterfaceSettingsMiddleware<T>() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<T> action) async {
-    next(action);
-    await ExtendedNavigator.named('mainNav').push(Routes.interfaceSettingsPage);
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createNavigateBackMiddleware<T>() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<T> action) async {
-    next(action);
-    ExtendedNavigator.named('mainNav').pop();
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createNavigateToBehaviorSettingsMiddleware<T>() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<T> action) async {
-    next(action);
-    await ExtendedNavigator.named('mainNav').push(Routes.behaviorSettingsPage);
-  };
-}
-
-MiddlewareHandler<AppState, AppStateBuilder, AppActions, void>
-    createNavigateToCachedMiddleware() {
-  return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
-      ActionHandler next, Action<void> action) async {
-    next(action);
-    await ExtendedNavigator.named('mainNav').push(Routes.cachedPage);
   };
 }
 
@@ -206,7 +143,7 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, Find>
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<Find> action) async {
     next(action);
-    api.actions.showTrainsPage();
+    api.actions.navigate(Pages.trainsPage);
     api.actions.findCached(action.payload);
   };
 }

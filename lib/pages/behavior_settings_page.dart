@@ -1,4 +1,6 @@
 import 'package:Herald/i18n.dart';
+import 'package:Herald/navigation/pages.dart';
+import 'package:Herald/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:Herald/extensions.dart';
 
@@ -16,7 +18,7 @@ class BehaviorSettingsPage extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.save),
             title: const Text('Сохраненные'),
-            onTap: () => getAppActions(context).showCached(),
+            onTap: () => getAppActions<AppActions>(context).navigate(Pages.cachedPage),
           ),
         ],
       ),
