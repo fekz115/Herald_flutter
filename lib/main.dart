@@ -9,8 +9,8 @@ import 'package:Herald/redux/state/interface_settings_state.dart';
 import 'package:Herald/redux/state/settings_state.dart';
 import 'package:Herald/redux/state/station_text_input_state.dart';
 import 'package:Herald/redux/state/trains_screen_state.dart';
-import 'package:Herald/services/html_parser_service.dart';
 import 'package:Herald/services/http_load_service.dart';
+import 'package:Herald/services/isolated_parse_service.dart';
 import 'package:Herald/services/persistence/hive/hive_persistence_service.dart';
 import 'package:Herald/services/train_load_service.dart';
 import 'package:Herald/navigation/herald_navigator.dart';
@@ -48,7 +48,7 @@ class HeraldApp extends StatefulWidget {
       ..navigationStack = BuiltList<Pages>.from([Pages.homePage]).toBuilder()),
     AppActions(),
     middleware: [
-      createMiddleware(TrainLoadService(HttpLoadService(), HtmlParserService()),
+      createMiddleware(TrainLoadService(HttpLoadService(), IsolatedParseService()),
           HivePersistenceService())
     ],
   );
