@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
                 context: context,
                 applicationIcon: const Icon(Icons.train),
                 applicationName: HeraldLocalizations.of(context).title,
-                applicationVersion: '0.1.0-dev3',
+                applicationVersion: '0.1.0-dev4',
                 children: <Widget>[
                   Text(
                     HeraldLocalizations.of(context).appDescription,

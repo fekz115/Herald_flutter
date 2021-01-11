@@ -3,7 +3,7 @@ description: Herald is a simple application that can download and show trains sc
 
 publish_to: 'none'
 
-version: 0.1.0-dev3
+version: 0.1.0-dev4
 
 environment:
   sdk: ">=2.10.0 <3.0.0"

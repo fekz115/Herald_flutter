@@ -155,7 +155,7 @@ Future<void> openFeedbackMiddleware(MiddlewareApi<AppState, AppStateBuilder, App
 
   const mail = 'fekz115@gmail.com';
   const subject = 'Herald feedback';
-  const appVersion = '0.1.0-dev3';
+  const appVersion = '0.1.0-dev4';
   
   final body = 'App version: $appVersion\nDevice: ${androidInfo.model}\nOS Version: ${androidInfo.version.release}\n\n'; //TODO: Support other OS
 
