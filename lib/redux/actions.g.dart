@@ -21,6 +21,7 @@ class _$AppActions extends AppActions {
       ActionDispatcher<String>('AppActions-changeArriveStationAction');
   final changeDateAction =
       ActionDispatcher<DateTime>('AppActions-changeDateAction');
+  final swapStations = ActionDispatcher<Void>('AppActions-swapStations');
   final searchAction = ActionDispatcher<Void>('AppActions-searchAction');
   final serviceResponseAction =
       ActionDispatcher<ServiceResponse>('AppActions-serviceResponseAction');
@@ -52,6 +53,7 @@ class _$AppActions extends AppActions {
     changeDepartStationAction.setDispatcher(dispatcher);
     changeArriveStationAction.setDispatcher(dispatcher);
     changeDateAction.setDispatcher(dispatcher);
+    swapStations.setDispatcher(dispatcher);
     searchAction.setDispatcher(dispatcher);
     serviceResponseAction.setDispatcher(dispatcher);
     refreshAction.setDispatcher(dispatcher);
@@ -82,6 +84,7 @@ class AppActionsNames {
       ActionName<String>('AppActions-changeArriveStationAction');
   static final changeDateAction =
       ActionName<DateTime>('AppActions-changeDateAction');
+  static final swapStations = ActionName<Void>('AppActions-swapStations');
   static final searchAction = ActionName<Void>('AppActions-searchAction');
   static final serviceResponseAction =
       ActionName<ServiceResponse>('AppActions-serviceResponseAction');

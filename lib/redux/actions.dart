@@ -17,6 +17,7 @@ abstract class AppActions extends ReduxActions {
   ActionDispatcher<String> changeDepartStationAction;
   ActionDispatcher<String> changeArriveStationAction;
   ActionDispatcher<DateTime> changeDateAction;
+  ActionDispatcher<Void> swapStations;
   ActionDispatcher<Void> searchAction;
   ActionDispatcher<ServiceResponse> serviceResponseAction;
   ActionDispatcher<Void> refreshAction;

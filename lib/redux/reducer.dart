@@ -27,7 +27,8 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.openCached, onOpenCached)
   ..add(AppActionsNames.found, onFound)
   ..add(AppActionsNames.goBack, onGoBack)
-  ..add(AppActionsNames.navigate, onNavigate);
+  ..add(AppActionsNames.navigate, onNavigate)
+  ..add(AppActionsNames.swapStations, onSwapStations);
 
 void changeDepartStation(
     AppState state, Action<String> action, AppStateBuilder builder) {
@@ -154,4 +155,10 @@ void onNavigate(
 
 void onGoBack(AppState state, Action<void> action, AppStateBuilder builder) {
   builder.navigationStack.removeLast();
+}
+
+void onSwapStations(AppState state, Action<void> action, AppStateBuilder builder) {
+  final t = state.initialScreenState.arriveStationTextInputState.value;
+  builder.initialScreenState.arriveStationTextInputState.value = builder.initialScreenState.departStationTextInputState.value;
+  builder.initialScreenState.departStationTextInputState.value = t;
 }

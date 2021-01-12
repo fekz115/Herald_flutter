@@ -38,7 +38,18 @@ class HomePage extends StatelessWidget {
               onTextChanged: (value) => getAppActions(context).changeArriveStationAction(value),
             ),
             const SizedBox(height: 30),
-            DateButton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 57),
+                DateButton(),
+                const SizedBox(width: 10),
+                IconButton(
+                  icon: const Icon(Icons.swap_vert),
+                  onPressed: () => getAppActions<AppActions>(context).swapStations(),
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
             RaisedButton(
               onPressed: () => getAppActions(context).searchAction(),
